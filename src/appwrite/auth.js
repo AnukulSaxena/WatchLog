@@ -7,7 +7,7 @@ class AuthService {
     constructor() {
         this.client
             .setEndpoint(conf.appwriteUrl)
-            .setProject(conf.appwriteDatabaseId);
+            .setProject(conf.appwriteProjectId);
         this.account = new Account(this.client);
     }
 
@@ -22,6 +22,7 @@ class AuthService {
             }
         } catch (error) {
             console.log("Appwrite serive :: createAccount :: error", error)
+            throw error
         }
     }
 

@@ -60,7 +60,7 @@ function App() {
   }, []);
 
   return (
-    <div className=' overflow-hidden'>
+    <div className='dark:bg-neutral-700'>
       <InfiniteScroll
         className='py-10 flex flex-wrap justify-center gap-4'
         dataLength={movieData?.results?.length || []}

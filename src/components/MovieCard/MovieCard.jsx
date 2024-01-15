@@ -16,7 +16,7 @@ const MovieCard = ({ data }) => {
             <div className="w-auto">
                 <img className="rounded-xl" src={posterUrl} alt={data.poster_path} />
             </div>
-            <p className="truncate text-center mt-3 text-lg font-serif">
+            <p className="truncate text-center mt-3 text-lg font-serif dark:text-zinc-300">
                 {data.title || data.name}
             </p>
             <div className="checkbox-wrapper-10 absolute bottom-7 mx-auto">
