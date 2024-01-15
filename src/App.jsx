@@ -1,9 +1,6 @@
 import { useEffect, useState } from 'react';
 import './App.css';
 
-import conf from './conf/conf.js';
-import movieService from './appwrite/movieConfig.js';
-
 import InfiniteScroll from 'react-infinite-scroll-component';
 import MovieCard from './components/MovieCard/MovieCard';
 import { fetchDataFromApi } from './utils/api';
@@ -58,34 +55,12 @@ function App() {
   useEffect(() => {
     console.log("useEffect");
     fetchApiConfig();
-
-
-
-
-
-
-
-    // const createDoc = async () => {
-    //   await movieService.createMovieDoc({
-    //     title: "ram jaane",
-    //     poster_url: "42344cfksdjfksd.jpg",
-    //     movie_id: 2112342,
-    //     user_id: "65a44c1219c3sddsff49a0"
-    //   })
-    //     .then((response) => {
-    //       console.log("create Doc : ", response);
-    //     })
-    // }
-
-    // createDoc()
-
-
     fetchInitialData();
     console.log("Movie Data: " + movieData);
   }, []);
 
   return (
-    <div>
+    <div className=' overflow-hidden'>
       <InfiniteScroll
         className='py-10 flex flex-wrap justify-center gap-4'
         dataLength={movieData?.results?.length || []}
