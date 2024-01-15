@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { useSelector } from 'react-redux'
+import LogoutBtn from "./LogoutBtn";
 
 
 const Header = () => {
@@ -112,6 +113,12 @@ const Header = () => {
                                     </li>
                                 ) : null
                             )}
+
+                            {
+                                authStatus && <LogoutBtn
+                                    isMenuOpen={isMenuOpen}
+                                />
+                            }
                         </ul>
                     </div>
                 </div>
