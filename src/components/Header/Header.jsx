@@ -1,6 +1,11 @@
 import { useState, useEffect } from "react";
 import { Link, NavLink } from "react-router-dom";
 
+//import { } from '../index'
+//import { Link } from 'react-router-dom'
+import { useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
+
 const Header = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -13,6 +18,7 @@ const Header = () => {
     };
 
     useEffect(() => {
+        console.log("UseEffect Header.");
         const handleResize = () => {
             if (window.innerWidth > 768) {
                 closeMenu();

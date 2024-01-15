@@ -1,11 +1,14 @@
 import React, { StrictMode } from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App.jsx'
-import UserLogin from './components/UserLogin/UserLogin.jsx'
+
 import './index.css'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import Layout from './Layout.jsx';
-import Playlist from './components/Playlist/Playlist.jsx'
+import Playlist from './pages/Playlist.jsx'
+import Login from './pages/Login.jsx'
+import Signup from './pages/Signup.jsx'
+import Watched from './pages/Watched.jsx'
 
 import { Provider } from 'react-redux'
 import { store } from './store/store.js'
@@ -20,12 +23,20 @@ const router = createBrowserRouter([
       },
       {
         path: "login",
-        element: <UserLogin />
+        element: <Login />
 
       },
       {
         path: "playlist",
         element: <Playlist />
+      },
+      {
+        path: "watched",
+        element: <Watched />
+      },
+      {
+        path: "signup",
+        element: <Signup />
       }
     ]
   }
