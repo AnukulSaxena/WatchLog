@@ -4,6 +4,7 @@ import MovieCard from './MovieCard/MovieCard.jsx'
 import SignupForm from './SignupForm.jsx'
 import Input from './Input.jsx'
 import Button from './Button.jsx'
+import LoginForm from './LoginForm.jsx'
 
 
 export {
@@ -13,5 +14,6 @@ export {
     SignupForm,
     Input,
     Button,
+    LoginForm,
 }
 
