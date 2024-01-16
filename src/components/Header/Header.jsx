@@ -4,12 +4,9 @@ import { useSelector } from 'react-redux'
 import LogoutBtn from "./LogoutBtn";
 import { Switcher } from '../index.js'
 
-
 const Header = () => {
     const authStatus = useSelector((state) => state.auth.status)
     const [isMenuOpen, setIsMenuOpen] = useState(false);
-
-
     const navItems = [
         {
             name: "Home",
@@ -49,20 +46,15 @@ const Header = () => {
 
     useEffect(() => {
         console.log("UseEffect Header.");
-
-
         const handleResize = () => {
             if (window.innerWidth > 768) {
                 closeMenu();
             }
         };
-
         window.addEventListener("resize", handleResize);
-
         return () => {
             window.removeEventListener("resize", handleResize);
         };
-
     }, []);
 
     return (
@@ -72,12 +64,8 @@ const Header = () => {
                     <Link to="/" className="flex items-center">
                         <span className="self-center text-xl font-semibold whitespace-nowrap dark:text-white">WatchLog</span>
                     </Link>
-
                     <Switcher />
-
                     <div className="flex items-center">
-
-
                         <button
                             onClick={toggleMenu}
                             type="button"
@@ -139,31 +127,3 @@ const Header = () => {
 export default Header;
 
 
-{/* <button
-    onClick={() => navigate(item.slug)}
-    className={`block ${isMenuOpen ? " w-screen" : ""}  py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700`}
->{item.name}</button> */}
-
-
-
-
-{/* <li className={`${isMenuOpen ? " w-screen" : ""} `}>
-                                
-                            </li>
-                            <li>
-                                <NavLink to="/playlist" className={({ isActive }) =>
-                                    `block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0 ${isActive ? " dark:text-orange-700" : " dark:text-gray-400"} lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700`
-                                }>Playlist</NavLink>
-                            </li>
-                            <li>
-                                <a href="#" className="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700">Marketplace</a>
-                            </li>
-                            <li>
-                                <a href="#" className="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700">Features</a>
-                            </li>
-                            <li>
-                                <a href="#" className="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700">Team</a>
-                            </li>
-                            <li>
-                                <a href="#" className="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700">Contact</a>
-                            </li> */}

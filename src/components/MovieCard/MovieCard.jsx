@@ -14,7 +14,6 @@ const MovieCard = ({ data }) => {
     const { movieData } = useSelector(state => state.movie)
     const movieMode = useSelector(state => state.movie.mode)
     const dispatch = useDispatch()
-
     const navigate = useNavigate();
 
     const findMovieById = (moviesObject, movieId) => {
@@ -26,38 +25,26 @@ const MovieCard = ({ data }) => {
             const targetMovieId = data.id;
             if (movieData) {
                 const movieExists = findMovieById(movieData.moviesObject, targetMovieId);
-
                 if (movieExists) setIsChecked(true)
             }
         }
     }, [])
 
     const deleteMovieInStore = () => {
-
         const oldTotal = movieData.total - 1;
         const oldMovieObject = { ...movieData.moviesObject };
-
         const movieIdToRemove = data.id;
-
         if (oldMovieObject.hasOwnProperty(movieIdToRemove)) {
-
             delete oldMovieObject[movieIdToRemove];
-
             dispatch(setMovieData({ total: oldTotal, moviesObject: oldMovieObject }))
             setIsChecked(prev => !prev)
         }
     }
 
     const deleteMovieDocFromAppwrite = () => {
-        console.log("delete Movie", data);
-
         const { slug } = movieData.moviesObject[data.id]
-        console.log(" delete :: slug ", slug)
-
         movieService.deleteMovieDoc(slug)
             .then((isDeleted) => {
-                console.log("delete :: deleted", isDeleted);
-
                 deleteMovieInStore()
             })
     }
@@ -65,7 +52,6 @@ const MovieCard = ({ data }) => {
     const addMovieInStore = (movie) => {
         const oldTotal = movieData.total + 1;
         const oldMovieObject = { ...movieData.moviesObject };
-
         oldMovieObject[movie.movie_id] = {
             title: movie.title,
             poster_url: movie.poster_url,
@@ -73,13 +59,10 @@ const MovieCard = ({ data }) => {
             user_id: movie.user_id,
             slug: movie.$id
         }
-
         dispatch(setMovieData({ total: oldTotal, moviesObject: oldMovieObject }))
-        console.log("addmovieAppwrite :: refreshreduxstore ", oldTotal, "oldmoviedata", oldMovieObject)
     }
 
     const addMovieDocInAppwrite = () => {
-        console.log("Add Movie ", movieMode);
         setIsChecked(prev => !prev)
         movieService.createMovieDoc({
             title: data.title,
@@ -94,33 +77,30 @@ const MovieCard = ({ data }) => {
 
     const handleCheckboxToggle = () => {
         if (status) {
-            // console.log(`id : ${data.id} poster : ${data.poster_path}
-            //  title : ${data.title} isChecked : ${isChecked} userData : ${userData.$id}`);
-
             if (isChecked) {
                 movieMode ? deleteMovieDocFromAppwrite() : console.log("Please Change the Mode");
             } else {
                 !movieMode ? addMovieDocInAppwrite() : console.log("Please Change the Mode");
             }
-
-
-
-
         } else {
             navigate('/login')
         }
-
     };
 
     return (
-        <div className=" w-48 relative">
+        <div className=" w-40 h-80 relative  rounded-xl">
+
             <div className="w-auto">
-                <img className="rounded-xl" src={posterUrl} alt={data.poster_path} />
+
+                <img className=" rounded-xl" src={posterUrl} alt={data.poster_path} />
             </div>
-            <p className="truncate text-center mt-3 text-lg font-serif dark:text-zinc-300">
+            <p className="truncate absolute bottom-8 w-11/12 ml-2 text-xl  dark:text-neutral-400">
                 {data.title || data.name}
             </p>
-            <div className="checkbox-wrapper-10  absolute bottom-7 ml-3 ">
+            <p className=" text-sm ml-2 absolute w-11/12 bottom-2 dark:text-neutral-500">
+                {data.release_date}
+            </p>
+            <div className="checkbox-wrapper-10 absolute bottom-16 ml-3 ">
                 <input
                     className="tgl tgl-flip"
                     id={`cb${data.id}`}

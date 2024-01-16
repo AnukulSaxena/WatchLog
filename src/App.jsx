@@ -1,12 +1,9 @@
 import { useEffect, useState } from 'react';
 import './App.css';
-
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { MovieCard, Spinner } from './components/index.js';
-
 import { fetchDataFromApi } from './utils/api';
 import { useDispatch } from 'react-redux';
-
 import { getApiConfiguration } from './store/homeSlice.js';
 import authService from './appwrite/auth.js';
 import { login, logout } from './store/authSlice.js';
@@ -29,7 +26,6 @@ function App() {
     });
   };
 
-
   const fetchNextPageData = () => {
     fetchDataFromApi(`/discover/movie`, { page: pageNum })
       .then((res) => {
@@ -41,7 +37,6 @@ function App() {
       });
   };
 
-
   const fetchApiConfig = () => {
     fetchDataFromApi("/configuration").then((res) => {
       console.log("confid data", res);
@@ -51,7 +46,6 @@ function App() {
       dispatch(getApiConfiguration(url));
     });
   };
-
 
   const setMovieState = (userData) => {
     movieService.getMovieDocs(userData.$id)
@@ -73,7 +67,6 @@ function App() {
       }).finally(() => setLoading(false))
   }
 
-
   const checkStatus = () => {
     authService.getCurrentUser()
       .then((userData) => {
@@ -88,38 +81,31 @@ function App() {
       })
       .catch(error => {
         console.log("useEffect :: checkStatus :: error ", error)
-
       })
-
   }
 
-
   useEffect(() => {
-    console.log("useEffect");
     fetchApiConfig();
     checkStatus();
   }, []);
 
   return (
-    <div className='dark:bg-neutral-700 min-h-96 pt-14'>
+    <div className='dark:bg-neutral-700 min-h-screen pt-14'>
       {loading && <Spinner height='h-96' />}
       <InfiniteScroll
-        className='py-10 flex flex-wrap justify-center gap-4'
+        className='py-10 flex flex-wrap justify-center gap-7'
         dataLength={movieData?.results?.length || []}
         next={fetchNextPageData}
         hasMore={pageNum <= movieData?.total_pages}
         loader={<Spinner />}
       >
         {movieData?.results?.map((item, index) => {
-
           return <MovieCard
             key={index}
             data={item}
           />
         })}
-
       </InfiniteScroll>
-
     </div>
   );
 }

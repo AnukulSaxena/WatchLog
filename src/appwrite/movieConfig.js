@@ -39,7 +39,6 @@ class MovieService {
                 conf.appwriteDatabaseId,
                 conf.appwriteMoviesCollectionId,
                 slug
-
             )
             return true
         } catch (error) {
@@ -55,14 +54,12 @@ class MovieService {
                 conf.appwriteDatabaseId,
                 conf.appwriteMoviesCollectionId,
                 slug
-
             )
         } catch (error) {
             console.log("movieService :: getMovieDoc :: error", error);
             return false
         }
     }
-
 
     async getMovieDocs(user_id) {
         try {
@@ -72,16 +69,12 @@ class MovieService {
                 [Query.equal("user_id", user_id),
                 Query.limit(10000),
                 Query.offset(0)],
-
             )
         } catch (error) {
             console.log("Appwrite serive :: getPosts :: error", error);
             return false
         }
     }
-
-
-
 }
 
 const movieService = new MovieService();

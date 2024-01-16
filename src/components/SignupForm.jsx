@@ -25,6 +25,7 @@ function SignupForm() {
             setError(error.message)
         }
     }
+
     return (
         <div className='mx-auto w-full max-w-lg bg-gray-100 rounded-xl p-10 border border-black/10'>
             <div className=' w-full text-lg text-center mb-5'>
@@ -68,10 +69,6 @@ function SignupForm() {
                         >
                             Create Account
                         </Button>
-
-
-
-
                     </div>
                 </form>
                 <p className="mt-2 text-center text-base text-black/60">
@@ -83,9 +80,7 @@ function SignupForm() {
                         Sign In
                     </Link>
                 </p>
-
             </div>
-
         </div>
     )
 }

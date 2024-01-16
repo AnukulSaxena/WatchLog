@@ -46,7 +46,6 @@ class AuthService {
     }
 
     async logoutAccount() {
-
         try {
             console.log("Logout clicked");
             return await this.account.deleteSessions();

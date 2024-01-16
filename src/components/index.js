@@ -7,6 +7,7 @@ import Button from './Button.jsx'
 import LoginForm from './LoginForm.jsx'
 import Spinner from './Spinner.jsx'
 import Switcher from './Switcher.jsx'
+import LogoutBtn from './Header/LogoutBtn.jsx'
 
 
 export {
@@ -19,5 +20,6 @@ export {
     LoginForm,
     Spinner,
     Switcher,
+    LogoutBtn,
 }
 
