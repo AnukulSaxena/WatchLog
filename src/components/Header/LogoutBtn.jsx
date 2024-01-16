@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux'
 import { logout } from '../../store/authSlice.js'
 import { useNavigate } from 'react-router-dom'
 import authService from '../../appwrite/auth.js'
+import { setMovieData } from '../../store/movieSlice.js'
 
 
 function LogoutBtn({ isMenuOpen }) {
@@ -10,9 +11,14 @@ function LogoutBtn({ isMenuOpen }) {
     const dispatch = useDispatch()
 
     const handleLogout = () => {
-        authService.logoutAccount();
-        dispatch(logout())
-        navigate("/")
+        authService.logoutAccount()
+            .then((response) => {
+                console.log("session deleted with ", response);
+                dispatch(logout())
+                dispatch(setMovieData(null))
+
+            })
+            .then(() => navigate("/"))
     }
 
     return (

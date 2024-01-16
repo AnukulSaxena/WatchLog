@@ -5,6 +5,8 @@ import { Link, useNavigate } from 'react-router-dom'
 import authService from '../appwrite/auth.js'
 import { useDispatch } from 'react-redux'
 import { login as authLogin } from '../store/authSlice.js'
+import movieService from '../appwrite/movieConfig.js'
+import { setMovieData } from '../store/movieSlice.js'
 
 function SignupForm() {
     const dispatch = useDispatch()
@@ -12,14 +14,30 @@ function SignupForm() {
     const [error, setError] = useState("");
     const navigate = useNavigate()
 
+    const getMovieData = (userData) => {
+        movieService.getMovieDocs(userData.$id)
+            .then(response => {
+                const moviesObject = response.documents.reduce((acc, movie) => {
+                    acc[movie.movie_id] = movie;
+                    return acc;
+                }, {});
+                dispatch(setMovieData({ total: response.total, moviesObject }));
+            }).then(() => {
+                console.log("login into redux ")
+                dispatch(authLogin(userData.$id))
+            })
+            .then(() => {
+                navigate("/")
+            })
+    }
+
     const login = async (data) => {
         try {
             setError("");
             const session = await authService.loginAccount(data);
             if (session) {
                 const userData = await authService.getCurrentUser();
-                dispatch(authLogin(userData));
-                navigate("/")
+                getMovieData(userData)
             }
         } catch (error) {
             setError(error.message)

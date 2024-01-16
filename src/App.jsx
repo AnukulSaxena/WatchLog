@@ -2,17 +2,22 @@ import { useEffect, useState } from 'react';
 import './App.css';
 
 import InfiniteScroll from 'react-infinite-scroll-component';
-import MovieCard from './components/MovieCard/MovieCard';
+import { MovieCard, Spinner } from './components/index.js';
+
 import { fetchDataFromApi } from './utils/api';
 import { useDispatch } from 'react-redux';
 
-import { getApiConfiguration } from './store/homeSlice';
+import { getApiConfiguration } from './store/homeSlice.js';
+import authService from './appwrite/auth.js';
+import { login, logout } from './store/authSlice.js';
+import movieService from './appwrite/movieConfig.js';
+import { setMovieData as setMovieDataState } from './store/movieSlice.js';
 
 
 function App() {
   const dispatch = useDispatch();
   const [movieData, setMovieData] = useState(null);
-  // const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [pageNum, setPageNum] = useState(1);
 
 
@@ -40,33 +45,63 @@ function App() {
   const fetchApiConfig = () => {
     fetchDataFromApi("/configuration").then((res) => {
       console.log("confid data", res);
-
       const url = {
-
         poster: res.images.secure_base_url + "w342",
-
       };
-
       dispatch(getApiConfiguration(url));
     });
   };
 
 
+  const setMovieState = (userData) => {
+    movieService.getMovieDocs(userData.$id)
+      .then(response => {
+        const moviesObject = response.documents.reduce((acc, movie) => {
+          acc[movie.movie_id] = movie;
+          return acc;
+        }, {});
+        dispatch(setMovieDataState({ total: response.total, moviesObject }));
+        console.log("setMovieState :: getMovieDOcs :: then ")
+      }).then(() => {
+        fetchInitialData();
+      }).finally(() => setLoading(false))
+  }
+
+
+  const checkStatus = () => {
+    authService.getCurrentUser()
+      .then((userData) => {
+        if (userData) {
+          dispatch(login(userData))
+          setMovieState(userData);
+        } else {
+          dispatch(logout())
+          fetchInitialData();
+        }
+      })
+      .catch(error => {
+        console.log("useEffect :: checkStatus :: error ", error)
+
+      })
+
+  }
+
+
   useEffect(() => {
     console.log("useEffect");
     fetchApiConfig();
-    fetchInitialData();
-    console.log("Movie Data: " + movieData);
+    checkStatus();
   }, []);
 
   return (
-    <div className='dark:bg-neutral-700'>
+    <div className='dark:bg-neutral-700 min-h-96'>
+      {loading && <Spinner height='h-96' />}
       <InfiniteScroll
         className='py-10 flex flex-wrap justify-center gap-4'
         dataLength={movieData?.results?.length || []}
         next={fetchNextPageData}
         hasMore={pageNum <= movieData?.total_pages}
-        loader={<h4>Loading...</h4>}//{<Spinner />}
+        loader={<Spinner />}
       >
         {movieData?.results?.map((item, index) => {
 
