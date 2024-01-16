@@ -2,11 +2,13 @@ import { useState, useEffect } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { useSelector } from 'react-redux'
 import LogoutBtn from "./LogoutBtn";
+import { Switcher } from '../index.js'
 
 
 const Header = () => {
     const authStatus = useSelector((state) => state.auth.status)
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+
 
     const navItems = [
         {
@@ -64,13 +66,17 @@ const Header = () => {
     }, []);
 
     return (
-        <header>
-            <nav className="bg-white border-gray-200 px-4 lg:px-6 py-4 dark:bg-gray-800">
+        <header >
+            <nav className="bg-white fixed z-10 w-full border-gray-200 px-4 lg:px-6 py-4 dark:bg-gray-800">
                 <div className="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
                     <Link to="/" className="flex items-center">
                         <span className="self-center text-xl font-semibold whitespace-nowrap dark:text-white">WatchLog</span>
                     </Link>
-                    <div className="flex items-center lg:order-2">
+
+                    <Switcher />
+
+                    <div className="flex items-center">
+
 
                         <button
                             onClick={toggleMenu}
@@ -121,6 +127,7 @@ const Header = () => {
                             }
                         </ul>
                     </div>
+
                 </div>
             </nav>
         </header>

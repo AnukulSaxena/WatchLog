@@ -18,7 +18,13 @@ function SignupForm() {
         movieService.getMovieDocs(userData.$id)
             .then(response => {
                 const moviesObject = response.documents.reduce((acc, movie) => {
-                    acc[movie.movie_id] = movie;
+                    acc[movie.movie_id] = {
+                        title: movie.title,
+                        poster_url: movie.poster_url,
+                        movie_id: movie.movie_id,
+                        user_id: movie.user_id,
+                        slug: movie.$id
+                    };
                     return acc;
                 }, {});
                 dispatch(setMovieData({ total: response.total, moviesObject }));

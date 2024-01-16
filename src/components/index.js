@@ -6,6 +6,7 @@ import Input from './Input.jsx'
 import Button from './Button.jsx'
 import LoginForm from './LoginForm.jsx'
 import Spinner from './Spinner.jsx'
+import Switcher from './Switcher.jsx'
 
 
 export {
@@ -17,5 +18,6 @@ export {
     Button,
     LoginForm,
     Spinner,
+    Switcher,
 }
 

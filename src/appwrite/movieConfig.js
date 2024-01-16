@@ -69,7 +69,9 @@ class MovieService {
             return await this.databases.listDocuments(
                 conf.appwriteDatabaseId,
                 conf.appwriteMoviesCollectionId,
-                [Query.equal("user_id", user_id)],
+                [Query.equal("user_id", user_id),
+                Query.limit(10000),
+                Query.offset(0)],
 
             )
         } catch (error) {

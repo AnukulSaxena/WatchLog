@@ -57,7 +57,13 @@ function App() {
     movieService.getMovieDocs(userData.$id)
       .then(response => {
         const moviesObject = response.documents.reduce((acc, movie) => {
-          acc[movie.movie_id] = movie;
+          acc[movie.movie_id] = {
+            title: movie.title,
+            poster_url: movie.poster_url,
+            movie_id: movie.movie_id,
+            user_id: movie.user_id,
+            slug: movie.$id
+          };
           return acc;
         }, {});
         dispatch(setMovieDataState({ total: response.total, moviesObject }));
@@ -95,7 +101,7 @@ function App() {
   }, []);
 
   return (
-    <div className='dark:bg-neutral-700 min-h-96'>
+    <div className='dark:bg-neutral-700 min-h-96 pt-10'>
       {loading && <Spinner height='h-96' />}
       <InfiniteScroll
         className='py-10 flex flex-wrap justify-center gap-4'
