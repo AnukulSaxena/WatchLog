@@ -76,7 +76,8 @@ function App() {
           setMovieState(userData);
         } else {
           dispatch(logout())
-          fetchInitialData();
+          fetchInitialData()
+          setLoading(false)
         }
       })
       .catch(error => {
