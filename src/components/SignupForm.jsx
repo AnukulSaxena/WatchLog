@@ -75,7 +75,7 @@ function SignupForm() {
                     </div>
                 </form>
                 <p className="mt-2 text-center text-base text-black/60">
-                    Already have an account?&nbsp;
+                    Already have an Account ?&nbsp;
                     <Link
                         to="/login"
                         className="font-medium text-primary transition-all duration-200 hover:underline"

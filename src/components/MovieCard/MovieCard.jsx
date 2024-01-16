@@ -32,12 +32,37 @@ const MovieCard = ({ data }) => {
         }
     }, [])
 
-    const deleteMovieDocFromAppwrite = () => {
-        console.log("delete Movie", movieMode);
-        setIsChecked(prev => !prev)
+    const deleteMovieInStore = () => {
+
+        const oldTotal = movieData.total - 1;
+        const oldMovieObject = { ...movieData.moviesObject };
+
+        const movieIdToRemove = data.id;
+
+        if (oldMovieObject.hasOwnProperty(movieIdToRemove)) {
+
+            delete oldMovieObject[movieIdToRemove];
+
+            dispatch(setMovieData({ total: oldTotal, moviesObject: oldMovieObject }))
+            setIsChecked(prev => !prev)
+        }
     }
 
-    const refreshReduxStore = (movie) => {
+    const deleteMovieDocFromAppwrite = () => {
+        console.log("delete Movie", data);
+
+        const { slug } = movieData.moviesObject[data.id]
+        console.log(" delete :: slug ", slug)
+
+        movieService.deleteMovieDoc(slug)
+            .then((isDeleted) => {
+                console.log("delete :: deleted", isDeleted);
+
+                deleteMovieInStore()
+            })
+    }
+
+    const addMovieInStore = (movie) => {
         const oldTotal = movieData.total + 1;
         const oldMovieObject = { ...movieData.moviesObject };
 
@@ -63,7 +88,7 @@ const MovieCard = ({ data }) => {
             user_id: userData.$id
         }).then((movie) => {
             console.log("create doc response : ", movie)
-            refreshReduxStore(movie);
+            addMovieInStore(movie);
         })
     }
 

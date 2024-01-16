@@ -101,7 +101,7 @@ function App() {
   }, []);
 
   return (
-    <div className='dark:bg-neutral-700 min-h-96 pt-10'>
+    <div className='dark:bg-neutral-700 min-h-96 pt-14'>
       {loading && <Spinner height='h-96' />}
       <InfiniteScroll
         className='py-10 flex flex-wrap justify-center gap-4'

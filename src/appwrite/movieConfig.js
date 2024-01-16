@@ -35,7 +35,7 @@ class MovieService {
 
     async deleteMovieDoc(slug) {
         try {
-            await this.databases.deleteDocument(
+            this.databases.deleteDocument(
                 conf.appwriteDatabaseId,
                 conf.appwriteMoviesCollectionId,
                 slug
