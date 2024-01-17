@@ -17,6 +17,9 @@ function App() {
   const fetchApiConfig = () => {
     fetchDataFromApi("/configuration").then((res) => {
       console.log("confid data", res);
+
+      checkStatus()
+
       const url = {
         poster: res.images.secure_base_url + "w342",
       };
@@ -24,41 +27,25 @@ function App() {
     });
   };
 
-  const setMovieState = (userData) => {
-    movieService.getMovieDocs(userData.$id, 10000, 0)
-      .then(response => {
-        const moviesObject = response.documents.reduce((acc, movie) => {
-          acc[movie.id] = {
-            id: movie.id,
-            slug: movie.$id
-          };
-          return acc;
-        }, {});
-        dispatch(setMovieDataState({ total: response.total, moviesObject }));
-        console.log("setMovieState :: getMovieDOcs :: then ")
-      })
-      .finally(() => setLoading(false))
-  }
 
   const checkStatus = () => {
     authService.getCurrentUser()
       .then((userData) => {
+        console.log("App :: Getting User :: userData ", userData)
         if (userData) {
           dispatch(login(userData))
-          setMovieState(userData);
         } else {
           dispatch(logout())
-          setLoading(false)
         }
       })
       .catch(error => {
         console.log("useEffect :: checkStatus :: error ", error)
-      })
+      }).finally(() => setLoading(false))
   }
 
   useEffect(() => {
     fetchApiConfig();
-    checkStatus();
+
   }, []);
 
   return !loading && (

@@ -4,22 +4,24 @@ import { useSelector } from 'react-redux'
 import { InfiniteScrollComponent } from '../components'
 
 function Watched() {
-    const { $id } = useSelector(state => state.auth.userData);
+    const { status, userData } = useSelector(state => state.auth);
     const [loading, setLoading] = useState(true);
     const [movieData, setMovieData] = useState(null);
     const [pageNum, setPageNum] = useState(1);
 
     useEffect(() => {
-        movieService.getMovieDocs($id, 25, 0)
-            .then(response => {
-                console.log("Watched :: useEffect :: response ", response);
-                setMovieData(response);
-                setLoading(false);
-            });
-    }, [$id]);
+        if (status) {
+            movieService.getMovieDocs(userData.$id, 25, 0)
+                .then(response => {
+                    console.log("Watched :: useEffect :: response ", response);
+                    setMovieData(response);
+                    setLoading(false);
+                });
+        }
+    }, []);
 
     const fetchNextPageData = () => {
-        movieService.getMovieDocs($id, 25, 25 * pageNum)
+        movieService.getMovieDocs(userData.$id, 25, 25 * pageNum)
             .then((res) => {
                 setMovieData((prevData) => ({
                     ...res,

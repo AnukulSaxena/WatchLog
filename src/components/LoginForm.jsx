@@ -5,8 +5,6 @@ import { Link, useNavigate } from 'react-router-dom'
 import authService from '../appwrite/auth.js'
 import { useDispatch } from 'react-redux'
 import { login as authLogin } from '../store/authSlice.js'
-import movieService from '../appwrite/movieConfig.js'
-import { setMovieData } from '../store/movieSlice.js'
 
 function SignupForm() {
     const dispatch = useDispatch()
@@ -14,22 +12,6 @@ function SignupForm() {
     const [error, setError] = useState("");
     const navigate = useNavigate()
 
-    const getMovieData = (userData) => {
-        movieService.getMovieDocs(userData.$id, 10000, 0)
-            .then(response => {
-                const moviesObject = response.documents.reduce((acc, movie) => {
-                    acc[movie.id] = {
-                        id: movie.id,
-                        slug: movie.$id
-                    };
-                    return acc;
-                }, {});
-                dispatch(setMovieData({ total: response.total, moviesObject }));
-                dispatch(authLogin(userData))
-                console.log("LoginForm :: getMovieDOcs :: then ")
-            })
-            .finally(() => { navigate("/") })
-    }
 
     const login = async (data) => {
         try {
@@ -38,7 +20,12 @@ function SignupForm() {
             if (session) {
                 await authService.getCurrentUser()
                     .then((userData) => {
-                        getMovieData(userData)
+                        console.log("1st then")
+                        dispatch(authLogin(userData))
+                    })
+                    .finally(() => {
+                        console.log("2nd then")
+                        navigate("/")
                     })
             }
         } catch (error) {
