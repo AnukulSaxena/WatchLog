@@ -3,11 +3,9 @@ import { Input, Button } from './index.js'
 import { useForm } from 'react-hook-form'
 import { Link, useNavigate } from 'react-router-dom'
 import authService from '../appwrite/auth.js'
-import { useDispatch } from 'react-redux'
-import { login } from '../store/authSlice.js'
 
 function SignupForm() {
-    const dispatch = useDispatch()
+
     const { register, handleSubmit } = useForm()
     const [error, setError] = useState("");
     const navigate = useNavigate()
@@ -15,12 +13,11 @@ function SignupForm() {
     const create = async (data) => {
         setError("")
         try {
-            const userData = await authService.createAccount(data);
-            if (userData) {
-                const userData = await authService.getCurrentUser();
-                dispatch(login(userData))
-                navigate('/')
-            }
+            await authService.createAccount(data)
+                .then((response) => {
+                    console.log("SignupForm :: create :: response ", response);
+                    navigate('/')
+                })
         } catch (error) {
             setError(error.message)
         }

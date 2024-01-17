@@ -22,18 +22,15 @@ const Switcher = () => {
                     onChange={handleCheckboxChange}
                 />
                 <span
-                    className={`flex items-center space-x-[6px] rounded py-1 px-[18px] text-sm font-medium ${!isChecked ? ' bg-neutral-400 ' : ''
+                    className={`flex items-center space-x-[6px] w-8 rounded py-1 px-3 text-sm font-medium ${!isChecked ? ' bg-neutral-400 ' : ''
                         }`}
                 >
-
-                    Add Mode
+                    +
                 </span>
                 <span
-                    className={`flex items-center space-x-[6px] rounded py-1  px-[18px] text-sm font-medium ${isChecked ? ' bg-neutral-400' : ''
+                    className={`flex text-center space-x-[6px] w-8 rounded py-1  px-3 text-sm font-medium ${isChecked ? ' bg-neutral-400' : ''
                         }`}
-                >
-                    Delete Mode
-                </span>
+                >-</span>
             </label>
         </>
     )

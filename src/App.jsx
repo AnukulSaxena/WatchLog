@@ -17,7 +17,15 @@ function App() {
   const [loading, setLoading] = useState(true);
   const [pageNum, setPageNum] = useState(1);
 
-
+  const fetchApiConfig = () => {
+    fetchDataFromApi("/configuration").then((res) => {
+      console.log("confid data", res);
+      const url = {
+        poster: res.images.secure_base_url + "w342",
+      };
+      dispatch(getApiConfiguration(url));
+    });
+  };
 
   const fetchInitialData = async () => {
     fetchDataFromApi('/discover/movie', '').then((res) => {
@@ -37,24 +45,14 @@ function App() {
       });
   };
 
-  const fetchApiConfig = () => {
-    fetchDataFromApi("/configuration").then((res) => {
-      console.log("confid data", res);
-      const url = {
-        poster: res.images.secure_base_url + "w342",
-      };
-      dispatch(getApiConfiguration(url));
-    });
-  };
-
   const setMovieState = (userData) => {
-    movieService.getMovieDocs(userData.$id)
+    movieService.getMovieDocs(userData.$id, 10000, 0)
       .then(response => {
         const moviesObject = response.documents.reduce((acc, movie) => {
-          acc[movie.movie_id] = {
+          acc[movie.id] = {
             title: movie.title,
-            poster_url: movie.poster_url,
-            movie_id: movie.movie_id,
+            poster_path: movie.poster_path,
+            id: movie.id,
             user_id: movie.user_id,
             slug: movie.$id
           };

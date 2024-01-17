@@ -37,25 +37,28 @@ const MovieCard = ({ data }) => {
         if (oldMovieObject.hasOwnProperty(movieIdToRemove)) {
             delete oldMovieObject[movieIdToRemove];
             dispatch(setMovieData({ total: oldTotal, moviesObject: oldMovieObject }))
-            setIsChecked(prev => !prev)
         }
+        setIsChecked(false)
     }
 
     const deleteMovieDocFromAppwrite = () => {
+        console.log(movieData);
         const { slug } = movieData.moviesObject[data.id]
         movieService.deleteMovieDoc(slug)
             .then((isDeleted) => {
+                console.log("MovieCard :: deletmovieDocFA :: response", isDeleted)
                 deleteMovieInStore()
             })
     }
 
     const addMovieInStore = (movie) => {
+        console.log("add movie in store :: movie data ", movie)
         const oldTotal = movieData.total + 1;
         const oldMovieObject = { ...movieData.moviesObject };
-        oldMovieObject[movie.movie_id] = {
+        oldMovieObject[movie.id] = {
             title: movie.title,
-            poster_url: movie.poster_url,
-            movie_id: movie.movie_id,
+            poster_path: movie.poster_path,
+            id: movie.id,
             user_id: movie.user_id,
             slug: movie.$id
         }
@@ -63,11 +66,11 @@ const MovieCard = ({ data }) => {
     }
 
     const addMovieDocInAppwrite = () => {
-        setIsChecked(prev => !prev)
+        setIsChecked(true)
         movieService.createMovieDoc({
             title: data.title,
-            poster_url: data.poster_path,
-            movie_id: data.id,
+            poster_path: data.poster_path,
+            id: data.id,
             user_id: userData.$id
         }).then((movie) => {
             console.log("create doc response : ", movie)
@@ -88,19 +91,14 @@ const MovieCard = ({ data }) => {
     };
 
     return (
-        <div className=" w-40 h-80 relative  rounded-xl">
-
+        <div className=" w-48 relative">
             <div className="w-auto">
-
-                <img className=" rounded-xl" src={posterUrl} alt={data.poster_path} />
+                <img className="rounded-xl" src={posterUrl} alt={data.poster_path} />
             </div>
-            <p className="truncate absolute bottom-8 w-11/12 ml-2 text-xl  dark:text-neutral-400">
-                {data.title || data.name}
+            <p className="truncate text-center mt-3 text-lg font-serif dark:text-zinc-300">
+                {data.title}
             </p>
-            <p className=" text-sm ml-2 absolute w-11/12 bottom-2 dark:text-neutral-500">
-                {data.release_date}
-            </p>
-            <div className="checkbox-wrapper-10 absolute bottom-16 ml-3 ">
+            <div className="checkbox-wrapper-10  absolute bottom-7 ml-3 ">
                 <input
                     className="tgl tgl-flip"
                     id={`cb${data.id}`}

@@ -3,47 +3,19 @@ import { Input, Button } from './index.js'
 import { useForm } from 'react-hook-form'
 import { Link, useNavigate } from 'react-router-dom'
 import authService from '../appwrite/auth.js'
-import { useDispatch } from 'react-redux'
-import { login as authLogin } from '../store/authSlice.js'
-import movieService from '../appwrite/movieConfig.js'
-import { setMovieData } from '../store/movieSlice.js'
 
 function SignupForm() {
-    const dispatch = useDispatch()
     const { register, handleSubmit } = useForm()
     const [error, setError] = useState("");
     const navigate = useNavigate()
 
-    const getMovieData = (userData) => {
-        movieService.getMovieDocs(userData.$id)
-            .then(response => {
-                const moviesObject = response.documents.reduce((acc, movie) => {
-                    acc[movie.movie_id] = {
-                        title: movie.title,
-                        poster_url: movie.poster_url,
-                        movie_id: movie.movie_id,
-                        user_id: movie.user_id,
-                        slug: movie.$id
-                    };
-                    return acc;
-                }, {});
-                dispatch(setMovieData({ total: response.total, moviesObject }));
-            }).then(() => {
-                dispatch(authLogin(userData.$id))
-            })
-            .then(() => {
-                navigate("/")
-            })
-    }
-
     const login = async (data) => {
         try {
             setError("");
-            const session = await authService.loginAccount(data);
-            if (session) {
-                const userData = await authService.getCurrentUser();
-                getMovieData(userData)
-            }
+            await authService.loginAccount(data)
+                .then(() => {
+                    navigate("/")
+                })
         } catch (error) {
             setError(error.message)
         }

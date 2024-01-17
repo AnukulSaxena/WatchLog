@@ -15,16 +15,16 @@ class MovieService {
 
     }
 
-    async createMovieDoc({ title, poster_url, movie_id, user_id }) {
+    async createMovieDoc({ title, user_id, poster_path, id }) {
         try {
             return await this.databases.createDocument(
                 conf.appwriteDatabaseId,
                 conf.appwriteMoviesCollectionId,
                 ID.unique(), {
                 title,
-                poster_url,
-                movie_id,
-                user_id
+                user_id,
+                poster_path,
+                id,
             }
             );
         } catch (error) {
@@ -61,14 +61,14 @@ class MovieService {
         }
     }
 
-    async getMovieDocs(user_id) {
+    async getMovieDocs(user_id, docLimit, docOffset) {
         try {
             return await this.databases.listDocuments(
                 conf.appwriteDatabaseId,
                 conf.appwriteMoviesCollectionId,
                 [Query.equal("user_id", user_id),
-                Query.limit(10000),
-                Query.offset(0)],
+                Query.limit(docLimit),
+                Query.offset(docOffset)],
             )
         } catch (error) {
             console.log("Appwrite serive :: getPosts :: error", error);
