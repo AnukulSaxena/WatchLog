@@ -22,7 +22,6 @@ const MovieCard = ({ data, initStatus, crossCheck = true }) => {
 
     useEffect(() => {
         if (status && crossCheck) {
-            console.log("MovieCard :: useEffect :: Crosscheck", crossCheck)
             const targetMovieId = data.id;
             if (movieData) {
                 const movieExists = findMovieById(movieData.moviesObject, targetMovieId);
@@ -44,8 +43,10 @@ const MovieCard = ({ data, initStatus, crossCheck = true }) => {
 
     const deleteMovieDocFromAppwrite = () => {
         setIsChecked(false)
-        console.log(movieData);
-        const { slug } = movieData.moviesObject[data.id]
+
+        const slug = crossCheck ? movieData.moviesObject[data.id].slug : data.$id;
+
+        console.log("movieCard :: DMDFA :: crosscheck ", crossCheck, " :: slug ", slug);
         movieService.deleteMovieDoc(slug)
             .then((isDeleted) => {
 
