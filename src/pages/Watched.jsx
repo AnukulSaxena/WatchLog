@@ -5,7 +5,6 @@ import { useSelector } from 'react-redux'
 import InfiniteScroll from 'react-infinite-scroll-component'
 import { MovieCard } from '../components/index.js'
 
-// ... Other imports
 
 function Watched() {
     const { $id } = useSelector(state => state.auth.userData);
@@ -50,7 +49,10 @@ function Watched() {
                     loader={<Spinner />}
                 >
                     {movieData?.documents?.map((item, index) => (
-                        <MovieCard key={index} data={item} initStatus={true} />
+                        <MovieCard key={index} data={item}
+                            initStatus={true}
+                            crossCheck={false}
+                        />
                     ))}
                 </InfiniteScroll>
             }

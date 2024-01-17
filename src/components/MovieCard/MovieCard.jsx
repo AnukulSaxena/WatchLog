@@ -6,7 +6,7 @@ import movieService from '../../appwrite/movieConfig.js';
 import { setMovieData } from '../../store/movieSlice.js';
 
 
-const MovieCard = ({ data, initStatus }) => {
+const MovieCard = ({ data, initStatus, crossCheck = true }) => {
     const { url } = useSelector((state) => state.home);
     const posterUrl = url.poster + data.poster_path;
     const [isChecked, setIsChecked] = useState(initStatus);
@@ -21,7 +21,8 @@ const MovieCard = ({ data, initStatus }) => {
     };
 
     useEffect(() => {
-        if (status) {
+        if (status && crossCheck) {
+            console.log("MovieCard :: useEffect :: Crosscheck", crossCheck)
             const targetMovieId = data.id;
             if (movieData) {
                 const movieExists = findMovieById(movieData.moviesObject, targetMovieId);
@@ -42,12 +43,12 @@ const MovieCard = ({ data, initStatus }) => {
     }
 
     const deleteMovieDocFromAppwrite = () => {
-
+        setIsChecked(false)
         console.log(movieData);
         const { slug } = movieData.moviesObject[data.id]
         movieService.deleteMovieDoc(slug)
             .then((isDeleted) => {
-                setIsChecked(false)
+
                 console.log("MovieCard :: deletmovieDocFA :: response", isDeleted)
                 deleteMovieInStore()
             })
@@ -65,14 +66,14 @@ const MovieCard = ({ data, initStatus }) => {
     }
 
     const addMovieDocInAppwrite = () => {
-
+        setIsChecked(true)
         movieService.createMovieDoc({
             title: data.title,
             poster_path: data.poster_path,
             id: data.id,
             user_id: userData.$id
         }).then((movie) => {
-            setIsChecked(true)
+
             console.log("create doc response : ", movie)
             addMovieInStore(movie);
         })
