@@ -39,14 +39,14 @@ const MovieCard = ({ data, initStatus, crossCheck }) => {
     }
 
     const deleteMovieDocFromAppwrite = () => {
-        setIsChecked(false)
 
-        const slug = crossCheck ? movieData.moviesObject[data.id].slug : data.$id;
+
+        const slug = crossCheck ? movieData?.moviesObject[data?.id]?.slug : data.$id;
 
         console.log("movieCard :: DMDFA :: crosscheck ", crossCheck, " :: slug ", slug);
         movieService.deleteMovieDoc(slug)
             .then((isDeleted) => {
-
+                setIsChecked(false)
                 console.log("MovieCard :: deletmovieDocFA :: response", isDeleted)
                 deleteMovieInStore()
             })
@@ -92,7 +92,7 @@ const MovieCard = ({ data, initStatus, crossCheck }) => {
             <div className="w-auto">
                 <img className="rounded-xl" src={posterUrl} alt={data.poster_path} />
             </div>
-            <p className="truncate text-center mt-3 text-lg font-serif dark:text-zinc-300">
+            <p className="truncate text-center mt-3 text-lg dark:text-zinc-300">
                 {data.title}
             </p>
             <div className="checkbox-wrapper-10  absolute bottom-7 ml-3 ">

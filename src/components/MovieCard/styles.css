@@ -95,7 +95,7 @@
 }
 
 .checkbox-wrapper-10 .tgl-flip+.tgl-btn:before {
-    background: #FF3A19;
+    background: #404040;
     content: attr(data-tg-off);
 }
 
@@ -110,7 +110,7 @@
 .checkbox-wrapper-10 .tgl-flip:checked+.tgl-btn:after {
     transform: rotateY(0);
     left: 0;
-    background: #7FC6A6;
+    background: #262626;
 }
 
 .checkbox-wrapper-10 .tgl-flip:checked+.tgl-btn:active:after {

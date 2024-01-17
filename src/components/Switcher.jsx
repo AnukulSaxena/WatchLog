@@ -13,7 +13,7 @@ const Switcher = () => {
     }
 
     return (
-        <>
+        <div>
             <label className=' inline-flex cursor-pointer items-center justify-center rounded-md bg-white p-1'>
                 <input
                     type='checkbox'
@@ -22,17 +22,17 @@ const Switcher = () => {
                     onChange={handleCheckboxChange}
                 />
                 <span
-                    className={`flex items-center space-x-[6px] w-8 rounded py-1 px-3 text-sm font-medium ${!isChecked ? ' bg-neutral-400 ' : ''
+                    className={`flex items-center space-x-[6px] w-8 rounded py-1 px-3 text-sm font-medium ${!isChecked ? ' bg-neutral-500 ' : ''
                         }`}
                 >
                     +
                 </span>
                 <span
-                    className={`flex text-center space-x-[6px] w-8 rounded py-1  px-3 text-sm font-medium ${isChecked ? ' bg-neutral-400' : ''
+                    className={`flex text-center space-x-[6px] w-8 rounded py-1  px-3 text-sm font-medium ${isChecked ? ' bg-neutral-500' : ''
                         }`}
                 >-</span>
             </label>
-        </>
+        </div>
     )
 }
 

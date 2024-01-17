@@ -9,6 +9,8 @@ function Watched() {
     const [movieData, setMovieData] = useState(null);
     const [pageNum, setPageNum] = useState(1);
 
+
+
     useEffect(() => {
         if (status) {
             movieService.getMovieDocs(userData.$id, 25, 0)
