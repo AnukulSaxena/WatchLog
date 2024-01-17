@@ -1,20 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import './styles.css';
 import { useSelector, useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom'
 import movieService from '../../appwrite/movieConfig.js';
 import { setMovieData } from '../../store/movieSlice.js';
 
 
-const MovieCard = ({ data, initStatus, crossCheck = true }) => {
+const MovieCard = ({ data, initStatus, crossCheck }) => {
     const { url } = useSelector((state) => state.home);
     const posterUrl = url.poster + data.poster_path;
     const [isChecked, setIsChecked] = useState(initStatus);
     const { status, userData } = useSelector(state => state.auth)
-    const { movieData } = useSelector(state => state.movie)
-    const movieMode = useSelector(state => state.movie.mode)
+    const { movieData, mode } = useSelector(state => state.movie)
     const dispatch = useDispatch()
-    const navigate = useNavigate();
 
     const findMovieById = (moviesObject, movieId) => {
         return moviesObject.hasOwnProperty(movieId);
@@ -75,7 +72,7 @@ const MovieCard = ({ data, initStatus, crossCheck = true }) => {
             user_id: userData.$id
         }).then((movie) => {
 
-            console.log("create doc response : ", movie)
+            console.log("Moviecard :: addmovieInAppwrite :: response ", movie)
             addMovieInStore(movie);
         })
     }
@@ -83,12 +80,10 @@ const MovieCard = ({ data, initStatus, crossCheck = true }) => {
     const handleCheckboxToggle = () => {
         if (status) {
             if (isChecked) {
-                movieMode ? deleteMovieDocFromAppwrite() : console.log("Please Change the Mode");
+                mode ? deleteMovieDocFromAppwrite() : console.log("Please Change the Mode");
             } else {
-                !movieMode ? addMovieDocInAppwrite() : console.log("Please Change the Mode");
+                !mode ? addMovieDocInAppwrite() : console.log("Please Change the Mode");
             }
-        } else {
-            navigate('/login')
         }
     };
 

@@ -59,7 +59,7 @@ const Header = () => {
 
     return (
         <header >
-            <nav className="bg-white fixed z-10 w-full border-gray-200 px-4 lg:px-6 py-4 dark:bg-neutral-800">
+            <nav className="bg-white fixed top-0 z-10 w-full border-gray-200 px-4 lg:px-6 py-4 dark:bg-neutral-800">
                 <div className="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
                     <div className="flex gap-5">
                         <Link to="/" className="flex items-center">

@@ -8,6 +8,8 @@ import LoginForm from './LoginForm.jsx'
 import Spinner from './Spinner.jsx'
 import Switcher from './Switcher.jsx'
 import LogoutBtn from './Header/LogoutBtn.jsx'
+import AuthLayout from './AuthLayout.jsx'
+import InfiniteScrollComponent from './InfiniteScrollComponent.jsx'
 
 
 export {
@@ -21,5 +23,7 @@ export {
     Spinner,
     Switcher,
     LogoutBtn,
+    AuthLayout,
+    InfiniteScrollComponent
 }
 

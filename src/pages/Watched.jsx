@@ -1,10 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import { Spinner } from '../components/index.js'
 import movieService from '../appwrite/movieConfig.js'
 import { useSelector } from 'react-redux'
-import InfiniteScroll from 'react-infinite-scroll-component'
-import { MovieCard } from '../components/index.js'
-
+import { InfiniteScrollComponent } from '../components'
 
 function Watched() {
     const { $id } = useSelector(state => state.auth.userData);
@@ -15,7 +12,7 @@ function Watched() {
     useEffect(() => {
         movieService.getMovieDocs($id, 25, 0)
             .then(response => {
-                console.log(response);
+                console.log("Watched :: useEffect :: response ", response);
                 setMovieData(response);
                 setLoading(false);
             });
@@ -40,21 +37,16 @@ function Watched() {
 
     return (
         <div className='dark:bg-neutral-700 min-h-screen pt-14'>
-            {loading ? <Spinner height='h-96' /> :
-                <InfiniteScroll
-                    className='py-10 flex flex-wrap justify-center gap-7'
-                    dataLength={movieData?.documents?.length || 0}
-                    next={fetchNextPageData}
-                    hasMore={pageNum <= Math.ceil(movieData?.total / 25)}
-                    loader={<Spinner />}
-                >
-                    {movieData?.documents?.map((item, index) => (
-                        <MovieCard key={index} data={item}
-                            initStatus={true}
-                            crossCheck={false}
-                        />
-                    ))}
-                </InfiniteScroll>
+            {
+                !loading &&
+                <InfiniteScrollComponent
+                    movieData={movieData?.documents}
+                    fetchNextPageData={fetchNextPageData}
+                    pageNum={pageNum}
+                    total_pages={Math.ceil(movieData?.total / 25)}
+                    initStatus={true}
+                    crossCheck={false}
+                />
             }
         </div>
     );
