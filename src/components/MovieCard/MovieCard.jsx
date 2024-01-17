@@ -42,12 +42,12 @@ const MovieCard = ({ data, initStatus }) => {
     }
 
     const deleteMovieDocFromAppwrite = () => {
-        setIsChecked(false)
+
         console.log(movieData);
         const { slug } = movieData.moviesObject[data.id]
         movieService.deleteMovieDoc(slug)
             .then((isDeleted) => {
-
+                setIsChecked(false)
                 console.log("MovieCard :: deletmovieDocFA :: response", isDeleted)
                 deleteMovieInStore()
             })
@@ -58,23 +58,21 @@ const MovieCard = ({ data, initStatus }) => {
         const oldTotal = movieData.total + 1;
         const oldMovieObject = { ...movieData.moviesObject };
         oldMovieObject[movie.id] = {
-            title: movie.title,
-            poster_path: movie.poster_path,
             id: movie.id,
-            user_id: movie.user_id,
             slug: movie.$id
         }
         dispatch(setMovieData({ total: oldTotal, moviesObject: oldMovieObject }))
     }
 
     const addMovieDocInAppwrite = () => {
-        setIsChecked(true)
+
         movieService.createMovieDoc({
             title: data.title,
             poster_path: data.poster_path,
             id: data.id,
             user_id: userData.$id
         }).then((movie) => {
+            setIsChecked(true)
             console.log("create doc response : ", movie)
             addMovieInStore(movie);
         })

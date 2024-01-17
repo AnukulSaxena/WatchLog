@@ -50,10 +50,7 @@ function App() {
       .then(response => {
         const moviesObject = response.documents.reduce((acc, movie) => {
           acc[movie.id] = {
-            title: movie.title,
-            poster_path: movie.poster_path,
             id: movie.id,
-            user_id: movie.user_id,
             slug: movie.$id
           };
           return acc;
