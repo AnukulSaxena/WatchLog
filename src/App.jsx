@@ -91,7 +91,7 @@ function App() {
     <div className='dark:bg-neutral-700 min-h-screen pt-14'>
       {loading && <Spinner height='h-96' />}
       <InfiniteScroll
-        className='py-10 flex flex-wrap justify-center gap-7'
+        className='py-10 flex flex-wrap justify-center gap-3'
         dataLength={movieData?.results?.length || []}
         next={fetchNextPageData}
         hasMore={pageNum <= movieData?.total_pages}
@@ -101,6 +101,7 @@ function App() {
           return <MovieCard
             key={index}
             data={item}
+            initStatus={false}
           />
         })}
       </InfiniteScroll>

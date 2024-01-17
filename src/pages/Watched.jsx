@@ -50,7 +50,7 @@ function Watched() {
                     loader={<Spinner />}
                 >
                     {movieData?.documents?.map((item, index) => (
-                        <MovieCard key={index} data={item} />
+                        <MovieCard key={index} data={item} initStatus={true} />
                     ))}
                 </InfiniteScroll>
             }

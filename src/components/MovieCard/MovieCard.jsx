@@ -6,10 +6,10 @@ import movieService from '../../appwrite/movieConfig.js';
 import { setMovieData } from '../../store/movieSlice.js';
 
 
-const MovieCard = ({ data }) => {
+const MovieCard = ({ data, initStatus }) => {
     const { url } = useSelector((state) => state.home);
     const posterUrl = url.poster + data.poster_path;
-    const [isChecked, setIsChecked] = useState(false);
+    const [isChecked, setIsChecked] = useState(initStatus);
     const { status, userData } = useSelector(state => state.auth)
     const { movieData } = useSelector(state => state.movie)
     const movieMode = useSelector(state => state.movie.mode)
