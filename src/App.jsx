@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import './App.css';
 import InfiniteScroll from 'react-infinite-scroll-component';
-import { MovieCard, Spinner } from './components/index.js';
+import { MovieCard, Spinner } from './components';
 import { fetchDataFromApi } from './utils/api';
 import { useDispatch } from 'react-redux';
 import { getApiConfiguration } from './store/homeSlice.js';
