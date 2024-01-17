@@ -38,7 +38,7 @@ const MovieCard = ({ data, initStatus }) => {
             delete oldMovieObject[movieIdToRemove];
             dispatch(setMovieData({ total: oldTotal, moviesObject: oldMovieObject }))
         }
-        setIsChecked(false)
+
     }
 
     const deleteMovieDocFromAppwrite = () => {
@@ -46,6 +46,7 @@ const MovieCard = ({ data, initStatus }) => {
         const { slug } = movieData.moviesObject[data.id]
         movieService.deleteMovieDoc(slug)
             .then((isDeleted) => {
+                setIsChecked(false)
                 console.log("MovieCard :: deletmovieDocFA :: response", isDeleted)
                 deleteMovieInStore()
             })
