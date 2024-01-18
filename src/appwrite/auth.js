@@ -40,9 +40,8 @@ class AuthService {
             return await this.account.get();
         } catch (error) {
             console.log("Appwrite serive :: getCurrentUser :: error", error);
+            throw error
         }
-
-        return null;
     }
 
     async logoutAccount() {
@@ -52,6 +51,7 @@ class AuthService {
 
         } catch (error) {
             console.log("Appwrite serive :: logout :: error", error);
+            throw error
         }
     }
 

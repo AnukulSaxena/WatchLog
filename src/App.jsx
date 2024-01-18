@@ -14,37 +14,61 @@ function App() {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(true);
 
-  const fetchApiConfig = () => {
-    fetchDataFromApi("/configuration").then((res) => {
-      console.log("confid data", res);
-
-      checkStatus()
-
-      const url = {
-        poster: res.images.secure_base_url + "w342",
-      };
-      dispatch(getApiConfiguration(url));
-    });
+  const fetchApiConfig = async () => {
+    return
   };
 
+  // .then((res) => {
+  //   console.log("confid data", res);
+  //   checkStatus()
 
-  const checkStatus = () => {
-    authService.getCurrentUser()
-      .then((userData) => {
-        console.log("App :: Getting User :: userData ", userData)
-        if (userData) {
-          dispatch(login(userData))
-        } else {
-          dispatch(logout())
-        }
-      })
-      .catch(error => {
-        console.log("useEffect :: checkStatus :: error ", error)
-      }).finally(() => setLoading(false))
+  //   const url = {
+  //     poster: res.images.secure_base_url + "w342",
+  //   };
+  //   dispatch(getApiConfiguration(url));
+  // });
+
+
+  const checkStatus = async () => {
+    return
+  }
+
+  // .then((userData) => {
+  //   console.log("App :: Getting User :: userData ", userData)
+  //   if (userData) {
+  //     
+  //   }
+  // })
+  // .catch(error => {
+  //   console.log("useEffect :: checkStatus :: error ", error)
+  // })
+
+
+
+  function handleResponse(response) {
+    if (response[0].status === 'fulfilled') {
+      console.log(response)
+      const url = {
+        poster: response[0].value.images.secure_base_url + "w342",
+      };
+      dispatch(getApiConfiguration(url));
+    }
+    if (response[1].status === 'fulfilled') {
+      dispatch(login(response[1].value))
+    } else {
+      dispatch(logout())
+    }
   }
 
   useEffect(() => {
-    fetchApiConfig();
+    Promise.allSettled([
+      fetchDataFromApi("/configuration"),
+      authService.getCurrentUser(),
+    ])
+      .then((response) => {
+        handleResponse(response);
+      }).finally(() => setLoading(false))
+
 
   }, []);
 
