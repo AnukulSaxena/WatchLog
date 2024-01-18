@@ -12,6 +12,7 @@ function Watched() {
 
 
     useEffect(() => {
+        window.scrollTo(0, 0);
         if (status) {
             movieService.getMovieDocs(userData.$id, 25, 0)
                 .then(response => {

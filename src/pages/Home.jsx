@@ -40,6 +40,7 @@ function Home() {
     }
 
     useEffect(() => {
+        window.scrollTo(0, 0);
         if (status) {
             Promise.all([
                 fetchDataFromApi(`/discover/movie`, { page: pageNum }),
