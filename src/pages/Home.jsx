@@ -15,48 +15,54 @@ function Home() {
     const fetchNextPageData = () => {
         fetchDataFromApi(`/discover/movie`, { page: pageNum })
             .then((res) => {
-                setMovieData((prevData) => ({
-                    ...res,
-                    results: [...prevData.results, ...res.results],
-                }));
+                if (movieData) {
+                    setMovieData((prevData) => ({
+                        ...res, results: [...prevData.results, ...res.results],
+                    }));
+                } else {
+                    setMovieData(res)
+                }
                 setPageNum((prev) => (prev + 1));
+                setLoading(false);
             });
     };
 
-    const fetchInitialData = async () => {
-        fetchDataFromApi('/discover/movie', '').then((res) => {
-            console.log("Home :: fetchInitialData :: response ", res);
-            setMovieData(res);
-            setPageNum((prev) => prev + 1);
-            setLoading(false)
-        });
-    };
 
-
-    const getMovieStateData = () => {
-        movieService.getMovieDocs(userData.$id, 10000, 0)
-            .then(response => {
-                console.log("Home :: getMovieState :: response", response)
-                const moviesObject = response.documents.reduce((acc, movie) => {
-                    acc[movie.id] = {
-                        id: movie.id,
-                        slug: movie.$id
-                    };
-                    return acc;
-                }, {});
-                dispatch(setMovieDataState({ total: response.total, moviesObject }));
-                console.log("setMovieState :: getMovieDOcs :: then ")
-            })
-            .finally(() => fetchInitialData())
+    function setMovieDataInStore(watchedMovieData) {
+        const moviesObject = watchedMovieData.documents.reduce((acc, movie) => {
+            acc[movie.id] = {
+                id: movie.id,
+                slug: movie.$id
+            };
+            return acc;
+        }, {});
+        dispatch(setMovieDataState({ total: watchedMovieData.total, moviesObject }));
     }
-
 
     useEffect(() => {
         if (status) {
-            getMovieStateData()
+            Promise.all([
+                fetchDataFromApi(`/discover/movie`, { page: pageNum }),
+                movieService.getMovieDocs(userData.$id, 10000, 0)
+            ])
+                .then((response) => {
+                    console.log("Home :: Promise.all :: Response", response);
+
+                    setMovieDataInStore(response[1])
+                    setMovieData(response[0]);
+                    setPageNum((prev) => (prev + 1));
+
+                })
+                .catch((error) => {
+                    console.error("Home :: Promise.all :: Error", error)
+                }).finally(() => {
+                    console.log("Home :: Promise All :: finally")
+                    setLoading(false);
+                })
         } else {
-            fetchInitialData()
+            fetchNextPageData()
         }
+
 
     }, [status])
     return (
@@ -71,6 +77,7 @@ function Home() {
                     initStatus={false}
                     crossCheck={true}
                 />
+
             }
         </div>
     )
