@@ -17,6 +17,7 @@ const Switcher = () => {
             <label className=' inline-flex cursor-pointer items-center justify-center rounded-md bg-white p-1'>
                 <input
                     type='checkbox'
+                    name='Switcher'
                     className='sr-only'
                     checked={isChecked}
                     onChange={handleCheckboxChange}

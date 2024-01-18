@@ -63,9 +63,9 @@ const MovieCard = ({ data, initStatus, crossCheck }) => {
         dispatch(setMovieData({ total: oldTotal, moviesObject: oldMovieObject }))
     }
 
-    const addMovieDocInAppwrite = () => {
+    const addMovieDocInAppwrite = async () => {
         setIsChecked(true)
-        movieService.createMovieDoc({
+        await movieService.createMovieDoc({
             title: data.title,
             poster_path: data.poster_path,
             id: data.id,

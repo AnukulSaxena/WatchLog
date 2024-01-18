@@ -11,7 +11,7 @@ function WindowFooter() {
                     <div className="flex-1 flex gap-40 items-center justify-center">
                         <Switcher />
                         <div className="">
-                            <div className="rounded-lg bg-white text-lg py-1 px-3">{movieData?.total}</div>
+                            <div className="rounded-lg bg-white text-lg py-1 px-3">{movieData?.total || 0}</div>
                         </div>
                     </div>
 
