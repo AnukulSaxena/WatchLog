@@ -1,96 +1,64 @@
 import React, { useEffect, useState } from 'react';
 import './styles.css';
 import { useSelector, useDispatch } from 'react-redux';
-import movieService from '../../appwrite/movieConfig.js';
-import { setMovieData } from '../../store/movieSlice.js';
+import movieService from '../../render/movieconfig.js';
+import { useNavigate } from 'react-router-dom';
 
 
 const MovieCard = ({ data, initStatus, crossCheck }) => {
-    const { url } = useSelector((state) => state.home);
+    const { url, mediaType } = useSelector((state) => state.home);
     const posterUrl = url.poster + data.poster_path;
     const [isChecked, setIsChecked] = useState(initStatus);
     const { status, userData } = useSelector(state => state.auth)
     const { movieData, mode } = useSelector(state => state.movie)
     const dispatch = useDispatch()
+    const navigate = useNavigate()
 
-    const findMovieById = (moviesObject, movieId) => {
-        return moviesObject.hasOwnProperty(movieId);
-    };
 
-    useEffect(() => {
-        if (status && crossCheck) {
-            const targetMovieId = data.id;
-            if (movieData) {
-                const movieExists = findMovieById(movieData.moviesObject, targetMovieId);
-                if (movieExists) setIsChecked(true)
-            }
-        }
-    }, [])
-
-    const deleteMovieInStore = () => {
-        const oldTotal = movieData.total - 1;
-        const oldMovieObject = { ...movieData.moviesObject };
-        const movieIdToRemove = data.id;
-        if (oldMovieObject.hasOwnProperty(movieIdToRemove)) {
-            delete oldMovieObject[movieIdToRemove];
-            dispatch(setMovieData({ total: oldTotal, moviesObject: oldMovieObject }))
-        }
-
+    const deleteMovieDocInRender = async () => {
+        console.log("movieCard :: DMDFA :: crosscheck ", crossCheck, " :: slug ", { id: data.id, user_id: userData.$id });
+        const isDeleted = await movieService.deleteMovieDoc({
+            id: data.id,
+            user_id: userData.$id
+        })
+        setIsChecked(false)
+        console.log("MovieCard :: deletmovieDocFA :: response", isDeleted)
     }
 
-    const deleteMovieDocFromAppwrite = () => {
-
-
-        const slug = crossCheck ? movieData?.moviesObject[data?.id]?.slug : data.$id;
-
-        console.log("movieCard :: DMDFA :: crosscheck ", crossCheck, " :: slug ", slug);
-        movieService.deleteMovieDoc(slug)
-            .then((isDeleted) => {
-                setIsChecked(false)
-                console.log("MovieCard :: deletmovieDocFA :: response", isDeleted)
-                deleteMovieInStore()
-            })
-    }
-
-    const addMovieInStore = (movie) => {
-        console.log("add movie in store :: movie data ", movie)
-        const oldTotal = movieData.total + 1;
-        const oldMovieObject = { ...movieData.moviesObject };
-        oldMovieObject[movie.id] = {
-            id: movie.id,
-            slug: movie.$id
-        }
-        dispatch(setMovieData({ total: oldTotal, moviesObject: oldMovieObject }))
-    }
-
-    const addMovieDocInAppwrite = async () => {
-        setIsChecked(true)
-        await movieService.createMovieDoc({
+    const addMovieDocInRender = async () => {
+        const movie = await movieService.createMovieDoc({
             title: data.title,
             poster_path: data.poster_path,
             id: data.id,
             user_id: userData.$id
-        }).then((movie) => {
-
-            console.log("Moviecard :: addmovieInAppwrite :: response ", movie)
-            addMovieInStore(movie);
         })
+        setIsChecked(true)
+        console.log("Moviecard :: addmovieInAppwrite :: response ", movie)
+
     }
 
     const handleCheckboxToggle = () => {
-        if (status) {
-            if (isChecked) {
-                mode ? deleteMovieDocFromAppwrite() : console.log("Please Change the Mode");
-            } else {
-                !mode ? addMovieDocInAppwrite() : console.log("Please Change the Mode");
-            }
-        }
+        // if (status) {
+        //     if (isChecked) {
+        //         mode ? deleteMovieDocInRender() : console.log("Please Change the Mode");
+        //     } else {
+        //         !mode ? addMovieDocInRender() : console.log("Please Change the Mode");
+        //     }
+        // }
     };
 
+    const handleImgClick = () => {
+        navigate(`/${mediaType}/${data.id}`)
+    }
+
     return (
-        <div className=" w-48 relative">
+        <div className=" w-48 relative ">
             <div className="w-auto">
-                <img className="rounded-xl" src={posterUrl} alt={data.poster_path} />
+                <img className="rounded-xl hover:cursor-pointer"
+                    src={posterUrl}
+                    alt={data.poster_path}
+                    onClick={handleImgClick}
+                />
             </div>
             <p className="truncate text-center mt-3 text-lg dark:text-zinc-300">
                 {data.title}

@@ -28,28 +28,28 @@ function Home() {
     };
 
 
-    function setMovieDataInStore(watchedMovieData) {
-        const moviesObject = watchedMovieData.documents.reduce((acc, movie) => {
-            acc[movie.id] = {
-                id: movie.id,
-                slug: movie.$id
-            };
-            return acc;
-        }, {});
-        dispatch(setMovieDataState({ total: watchedMovieData.total, moviesObject }));
-    }
+    // function setMovieDataInStore(watchedMovieData) {
+    //     const moviesObject = watchedMovieData.documents.reduce((acc, movie) => {
+    //         acc[movie.id] = {
+    //             id: movie.id,
+    //             slug: movie.$id
+    //         };
+    //         return acc;
+    //     }, {});
+    //     dispatch(setMovieDataState({ total: watchedMovieData.total, moviesObject }));
+    // }
 
     useEffect(() => {
         window.scrollTo(0, 0);
         if (status) {
             Promise.all([
                 fetchDataFromApi(`/discover/movie`, { page: pageNum }),
-                movieService.getMovieDocs(userData.$id, 10000, 0)
+                // movieService.getMovieDocs(userData.$id, 10000, 0)
             ])
                 .then((response) => {
                     console.log("Home :: Promise.all :: Response", response);
 
-                    setMovieDataInStore(response[1])
+                    // setMovieDataInStore(response[1])
                     setMovieData(response[0]);
                     setPageNum((prev) => (prev + 1));
 
@@ -76,7 +76,7 @@ function Home() {
                     pageNum={pageNum}
                     total_pages={movieData?.total_pages}
                     initStatus={false}
-                    crossCheck={true}
+                    crossCheck={false}
                 />
 
             }

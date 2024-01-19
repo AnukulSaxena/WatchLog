@@ -4,11 +4,15 @@ const homeSlice = createSlice({
     name: "home",
     initialState: {
         url: {},
+        mediaType: "movie"
     },
     reducers: {
         getApiConfiguration: (state, action) => {
             state.url = action.payload;
         },
+        setMediaType: (state, action) => {
+            state.mediaType = action.payload;
+        }
     },
 });
 

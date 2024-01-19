@@ -50,6 +50,7 @@ function App() {
       console.log(response)
       const url = {
         poster: response[0].value.images.secure_base_url + "w342",
+        backdrop: response[0].value.images.secure_base_url + "original"
       };
       dispatch(getApiConfiguration(url));
     }

@@ -8,9 +8,11 @@ const movieSlice = createSlice({
     },
     reducers: {
         setMovieData: (state, action) => {
+            console.log("movieSlice :: setMovieData :: action", action)
             state.movieData = action.payload;
         },
         setMode: (state, action) => {
+            console.log("movieSlice :: setMode :: action", action)
             state.mode = action.payload;
         }
     }

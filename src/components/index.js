@@ -1,15 +1,15 @@
 import Footer from './Footer/Footer.jsx'
 import Header from './Header/Header.jsx'
 import MovieCard from './MovieCard/MovieCard.jsx'
-import SignupForm from './SignupForm.jsx'
-import Input from './Input.jsx'
-import Button from './Button.jsx'
-import LoginForm from './LoginForm.jsx'
-import Spinner from './Spinner.jsx'
-import Switcher from './Switcher.jsx'
+import SignupForm from './Other/SignupForm.jsx'
+import Input from './Other/Input.jsx'
+import Button from './Other/Button.jsx'
+import LoginForm from './Other/LoginForm.jsx'
+import Spinner from './Other/Spinner.jsx'
+import Switcher from './Other/Switcher.jsx'
 import LogoutBtn from './Header/LogoutBtn.jsx'
-import AuthLayout from './AuthLayout.jsx'
-import InfiniteScrollComponent from './InfiniteScrollComponent.jsx'
+import AuthLayout from './Other/AuthLayout.jsx'
+import InfiniteScrollComponent from './Other/InfiniteScrollComponent.jsx'
 
 
 export {

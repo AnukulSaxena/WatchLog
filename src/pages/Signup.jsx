@@ -1,5 +1,6 @@
 import React from 'react'
 import { SignupForm } from '../components/index.js'
+import { useEffect } from 'react';
 
 function Signup() {
     useEffect(() => {

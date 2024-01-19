@@ -1,6 +1,6 @@
 import React from 'react'
 import InfiniteScroll from 'react-infinite-scroll-component'
-import { MovieCard, Spinner } from '../components'
+import { MovieCard, Spinner } from '..'
 
 function InfiniteScrollComponent({
     movieData,

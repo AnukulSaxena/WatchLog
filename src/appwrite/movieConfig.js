@@ -80,4 +80,3 @@ class MovieService {
 const movieService = new MovieService();
 
 export default movieService;
-

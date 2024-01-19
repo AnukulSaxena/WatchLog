@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
-import { setMode } from '../store/movieSlice.js'
+import { setMode } from '../../store/movieSlice.js'
 
 const Switcher = () => {
     const [isChecked, setIsChecked] = useState(false)

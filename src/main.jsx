@@ -2,15 +2,12 @@ import React, { StrictMode } from 'react'
 import ReactDOM from 'react-dom/client'
 import './index.css'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
-import Playlist from './pages/Playlist.jsx'
-import Login from './pages/Login.jsx'
-import Signup from './pages/Signup.jsx'
-import Watched from './pages/Watched.jsx'
-import App from './App.jsx'
-import Home from './pages/Home.jsx'
 import { AuthLayout } from './components/index.js'
 import { Provider } from 'react-redux'
 import { store } from './store/store.js'
+import App from './App.jsx'
+import { Detail, Home, Login, Playlist, Signup, Watched } from './pages'
+import MovieCredits from './pages/MovieCredits.jsx'
 
 const router = createBrowserRouter([
   {
@@ -50,6 +47,22 @@ const router = createBrowserRouter([
         element: (
           <AuthLayout authentication={false}>
             <Signup />
+          </AuthLayout>
+        )
+      },
+      {
+        path: "/:mediaType/:id",
+        element: (
+          <AuthLayout authentication>
+            <Detail />
+          </AuthLayout>
+        )
+      },
+      {
+        path: "/movie_credits/:id",
+        element: (
+          <AuthLayout authentication>
+            <MovieCredits />
           </AuthLayout>
         )
       }

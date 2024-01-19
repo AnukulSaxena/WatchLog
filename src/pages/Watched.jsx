@@ -1,54 +1,49 @@
 import React, { useEffect, useState } from 'react'
-import movieService from '../appwrite/movieConfig.js'
+import movieService from '../render/movieconfig';
 import { useSelector } from 'react-redux'
 import { InfiniteScrollComponent } from '../components'
 
 function Watched() {
     const { status, userData } = useSelector(state => state.auth);
     const [loading, setLoading] = useState(true);
-    const [movieData, setMovieData] = useState(null);
+    const [movieData, setMovieData] = useState({
+        success: true,
+        data: [],
+        totalCount: 0
+    });
     const [pageNum, setPageNum] = useState(1);
 
-
+    async function getNextPageData() {
+        const response = await movieService.getPaginatedMovieDocs({
+            user_id: userData?.$id,
+            pageNum,
+            limit: 25
+        })
+        console.log("Watched :: getNextPageData :: response", response)
+        setPageNum(prev => prev + 1);
+        setMovieData((prevData) => ({
+            ...response, data: [...prevData.data, ...response.data],
+        }));
+        setLoading(false);
+    }
 
     useEffect(() => {
         window.scrollTo(0, 0);
         if (status) {
-            movieService.getMovieDocs(userData.$id, 25, 0)
-                .then(response => {
-                    console.log("Watched :: useEffect :: response ", response);
-                    setMovieData(response);
-                    setLoading(false);
-                });
+            getNextPageData();
         }
     }, []);
 
-    const fetchNextPageData = () => {
-        movieService.getMovieDocs(userData.$id, 25, 25 * pageNum)
-            .then((res) => {
-                setMovieData((prevData) => ({
-                    ...res,
-                    documents: [...prevData.documents, ...res.documents],
-                }));
-                setPageNum((prev) => (prev + 1));
-            })
-            .then(() => {
-                console.log("fetchNextPage :: moviesData", movieData);
-            })
-            .catch((error) => {
-                console.error("Error fetching next page:", error);
-            });
-    };
 
     return (
         <div className='dark:bg-neutral-700 min-h-screen pt-14'>
             {
                 !loading &&
                 <InfiniteScrollComponent
-                    movieData={movieData?.documents}
-                    fetchNextPageData={fetchNextPageData}
+                    movieData={movieData?.data}
+                    fetchNextPageData={getNextPageData}
                     pageNum={pageNum}
-                    total_pages={Math.ceil(movieData?.total / 25)}
+                    total_pages={Math.ceil(movieData?.totalCount / 25)}
                     initStatus={true}
                     crossCheck={false}
                 />
