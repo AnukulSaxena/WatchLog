@@ -22,7 +22,7 @@ function Watched() {
         console.log("Watched :: getNextPageData :: response", response)
         setPageNum(prev => prev + 1);
         setMovieData((prevData) => ({
-            ...response, data: [...prevData.data, ...response.data],
+            ...response, data: [...prevData?.data, ...response?.data],
         }));
         setLoading(false);
     }
