@@ -3,6 +3,7 @@ import './styles.css';
 import { useSelector, useDispatch } from 'react-redux';
 import movieService from '../../render/movieconfig.js';
 import { useNavigate } from 'react-router-dom';
+import { Img } from '../../components'
 
 
 const MovieCard = ({ data, initStatus, crossCheck }) => {
@@ -38,13 +39,13 @@ const MovieCard = ({ data, initStatus, crossCheck }) => {
     }
 
     const handleCheckboxToggle = () => {
-        // if (status) {
-        //     if (isChecked) {
-        //         mode ? deleteMovieDocInRender() : console.log("Please Change the Mode");
-        //     } else {
-        //         !mode ? addMovieDocInRender() : console.log("Please Change the Mode");
-        //     }
-        // }
+        if (true) {
+            if (isChecked) {
+                mode ? deleteMovieDocInRender() : console.log("Please Change the Mode");
+            } else {
+                !mode ? addMovieDocInRender() : console.log("Please Change the Mode");
+            }
+        }
     };
 
     const handleImgClick = () => {
@@ -53,11 +54,12 @@ const MovieCard = ({ data, initStatus, crossCheck }) => {
 
     return (
         <div className=" w-48 relative ">
-            <div className="w-auto">
-                <img className="rounded-xl hover:cursor-pointer"
+            <div className="w-auto min-h-72 "
+                onClick={handleImgClick}
+            >
+                <Img className="rounded-xl hover:cursor-pointer"
                     src={posterUrl}
-                    alt={data.poster_path}
-                    onClick={handleImgClick}
+
                 />
             </div>
             <p className="truncate text-center mt-3 text-lg dark:text-zinc-300">

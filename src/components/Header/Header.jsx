@@ -3,6 +3,7 @@ import { Link, NavLink } from "react-router-dom";
 import { useSelector } from 'react-redux'
 import LogoutBtn from "./LogoutBtn";
 import { Switcher } from '../index.js'
+import Search from "./Search.jsx";
 
 const Header = () => {
     const authStatus = useSelector((state) => state.auth.status)
@@ -61,12 +62,7 @@ const Header = () => {
         <header >
             <nav className="bg-white fixed top-0 z-10 w-full border-gray-200 px-4 lg:px-6 py-4 dark:bg-neutral-800">
                 <div className="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
-                    <div className="flex gap-5">
-                        <Link to="/" className="flex items-center">
-                            <span className="self-center text-xl font-semibold whitespace-nowrap dark:text-white">WatchLog</span>
-                        </Link>
-
-                    </div>
+                    <Search />
                     <div className="flex items-center">
                         <button
                             onClick={toggleMenu}

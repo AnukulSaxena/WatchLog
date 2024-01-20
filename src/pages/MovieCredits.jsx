@@ -10,6 +10,7 @@ function MovieCredits() {
     const { mode } = useSelector(state => state.movie)
 
     useEffect(() => {
+        window.scrollTo(0, 0);
         fetchDataFromApi(`/person/${id}/movie_credits`)
             .then((res) => {
                 if (mode) {

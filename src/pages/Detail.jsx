@@ -4,6 +4,7 @@ import { fetchDataFromApi } from '../utils/api';
 import { useSelector } from 'react-redux';
 import Cast from '../components/Other/Cast';
 import Crew from '../components/Other/Crew';
+import { MovieDetail, Img } from '../components';
 function Detail() {
     const { mediaType, id } = useParams()
     const [movieData, setMovieData] = useState(null);
@@ -25,38 +26,37 @@ function Detail() {
     };
 
     useEffect(() => {
+        window.scrollTo(0, 0);
         fetchMovieData()
     }, [])
 
 
     return (
-        <div className='px-5 pt-24'>
-            <div className=' bg-red-500 p-5 sm:flex gap-5 w-full '>
-                <div className=" w-full sm:max-w-80">
-                    <img
+        <div className='px-5 pt-24 dark:bg-neutral-700 lg:px-20 xl:px-40'>
+            <div className=' bg-neutral-700 p-5  lg:flex gap-5 w-full '>
+                <div className=" w-full lg:max-w-80">
+                    <Img
                         className=' h-full'
                         src={`${imageUrl}`}
-                        alt={`${movieData?.poster_path}`}
+
                     />
                 </div>
-                <div className=" w-full sm:flex-grow">
-                    <div>
-                        {movieData?.title}
-                    </div>
-                    <div>{movieData?.overview}</div>
-                    <div>sdfsdf</div>
-
-                </div>
-
+                <MovieDetail
+                    movieData={movieData}
+                />
             </div>
-            <div className=' bg-blue-500 min-h-screen w-full flex-row p-5'>
-                <div className='w-full h-80'>
+            <div className=' bg-neutral-700 h-fit row-auto w-full p-5'>
+
+                <div className='w-full'>
+
                     <Cast
                         data={creditData?.cast}
                         loading={loading}
                     />
                 </div>
-                <div className='w-full h-80'>
+                <div className='w-full mt-10'>
+
+
                     <Crew
                         data={creditData?.crew}
                         loading={loading}

@@ -6,8 +6,7 @@ import { AuthLayout } from './components/index.js'
 import { Provider } from 'react-redux'
 import { store } from './store/store.js'
 import App from './App.jsx'
-import { Detail, Home, Login, Playlist, Signup, Watched } from './pages'
-import MovieCredits from './pages/MovieCredits.jsx'
+import { Detail, Home, Login, Playlist, Signup, Watched, MovieCredits } from './pages'
 
 const router = createBrowserRouter([
   {
@@ -65,7 +64,8 @@ const router = createBrowserRouter([
             <MovieCredits />
           </AuthLayout>
         )
-      }
+      },
+
     ]
   }
 ])

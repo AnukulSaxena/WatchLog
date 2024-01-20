@@ -18,6 +18,11 @@ function InfiniteScrollComponent({
                 next={fetchNextPageData}
                 hasMore={pageNum <= total_pages}
                 loader={<Spinner />}
+                endMessage={
+                    <p className='text-center dark:text-white'>
+                        <b>Yay! You have seen it all</b>
+                    </p>
+                }
             >
                 {movieData?.map((item, index) => {
                     return <MovieCard

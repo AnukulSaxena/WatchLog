@@ -10,7 +10,9 @@ import Switcher from './Other/Switcher.jsx'
 import LogoutBtn from './Header/LogoutBtn.jsx'
 import AuthLayout from './Other/AuthLayout.jsx'
 import InfiniteScrollComponent from './Other/InfiniteScrollComponent.jsx'
-
+import Rating from './Other/Rating.jsx'
+import MovieDetail from './Other/MovieDetail.jsx'
+import Img from './Other/Img.jsx'
 
 export {
     Footer,
@@ -24,6 +26,9 @@ export {
     Switcher,
     LogoutBtn,
     AuthLayout,
-    InfiniteScrollComponent
+    InfiniteScrollComponent,
+    Rating,
+    MovieDetail,
+    Img
 }
 
