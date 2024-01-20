@@ -25,8 +25,8 @@ function MovieDetail({ movieData }) {
                 <p className='mb-3 text-gray-500 text-lg dark:text-gray-400'>{movieData?.overview}</p>
             </div>
 
-            <div className='mb-4'>
-                <h4 className="mb-4 text-xl font-extrabold leading-none tracking-tight text-gray-900 lg:text-2xl dark:text-white">Genre</h4>
+            <div className='my-10'>
+                <h4 className="mb-6 text-xl font-extrabold leading-none tracking-tight text-gray-900 lg:text-2xl dark:text-white">Genre</h4>
                 <div>
                     {movieData?.genres?.map((genre) => {
                         return (
@@ -41,9 +41,9 @@ function MovieDetail({ movieData }) {
                     id={movieData?.id}
                 />
             </div>
-            <div className=" flex text-xl my-5">
+            <div className=" md:flex text-xl h my-5 gap-3">
                 {movieData?.status && (
-                    <div className="mr-5 ">
+                    <div className="md:mr-5 my-2 ">
                         <span className=" dark:text-white">
                             Status:{" "}
                         </span>
@@ -53,7 +53,7 @@ function MovieDetail({ movieData }) {
                     </div>
                 )}
                 {movieData?.release_date && (
-                    <div className="mx-5">
+                    <div className="md:mx-5 my-2">
                         <span className="dark:text-white">
                             Release Date:{" "}
                         </span>
@@ -65,7 +65,7 @@ function MovieDetail({ movieData }) {
                     </div>
                 )}
                 {movieData?.runtime && (
-                    <div className="mx-5">
+                    <div className="md:mx-5 my-2">
                         <span className=" dark:text-white">
                             Runtime:{" "}
                         </span>

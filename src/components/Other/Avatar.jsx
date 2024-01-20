@@ -12,12 +12,12 @@ function Avatar({ imgUrl, item }) {
     }
 
     return (
-        <div key={item.id} className="text-center max-w-20 md:max-w-32 text-white">
+        <div key={item.id} className="text-center min-w-20 max-w-20 md:min-w-32  text-white">
             <div
                 onClick={handleClick}
 
-                className="md:w-32 rounded-full md:min-h-48 hover:cursor-pointer overflow-hidden mb-3">
-                <Img src={imgUrl} />
+                className="md:w-32  md:min-h-48 hover:cursor-pointer overflow-hidden mb-3">
+                <Img src={imgUrl} className={"rounded-xl"} />
             </div>
             <p className="truncate text-center mt-3 md:text-xl dark:text-zinc-300">{item.name}</p>
             <div className="truncate text-center mt-1 px-2 md:px-5 text-md dark:text-zinc-400">{item.character || item.job}</div>

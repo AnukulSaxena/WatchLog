@@ -33,10 +33,10 @@ function Detail() {
 
     return (
         <div className='px-5 pt-24 dark:bg-neutral-700 lg:px-20 xl:px-40'>
-            <div className=' bg-neutral-700 p-5  lg:flex gap-5 w-full '>
-                <div className=" w-full lg:max-w-80">
+            <div className=' bg-neutral-700 p-5 lg:flex gap-5  w-full '>
+                <div className=" lg:min-h-[500px] ">
                     <Img
-                        className=' h-full'
+                        className=' h-full lg:max-w-80 rounded-xl'
                         src={`${imageUrl}`}
 
                     />
