@@ -1,20 +1,20 @@
 import React from 'react'
 import Rating from './Rating'
 
-function MovieDetail({ movieData }) {
+function MovieDetail({ data }) {
     return (
         <div className=" w-full lg:flex-grow">
             <div className='my-5'>
 
                 <h1
                     className="flex items-center text-5xl font-extrabold dark:text-white">
-                    {movieData?.title}
+                    {data?.title || data?.name}
                 </h1>
             </div>
             <div>
 
                 <blockquote className="text-xl italic font-semibold text-gray-900 dark:text-white">
-                    <p>{movieData?.tagline}</p>
+                    <p>{data?.tagline}</p>
                 </blockquote>
 
             </div>
@@ -22,13 +22,13 @@ function MovieDetail({ movieData }) {
 
             <div>
                 <h4 className="mb-4 text-2xl font-extrabold leading-none tracking-tight text-gray-900 lg:text-3xl dark:text-white">Overview</h4>
-                <p className='mb-3 text-gray-500 text-lg dark:text-gray-400'>{movieData?.overview}</p>
+                <p className='mb-3 text-gray-500 text-lg dark:text-gray-400'>{data?.overview}</p>
             </div>
 
             <div className='my-10'>
                 <h4 className="mb-6 text-xl font-extrabold leading-none tracking-tight text-gray-900 lg:text-2xl dark:text-white">Genre</h4>
                 <div>
-                    {movieData?.genres?.map((genre) => {
+                    {data?.genres?.map((genre) => {
                         return (
                             <span key={genre?.id} className='bg-gray-100 text-gray-800 text-sm font-medium me-2 px-2.5 py-1 rounded dark:bg-neutral-900 dark:text-gray-300'> {genre?.name} </span>
                         )
@@ -37,41 +37,41 @@ function MovieDetail({ movieData }) {
             </div>
             <div>
                 <Rating
-                    movieRating={movieData?.vote_average}
-                    id={movieData?.id}
+                    movieRating={data?.vote_average}
+                    id={data?.id}
                 />
             </div>
             <div className=" md:flex text-xl h my-5 gap-3">
-                {movieData?.status && (
+                {data?.status && (
                     <div className="md:mr-5 my-2 ">
                         <span className=" dark:text-white">
                             Status:{" "}
                         </span>
                         <span className="dark:text-white opacity-50">
-                            {movieData.status}
+                            {data.status}
                         </span>
                     </div>
                 )}
-                {movieData?.release_date && (
+                {data?.release_date && (
                     <div className="md:mx-5 my-2">
                         <span className="dark:text-white">
                             Release Date:{" "}
                         </span>
                         <span className="dark:text-white opacity-50">
                             {
-                                movieData.release_date
+                                data.release_date
                             }
                         </span>
                     </div>
                 )}
-                {movieData?.runtime && (
+                {data?.runtime && (
                     <div className="md:mx-5 my-2">
                         <span className=" dark:text-white">
                             Runtime:{" "}
                         </span>
                         <span className=" dark:text-white opacity-50">
                             {
-                                movieData.runtime
+                                data.runtime
                             }
                         </span>
                     </div>

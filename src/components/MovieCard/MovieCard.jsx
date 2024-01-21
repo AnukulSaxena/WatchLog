@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import movieService from '../../render/movieconfig.js';
 import { useNavigate } from 'react-router-dom';
 import { Img, Rating, DropdownMenu, Toggle } from '../../components'
+import FakeImage from './FakeImage.jsx';
 
 
 const MovieCard = ({ data, initStatus, crossCheck }) => {
@@ -68,32 +69,46 @@ const MovieCard = ({ data, initStatus, crossCheck }) => {
             const targetKey = 'id';
             const targetValue = data.id;
             const foundObject = await movieData?.data?.find(obj => obj[targetKey] === targetValue);
+
             if (foundObject) {
                 setIsChecked(true);
+
             }
         }
         setLoading(false);
     }
 
     useEffect(() => {
-        checkStatus();
+        if (mediaType === "movie") {
+            checkStatus();
+        }
+
         return () => {
-            console.log("MovieCard :: UseEffect :: return")
+
+            setIsChecked(false)
         }
     }, [])
 
 
     return (
-        <div className=" w-48 max-h-72 relative">
-            <div
-                onClick={handleImgClick}
-            >
-                <Img
-                    className=" w-auto cursor-pointer rounded-xl z-0"
-                    src={posterUrl}
-                    alt={data.poster_path}
-                />
-            </div>
+        <div className=" w-48  relative">
+            {
+                data.poster_path ?
+                    <div
+                        className='min-h-72 max-h-72'
+                        onClick={handleImgClick}
+                    >
+                        <Img
+                            className=" w-auto cursor-pointer rounded-xl z-0"
+                            src={posterUrl}
+                            alt={data.poster_path}
+                        />
+                    </div>
+                    :
+                    <FakeImage
+                        title={data.title || data.name}
+                    />
+            }
             <DropdownMenu
                 className='absolute h-9  bottom-1 right-0'
             />
@@ -103,14 +118,14 @@ const MovieCard = ({ data, initStatus, crossCheck }) => {
             />
             {!loading &&
                 <div
-                    className='absolute h-10 cursor-pointer w-14 bottom-0 left-1'
+                    className='absolute h-10 cursor-pointer w-14 bottom-0 left-0'
                     onClick={handleCheckboxToggle}
                 >
                     <button
-                        className={`absolute bottom-1 left-0  inline-flex flex-shrink-0 h-6 w-11 border-2 border-transparent rounded-lg  transition-colors ease-in-out duration-200 focus:outline-none ${isChecked ? 'bg-neutral-500' : 'bg-gray-200'
+                        className={`absolute bottom-1 left-1  inline-flex flex-shrink-0 h-6 w-11 border-2 border-transparent rounded-lg  transition-colors ease-in-out duration-200 focus:outline-none ${isChecked ? 'bg-neutral-500' : 'bg-gray-200'
                             }`}
 
-                        aria-pressed={isChecked}
+
                     >
                         <span
                             className={`inline-block h-5 w-5 rounded-lg bg-neutral-800 shadow transform ring-0 transition-transform ease-in-out duration-200 ${isChecked ? 'translate-x-5' : 'translate-x-0'

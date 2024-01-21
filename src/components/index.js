@@ -6,7 +6,7 @@ import Input from './Other/Input.jsx'
 import Button from './Other/Button.jsx'
 import LoginForm from './Other/LoginForm.jsx'
 import Spinner from './Other/Spinner.jsx'
-import Switcher from './Other/Switcher.jsx'
+import Switcher from './Other/Switcher/Switcher.jsx'
 import LogoutBtn from './Header/LogoutBtn.jsx'
 import AuthLayout from './Other/AuthLayout.jsx'
 import InfiniteScrollComponent from './Other/InfiniteScrollComponent.jsx'
@@ -15,6 +15,7 @@ import MovieDetail from './Other/MovieDetail.jsx'
 import Img from './Other/Img.jsx'
 import DropdownMenu from './Other/DropDownMenu.jsx'
 import Toggle from './Other/Toggle.jsx'
+import MediaSwitcher from './Other/Switcher/MediaSwitcher.jsx'
 
 export {
     Footer,
@@ -33,6 +34,7 @@ export {
     MovieDetail,
     Img,
     DropdownMenu,
-    Toggle
+    Toggle,
+    MediaSwitcher
 }
 

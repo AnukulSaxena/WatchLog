@@ -1,15 +1,18 @@
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
-import { setMode } from '../../store/movieSlice.js'
+import { setMediaType } from '../../../store/homeSlice.js'
 
-const Switcher = () => {
-    const [isChecked, setIsChecked] = useState(false)
+const MediaSwitcher = () => {
+    const [isChecked, setIsChecked] = useState(true)
     const dispatch = useDispatch()
 
     const handleCheckboxChange = () => {
-        console.log(isChecked)
-        dispatch(setMode(!isChecked))
-        setIsChecked(!isChecked)
+        if (isChecked) {
+            dispatch(setMediaType("tv"))
+        } else {
+            dispatch(setMediaType("movie"))
+        }
+        setIsChecked(prev => !prev)
     }
 
     return (
@@ -23,18 +26,18 @@ const Switcher = () => {
                     onChange={handleCheckboxChange}
                 />
                 <span
-                    className={`flex items-center space-x-[6px] w-8 rounded py-1 px-3 text-sm font-medium ${!isChecked ? ' bg-neutral-500 ' : ''
+                    className={` space-x-[6px] w-8 rounded py-1 px-2 text-sm font-medium ${!isChecked ? ' bg-neutral-500 ' : ''
                         }`}
                 >
-                    +
+                    TV
                 </span>
                 <span
-                    className={`flex text-center space-x-[6px] w-8 rounded py-1  px-3 text-sm font-medium ${isChecked ? ' bg-neutral-500' : ''
+                    className={`flex text-center space-x-[6px] w-8 rounded py-1  pl-1 text-sm font-medium ${isChecked ? ' bg-neutral-500' : ''
                         }`}
-                >-</span>
+                >MV</span>
             </label>
         </div>
     )
 }
 
-export default Switcher
+export default MediaSwitcher

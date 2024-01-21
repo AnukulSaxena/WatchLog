@@ -3,18 +3,19 @@ import InfiniteScroll from 'react-infinite-scroll-component'
 import { MovieCard, Spinner } from '..'
 
 function InfiniteScrollComponent({
-    movieData,
+    data,
     fetchNextPageData,
     pageNum,
     total_pages,
     initStatus,
     crossCheck
 }) {
+
     return (
         <div>
             <InfiniteScroll
                 className='py-10 flex flex-wrap justify-center gap-3'
-                dataLength={movieData?.length || []}
+                dataLength={data?.length || []}
                 next={fetchNextPageData}
                 hasMore={pageNum <= total_pages}
                 loader={<Spinner />}
@@ -24,7 +25,7 @@ function InfiniteScrollComponent({
                     </p>
                 }
             >
-                {movieData?.map((item, index) => {
+                {data?.map((item, index) => {
                     return <MovieCard
                         key={index}
                         data={item}

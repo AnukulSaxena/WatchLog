@@ -7,19 +7,19 @@ import Crew from '../components/Other/Crew';
 import { MovieDetail, Img } from '../components';
 function Detail() {
     const { mediaType, id } = useParams()
-    const [movieData, setMovieData] = useState(null);
+    const [data, setData] = useState(null);
     const [loading, setLoading] = useState(true)
     const url = useSelector(state => state.home.url)
-    const imageUrl = url.backdrop + movieData?.poster_path;
+    const imageUrl = url.backdrop + data?.poster_path;
     const [creditData, setCreditData] = useState(null)
 
 
-    const fetchMovieData = async () => {
+    const fetchData = async () => {
         const res = await fetchDataFromApi(`/${mediaType}/${id}/credits`)
         setCreditData(res);
 
         const response = await fetchDataFromApi(`/${mediaType}/${id}`)
-        setMovieData(response)
+        setData(response)
 
         setLoading(false)
         console.log(imageUrl)
@@ -27,7 +27,7 @@ function Detail() {
 
     useEffect(() => {
         window.scrollTo(0, 0);
-        fetchMovieData()
+        fetchData()
     }, [])
 
 
@@ -42,7 +42,7 @@ function Detail() {
                     />
                 </div>
                 <MovieDetail
-                    movieData={movieData}
+                    data={data}
                 />
             </div>
             <div className=' bg-neutral-700 h-fit row-auto w-full p-5'>

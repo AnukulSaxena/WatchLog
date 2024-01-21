@@ -6,7 +6,7 @@ import { InfiniteScrollComponent } from '../components'
 function Watched() {
     const { status, userData } = useSelector(state => state.auth);
     const [loading, setLoading] = useState(true);
-    const [movieData, setMovieData] = useState({
+    const [data, setData] = useState({
         success: true,
         data: [],
         totalCount: 0
@@ -21,7 +21,7 @@ function Watched() {
         })
         console.log("Watched :: getNextPageData :: response", response)
         setPageNum(prev => prev + 1);
-        setMovieData((prevData) => ({
+        setData((prevData) => ({
             ...response, data: [...prevData?.data, ...response?.data],
         }));
         setLoading(false);
@@ -40,10 +40,10 @@ function Watched() {
             {
                 !loading &&
                 <InfiniteScrollComponent
-                    movieData={movieData?.data}
+                    data={data?.data}
                     fetchNextPageData={getNextPageData}
                     pageNum={pageNum}
-                    total_pages={Math.ceil(movieData?.totalCount / 25)}
+                    total_pages={Math.ceil(data?.totalCount / 25)}
                     initStatus={true}
                     crossCheck={false}
                 />
