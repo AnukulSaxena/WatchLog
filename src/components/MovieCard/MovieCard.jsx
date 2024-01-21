@@ -1,45 +1,56 @@
 import React, { useEffect, useState } from 'react';
 import './styles.css';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import movieService from '../../render/movieconfig.js';
 import { useNavigate } from 'react-router-dom';
-import { Img } from '../../components'
+import { Img, Rating, DropdownMenu, Toggle } from '../../components'
 
 
 const MovieCard = ({ data, initStatus, crossCheck }) => {
     const { url, mediaType } = useSelector((state) => state.home);
     const posterUrl = url.poster + data.poster_path;
     const [isChecked, setIsChecked] = useState(initStatus);
+    const [loading, setLoading] = useState(false)
     const { status, userData } = useSelector(state => state.auth)
     const { movieData, mode } = useSelector(state => state.movie)
-    const dispatch = useDispatch()
+
     const navigate = useNavigate()
 
 
     const deleteMovieDocInRender = async () => {
-        console.log("movieCard :: DMDFA :: crosscheck ", crossCheck, " :: slug ", { id: data.id, user_id: userData.$id });
-        const isDeleted = await movieService.deleteMovieDoc({
-            id: data.id,
-            user_id: userData.$id
-        })
-        setIsChecked(false)
-        console.log("MovieCard :: deletmovieDocFA :: response", isDeleted)
+        setIsChecked(false);
+        try {
+            const isDeleted = await movieService.deleteMovieDoc({
+                id: data.id,
+                user_id: userData.$id
+            })
+            console.log("MovieCard :: deletmovieDocFA :: response", isDeleted)
+
+        } catch (error) {
+            console.error("MovieCard :: deleteMovieInDB :: Error ", error)
+            setIsChecked(true);
+        }
     }
 
     const addMovieDocInRender = async () => {
-        const movie = await movieService.createMovieDoc({
-            title: data.title,
-            poster_path: data.poster_path,
-            id: data.id,
-            user_id: userData.$id
-        })
         setIsChecked(true)
-        console.log("Moviecard :: addmovieInAppwrite :: response ", movie)
+        try {
+            const movie = await movieService.createMovieDoc({
+                title: data.title,
+                poster_path: data.poster_path,
+                id: data.id,
+                user_id: userData.$id
+            })
+            console.log("Moviecard :: addmovieInAppwrite :: response ", movie)
 
+        } catch (error) {
+            console.error("MovieCard :: addMoveDocInDB :: Error", error);
+            setIsChecked(false);
+        }
     }
 
     const handleCheckboxToggle = () => {
-        if (true) {
+        if (status) {
             if (isChecked) {
                 mode ? deleteMovieDocInRender() : console.log("Please Change the Mode");
             } else {
@@ -52,34 +63,63 @@ const MovieCard = ({ data, initStatus, crossCheck }) => {
         navigate(`/${mediaType}/${data.id}`)
     }
 
+    async function checkStatus() {
+        if (status && crossCheck) {
+            const targetKey = 'id';
+            const targetValue = data.id;
+            const foundObject = await movieData?.data?.find(obj => obj[targetKey] === targetValue);
+            if (foundObject) {
+                setIsChecked(true);
+            }
+        }
+        setLoading(false);
+    }
+
+    useEffect(() => {
+        checkStatus();
+        return () => {
+            console.log("MovieCard :: UseEffect :: return")
+        }
+    }, [])
+
+
     return (
-        <div className=" w-48 relative ">
-            <div className="w-auto min-h-72 "
+        <div className=" w-48 max-h-72 relative">
+            <div
                 onClick={handleImgClick}
             >
-                <Img className="rounded-xl hover:cursor-pointer"
+                <Img
+                    className=" w-auto cursor-pointer rounded-xl z-0"
                     src={posterUrl}
+                    alt={data.poster_path}
+                />
+            </div>
+            <DropdownMenu
+                className='absolute h-9  bottom-1 right-0'
+            />
+            <Rating
+                movieRating={data.vote_average}
+                className={'absolute top-0 m-1 bg-neutral-700 rounded-lg px-1 '}
+            />
+            {!loading &&
+                <div
+                    className='absolute h-10 cursor-pointer w-14 bottom-0 left-1'
+                    onClick={handleCheckboxToggle}
+                >
+                    <button
+                        className={`absolute bottom-1 left-0  inline-flex flex-shrink-0 h-6 w-11 border-2 border-transparent rounded-lg  transition-colors ease-in-out duration-200 focus:outline-none ${isChecked ? 'bg-neutral-500' : 'bg-gray-200'
+                            }`}
 
-                />
-            </div>
-            <p className="truncate text-center mt-3 text-lg dark:text-zinc-300">
-                {data.title}
-            </p>
-            <div className="checkbox-wrapper-10  absolute bottom-7 ml-3 ">
-                <input
-                    className="tgl tgl-flip"
-                    id={`cb${data.id}`}
-                    type="checkbox"
-                    checked={isChecked}
-                    onChange={handleCheckboxToggle}
-                />
-                <label
-                    className="tgl-btn"
-                    data-tg-off="UnWatched"
-                    data-tg-on="Watched"
-                    htmlFor={`cb${data.id}`}
-                ></label>
-            </div>
+                        aria-pressed={isChecked}
+                    >
+                        <span
+                            className={`inline-block h-5 w-5 rounded-lg bg-neutral-800 shadow transform ring-0 transition-transform ease-in-out duration-200 ${isChecked ? 'translate-x-5' : 'translate-x-0'
+                                }`}
+                        ></span>
+                    </button>
+                </div>
+            }
+
         </div>
     );
 };

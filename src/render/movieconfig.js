@@ -20,7 +20,7 @@ class MovieService {
             return await response.json();
         } catch (error) {
             console.log("movieService :: createMovieDoc :: Error", error);
-            return false
+            throw error
         }
     }
 
@@ -36,7 +36,7 @@ class MovieService {
 
         } catch (error) {
             console.log("movieService :: deleteMovieDoc :: error", error);
-            return false
+            throw error
         }
     }
 
@@ -63,7 +63,7 @@ class MovieService {
 
         } catch (error) {
             console.log("Appwrite serive :: getPosts :: error", error);
-            return null
+            throw error
         }
     }
 
@@ -80,7 +80,7 @@ class MovieService {
 
         } catch (error) {
             console.log("RenderConfig :: PaginateDoc :: error", error)
-            return null
+            throw error
         }
     }
 }

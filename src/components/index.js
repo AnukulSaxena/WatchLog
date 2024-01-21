@@ -13,6 +13,8 @@ import InfiniteScrollComponent from './Other/InfiniteScrollComponent.jsx'
 import Rating from './Other/Rating.jsx'
 import MovieDetail from './Other/MovieDetail.jsx'
 import Img from './Other/Img.jsx'
+import DropdownMenu from './Other/DropDownMenu.jsx'
+import Toggle from './Other/Toggle.jsx'
 
 export {
     Footer,
@@ -29,6 +31,8 @@ export {
     InfiniteScrollComponent,
     Rating,
     MovieDetail,
-    Img
+    Img,
+    DropdownMenu,
+    Toggle
 }
 

@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import './App.css';
 import { fetchDataFromApi } from './utils/api';
 import { useDispatch } from 'react-redux';
-import { getApiConfiguration } from './store/homeSlice.js';
+import { setApiConfiguration } from './store/homeSlice.js';
 import authService from './appwrite/auth.js';
 import { login, logout } from './store/authSlice.js';
 import movieService from './appwrite/movieConfig.js';
@@ -14,45 +14,15 @@ function App() {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(true);
 
-  const fetchApiConfig = async () => {
-    return
-  };
-
-  // .then((res) => {
-  //   console.log("confid data", res);
-  //   checkStatus()
-
-  //   const url = {
-  //     poster: res.images.secure_base_url + "w342",
-  //   };
-  //   dispatch(getApiConfiguration(url));
-  // });
-
-
-  const checkStatus = async () => {
-    return
-  }
-
-  // .then((userData) => {
-  //   console.log("App :: Getting User :: userData ", userData)
-  //   if (userData) {
-  //     
-  //   }
-  // })
-  // .catch(error => {
-  //   console.log("useEffect :: checkStatus :: error ", error)
-  // })
-
-
-
   function handleResponse(response) {
     if (response[0].status === 'fulfilled') {
       console.log(response)
       const url = {
         poster: response[0].value.images.secure_base_url + "w342",
-        backdrop: response[0].value.images.secure_base_url + "original"
+        backdrop: response[0].value.images.secure_base_url + "original",
+        profile: response[0].value.images.secure_base_url + "original"
       };
-      dispatch(getApiConfiguration(url));
+      dispatch(setApiConfiguration(url));
     }
     if (response[1].status === 'fulfilled') {
       dispatch(login(response[1].value))

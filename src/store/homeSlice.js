@@ -7,7 +7,7 @@ const homeSlice = createSlice({
         mediaType: "movie"
     },
     reducers: {
-        getApiConfiguration: (state, action) => {
+        setApiConfiguration: (state, action) => {
             state.url = action.payload;
         },
         setMediaType: (state, action) => {
@@ -17,6 +17,6 @@ const homeSlice = createSlice({
 });
 
 // Action creators are generated for each case reducer function
-export const { getApiConfiguration } = homeSlice.actions;
+export const { setApiConfiguration, setMediaType } = homeSlice.actions;
 
 export default homeSlice.reducer;

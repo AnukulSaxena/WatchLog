@@ -3,7 +3,7 @@ import { InfiniteScrollComponent } from '../components'
 import { fetchDataFromApi } from '../utils/api'
 import { useDispatch, useSelector } from 'react-redux'
 import { setMovieData as setMovieDataState } from '../store/movieSlice'
-import movieService from '../appwrite/movieConfig'
+import movieService from '../render/movieconfig'
 
 function Home() {
     const [movieData, setMovieData] = useState(null)
@@ -23,47 +23,24 @@ function Home() {
                     setMovieData(res)
                 }
                 setPageNum((prev) => (prev + 1));
-                setLoading(false);
             });
     };
 
-
-    // function setMovieDataInStore(watchedMovieData) {
-    //     const moviesObject = watchedMovieData.documents.reduce((acc, movie) => {
-    //         acc[movie.id] = {
-    //             id: movie.id,
-    //             slug: movie.$id
-    //         };
-    //         return acc;
-    //     }, {});
-    //     dispatch(setMovieDataState({ total: watchedMovieData.total, moviesObject }));
-    // }
+    async function handleUseEffect() {
+        const response = await fetchDataFromApi(`/discover/movie`, { page: pageNum });
+        setMovieData(response);
+        setPageNum((prev) => (prev + 1));
+        if (status) {
+            const responseData = await movieService.getMovieDocs(userData?.$id);
+            console.log("Home :: handleUseEffect :: responseData ", responseData);
+            dispatch(setMovieDataState(responseData));
+        }
+        setLoading(false);
+    }
 
     useEffect(() => {
         window.scrollTo(0, 0);
-        if (status) {
-            Promise.all([
-                fetchDataFromApi(`/discover/movie`, { page: pageNum }),
-                // movieService.getMovieDocs(userData.$id, 10000, 0)
-            ])
-                .then((response) => {
-                    console.log("Home :: Promise.all :: Response", response);
-
-                    // setMovieDataInStore(response[1])
-                    setMovieData(response[0]);
-                    setPageNum((prev) => (prev + 1));
-
-                })
-                .catch((error) => {
-                    console.error("Home :: Promise.all :: Error", error)
-                }).finally(() => {
-                    console.log("Home :: Promise All :: finally")
-                    setLoading(false);
-                })
-        } else {
-            fetchNextPageData()
-        }
-
+        handleUseEffect();
 
     }, [status])
     return (
@@ -76,7 +53,7 @@ function Home() {
                     pageNum={pageNum}
                     total_pages={movieData?.total_pages}
                     initStatus={false}
-                    crossCheck={false}
+                    crossCheck={true}
                 />
 
             }
