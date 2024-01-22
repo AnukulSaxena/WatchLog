@@ -1,13 +1,16 @@
 import { useState, useEffect } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { useSelector } from 'react-redux'
 import LogoutBtn from "./LogoutBtn";
-import { Switcher } from '../index.js'
 import Search from "./Search.jsx";
 
 const Header = () => {
     const authStatus = useSelector((state) => state.auth.status)
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const [scrollDirection, setScrollDirection] = useState("up");
+
+    let prevScrollY = 0;
+
     const navItems = [
         {
             name: "Home",
@@ -45,6 +48,23 @@ const Header = () => {
         setIsMenuOpen(false);
     };
 
+    const handleScroll = () => {
+        const currentScrollY = window.scrollY;
+        console.log("current :", currentScrollY);
+        console.log("previous: ", prevScrollY);
+
+
+        if (currentScrollY > prevScrollY) {
+            setScrollDirection("down");
+
+        } else {
+            setScrollDirection("up");
+
+        }
+        prevScrollY = currentScrollY;
+
+    };
+
     useEffect(() => {
         console.log("UseEffect Header.");
         const handleResize = () => {
@@ -53,14 +73,17 @@ const Header = () => {
             }
         };
         window.addEventListener("resize", handleResize);
+        window.addEventListener("scroll", handleScroll);
         return () => {
             window.removeEventListener("resize", handleResize);
+            window.removeEventListener("scroll", handleScroll);
         };
     }, []);
 
     return (
-        <header >
-            <nav className="bg-white fixed top-0 z-10 w-full border-gray-200 px-4 lg:px-6 py-4 dark:bg-neutral-800">
+        <header className={`fixed top-0 z-10 w-full bg-white border-gray-200 px-4 lg:px-6 py-4 dark:bg-neutral-800 duration-300 transition-transform ${(scrollDirection === "down") ? "-translate-y-full" : "translate-y-0"
+            }`} >
+            <nav className="">
                 <div className="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
                     <Search />
                     <div className="flex items-center">

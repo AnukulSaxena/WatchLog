@@ -94,7 +94,7 @@ const MovieCard = ({ data, initStatus, crossCheck }) => {
     return (
         <div className=" w-48  relative">
             {
-                data.poster_path ?
+                data.poster_path && data.poster_path !== " " ?
                     <div
                         className='min-h-72 max-h-72'
                         onClick={handleImgClick}
