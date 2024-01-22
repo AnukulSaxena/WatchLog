@@ -92,11 +92,11 @@ const MovieCard = ({ data, initStatus, crossCheck }) => {
 
 
     return (
-        <div className=" w-48  relative">
+        <div className=" md:w-48 w-44  relative">
             {
                 data.poster_path && data.poster_path !== " " ?
                     <div
-                        className='min-h-72 max-h-72'
+                        className='md:min-h-72 max-h-72'
                         onClick={handleImgClick}
                     >
                         <Img
@@ -111,7 +111,7 @@ const MovieCard = ({ data, initStatus, crossCheck }) => {
                     />
             }
             <DropdownMenu
-                className='absolute h-9  bottom-1 right-0'
+                className='absolute h-9 bottom-2  md:bottom-1 right-0'
             />
             <Rating
                 movieRating={data.vote_average}
@@ -119,7 +119,7 @@ const MovieCard = ({ data, initStatus, crossCheck }) => {
             />
             {!loading &&
                 <div
-                    className='absolute h-10 cursor-pointer w-14 bottom-0 left-0'
+                    className='absolute h-10 cursor-pointer w-14 bottom-1 md:bottom-0 left-0'
                     onClick={handleCheckboxToggle}
                 >
                     <button
