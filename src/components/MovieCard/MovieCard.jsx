@@ -7,8 +7,10 @@ import { Img, Rating, DropdownMenu, Toggle } from '../../components'
 import FakeImage from './FakeImage.jsx';
 
 
-const MovieCard = ({ data, initStatus, crossCheck }) => {
-    const { url, mediaType } = useSelector((state) => state.home);
+const MovieCard = ({ data, initStatus, crossCheck,
+    mediaType = useSelector((state) => state.home.mediaType)
+}) => {
+    const { url } = useSelector((state) => state.home);
     const posterUrl = url.poster + data.poster_path;
     const [isChecked, setIsChecked] = useState(initStatus);
     const [loading, setLoading] = useState(false)
@@ -80,7 +82,7 @@ const MovieCard = ({ data, initStatus, crossCheck }) => {
     }
 
     useEffect(() => {
-
+        console.log(mediaType)
         checkStatus();
 
 

@@ -8,6 +8,23 @@ function Playlist() {
 
 
 
+    const url = 'https://api.themoviedb.org/3/search/person?query=akira%20kurosawa&include_adult=false&language=en-US&page=2';
+    const options = {
+        method: 'GET',
+        headers: {
+            accept: 'application/json',
+            Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIwZjJmZWRmYzU4OGJjMDg1ODM1MzM3ODdjYzdlM2FhNyIsInN1YiI6IjY1ODZjZTlkZmFkOGU5NWQyMjhkYTEzMSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.csIchcypkH4e0loQ1g_QFCAh5l7hiNpY8CTJWnMk9TY'
+        }
+    };
+
+
+
+    async function handleClick() {
+        await fetch(url, options)
+            .then(res => res.json())
+            .then(json => console.log(json))
+            .catch(err => console.error('error:' + err));
+    }
 
     useEffect(() => {
         window.scrollTo(0, 0);

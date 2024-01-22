@@ -1,6 +1,7 @@
 import React from 'react'
 import InfiniteScroll from 'react-infinite-scroll-component'
 import { MovieCard, Spinner } from '..'
+import Avatar from './Avatar'
 
 function InfiniteScrollComponent({
     data,
@@ -8,7 +9,8 @@ function InfiniteScrollComponent({
     pageNum,
     total_pages,
     initStatus,
-    crossCheck
+    crossCheck,
+    searchType
 }) {
 
     return (
@@ -26,12 +28,14 @@ function InfiniteScrollComponent({
                 }
             >
                 {data?.map((item, index) => {
-                    return <MovieCard
-                        key={index}
-                        data={item}
-                        initStatus={initStatus}
-                        crossCheck={crossCheck}
-                    />
+                    return (searchType === 'person') ? <Avatar item={item} /> :
+                        <MovieCard
+                            key={index}
+                            data={item}
+                            initStatus={initStatus}
+                            crossCheck={crossCheck}
+                            mediaType={searchType}
+                        />
                 })}
             </InfiniteScroll>
         </div>

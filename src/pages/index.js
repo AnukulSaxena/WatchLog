@@ -5,6 +5,7 @@ import Playlist from "./Playlist";
 import Signup from "./Signup";
 import Watched from "./Watched";
 import MovieCredits from './MovieCredits'
+import Search from './Search.jsx'
 
 
-export { Detail, Home, Login, Playlist, Signup, Watched, MovieCredits }
+export { Detail, Home, Login, Playlist, Signup, Watched, MovieCredits, Search }

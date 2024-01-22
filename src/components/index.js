@@ -16,6 +16,7 @@ import Img from './Other/Img.jsx'
 import DropdownMenu from './Other/DropDownMenu.jsx'
 import Toggle from './Other/Toggle.jsx'
 import MediaSwitcher from './Other/Switcher/MediaSwitcher.jsx'
+import CreditSwitcher from './Other/Switcher/CreditSwitcher.jsx'
 
 export {
     Footer,
@@ -35,6 +36,7 @@ export {
     Img,
     DropdownMenu,
     Toggle,
-    MediaSwitcher
+    MediaSwitcher,
+    CreditSwitcher
 }
 

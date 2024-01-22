@@ -44,7 +44,7 @@ function App() {
   }, []);
 
   return !loading && (
-    <div>
+    <div >
       <Header />
       <main>
         <Outlet />
