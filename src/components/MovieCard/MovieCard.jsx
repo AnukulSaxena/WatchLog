@@ -24,7 +24,7 @@ const MovieCard = ({ data, initStatus, crossCheck }) => {
             const isDeleted = await movieService.deleteMovieDoc({
                 id: data.id,
                 user_id: userData.$id
-            })
+            }, mediaType)
             console.log("MovieCard :: deletmovieDocFA :: response", isDeleted)
 
         } catch (error) {
@@ -37,11 +37,12 @@ const MovieCard = ({ data, initStatus, crossCheck }) => {
         setIsChecked(true)
         try {
             const movie = await movieService.createMovieDoc({
-                title: data.title,
-                poster_path: data.poster_path,
+                title: data?.title || data?.name,
+                poster_path: data?.poster_path || " ",
                 id: data.id,
-                user_id: userData.$id
-            })
+                user_id: userData.$id,
+                vote_average: data.vote_average
+            }, mediaType)
             console.log("Moviecard :: addmovieInAppwrite :: response ", movie)
 
         } catch (error) {
@@ -79,9 +80,9 @@ const MovieCard = ({ data, initStatus, crossCheck }) => {
     }
 
     useEffect(() => {
-        if (mediaType === "movie") {
-            checkStatus();
-        }
+
+        checkStatus();
+
 
         return () => {
 

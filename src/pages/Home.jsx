@@ -28,15 +28,20 @@ function Home() {
     };
 
     async function handleUseEffect() {
-        const response = await fetchDataFromApi(`/discover/${mediaType}`, { page: 1 });
-        setData(response);
-        setPageNum(2);
-        if (status) {
-            const responseData = await movieService.getMovieDocs(userData?.$id);
-            console.log("Home :: handleUseEffect :: responseData ", responseData);
-            dispatch(setMovieDataState(responseData));
+        try {
+            const response = await fetchDataFromApi(`/discover/${mediaType}`, { page: 1 });
+            setData(response);
+            setPageNum(2);
+            if (status) {
+                const responseData = await movieService.getMovieDocs(userData?.$id, mediaType);
+                console.log("Home :: handleUseEffect :: responseData ", responseData);
+                dispatch(setMovieDataState(responseData));
+            }
+            setLoading(false);
+
+        } catch (error) {
+            console.error("Home :: HandleUseffect :: error", error)
         }
-        setLoading(false);
     }
 
     useEffect(() => {

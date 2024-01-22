@@ -1,11 +1,14 @@
+import { useSelector } from 'react-redux';
 import conf from '../conf/conf.js'
+import homeSlice from '../store/homeSlice.js';
 
 class MovieService {
 
 
-    async createMovieDoc({ title, user_id, poster_path, id }) {
+
+    async createMovieDoc({ title, user_id, poster_path, id, vote_average }, mediaType) {
         try {
-            const response = await fetch(`${conf.renderUrl}/api/v1/movie/watched/add`, {
+            const response = await fetch(`${conf.renderUrl}/api/v1/${mediaType}/watched/add`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -15,6 +18,7 @@ class MovieService {
                     user_id,
                     poster_path,
                     id,
+                    vote_average
                 }),
             });
             return await response.json();
@@ -24,9 +28,9 @@ class MovieService {
         }
     }
 
-    async deleteMovieDoc({ id, user_id }) {
+    async deleteMovieDoc({ id, user_id }, mediaType) {
         try {
-            const response = await fetch(`${conf.renderUrl}/api/v1/movie/watched/delete/${id}/${user_id}`, {
+            const response = await fetch(`${conf.renderUrl}/api/v1/${mediaType}/watched/delete/${id}/${user_id}`, {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',
@@ -40,7 +44,6 @@ class MovieService {
         }
     }
 
-
     async getMovieDoc(slug) {
         try {
 
@@ -50,10 +53,10 @@ class MovieService {
         }
     }
 
-    async getMovieDocs(slug) {
+    async getMovieDocs(slug, mediaType) {
         try {
             const response = await fetch(
-                `${conf.renderUrl}/api/v1/movie/watched/getall/${slug}`, {
+                `${conf.renderUrl}/api/v1/${mediaType}/watched/getall/${slug}`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
@@ -67,10 +70,10 @@ class MovieService {
         }
     }
 
-    async getPaginatedMovieDocs({ user_id, pageNum, limit }) {
+    async getPaginatedMovieDocs({ user_id, pageNum, limit }, mediaType) {
         try {
             const response = await fetch(
-                `${conf.renderUrl}/api/v1/movie/watched/paginate/${user_id}/${pageNum}/${limit}`, {
+                `${conf.renderUrl}/api/v1/${mediaType}/watched/paginate/${user_id}/${pageNum}/${limit}`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",

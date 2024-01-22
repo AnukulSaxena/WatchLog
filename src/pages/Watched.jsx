@@ -5,6 +5,7 @@ import { InfiniteScrollComponent } from '../components'
 
 function Watched() {
     const { status, userData } = useSelector(state => state.auth);
+    const { mediaType } = useSelector(state => state.home)
     const [loading, setLoading] = useState(true);
     const [data, setData] = useState({
         success: true,
@@ -13,12 +14,12 @@ function Watched() {
     });
     const [pageNum, setPageNum] = useState(1);
 
-    async function getNextPageData() {
+    async function getNextPageData(page = pageNum) {
         const response = await movieService.getPaginatedMovieDocs({
             user_id: userData?.$id,
-            pageNum,
+            pageNum: page,
             limit: 25
-        })
+        }, mediaType)
         console.log("Watched :: getNextPageData :: response", response)
         setPageNum(prev => prev + 1);
         setData((prevData) => ({
@@ -30,9 +31,21 @@ function Watched() {
     useEffect(() => {
         window.scrollTo(0, 0);
         if (status) {
-            getNextPageData();
+            getNextPageData(1);
+            console.log(pageNum)
         }
-    }, []);
+        return () => {
+
+            setPageNum(1)
+            setLoading(true)
+            setData({
+                success: true,
+                data: [],
+                totalCount: 0
+            })
+        }
+
+    }, [mediaType]);
 
 
     return (
