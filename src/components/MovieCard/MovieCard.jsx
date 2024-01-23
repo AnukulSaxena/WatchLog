@@ -68,7 +68,7 @@ const MovieCard = ({ data, initStatus, crossCheck,
     }
 
     async function checkStatus() {
-        if (status && crossCheck) {
+        if (status) {
             const targetKey = 'id';
             const targetValue = data.id;
             const foundObject = await movieData?.data?.find(obj => obj[targetKey] === targetValue);
@@ -82,10 +82,7 @@ const MovieCard = ({ data, initStatus, crossCheck,
     }
 
     useEffect(() => {
-        console.log(mediaType)
         checkStatus();
-
-
         return () => {
 
             setIsChecked(false)

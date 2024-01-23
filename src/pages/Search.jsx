@@ -1,14 +1,20 @@
 import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom';
 import { fetchDataFromApi } from '../utils/api';
-import { Spinner, MovieCard, InfiniteScrollComponent } from '../components';
+import { InfiniteScrollComponent } from '../components';
+import { useSelector, useDispatch } from 'react-redux';
+import movieService from '../render/movieconfig';
+import { setMovieData as setMovieDataState } from '../store/movieSlice';
 
 
 function Search() {
     const [pageNum, setPageNum] = useState(1);
     const [loading, setLoading] = useState(true);
     const [data, setData] = useState(null);
+    const dispatch = useDispatch()
     const { searchType, query } = useParams()
+    const { status, userData } = useSelector(state => state.auth)
+
 
     const fetchNextPageData = async () => {
 
@@ -22,21 +28,12 @@ function Search() {
                     ...prevData,
                     results: [...prevData?.results, ...res?.results],
                 }));
-            }).then(() => {
-                console.log("page ", pageNum, " searchType ", searchType, " Loading ", loading, " data ", data);
-
+            })
+            .catch(error => {
+                console.error("Search :: fetchNextPageData :: error", error)
             })
 
 
-        // try {
-        //     const res = await ;
-
-
-
-
-        // } catch (error) {
-        //     console.log("Search :: fetchNextPageData :: Error", error);
-        // }
     };
 
 
@@ -46,6 +43,11 @@ function Search() {
             console.log("Search Page :: initialFetch :: Response", response);
             setData(response);
             setPageNum(prev => prev + 1)
+            if (status && searchType !== 'person') {
+                const responseData = await movieService.getMovieDocs(userData?.$id, searchType);
+                console.log("Home :: handleUseEffect :: responseData ", responseData);
+                dispatch(setMovieDataState(responseData));
+            }
             setLoading(false)
         } catch (error) {
             console.error("Search :: initFetch :: Errro", error);
