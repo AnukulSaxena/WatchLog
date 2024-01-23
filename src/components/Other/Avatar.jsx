@@ -9,7 +9,7 @@ function Avatar({ item }) {
     let imgUrl = url.backdrop + item.profile_path;
 
     async function handleClick() {
-        navigate(`/movie_credits/${item.id}`)
+        navigate(`/credits/${item.id}/${item.known_for_department}`)
 
     }
 

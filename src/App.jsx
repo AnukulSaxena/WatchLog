@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import './App.css';
 import { fetchDataFromApi } from './utils/api';
 import { useDispatch } from 'react-redux';
-import { setApiConfiguration } from './store/homeSlice.js';
+import { setApiConfiguration, setMovieGenre, setTvGenre } from './store/homeSlice.js';
 import authService from './appwrite/auth.js';
 import { login, logout } from './store/authSlice.js';
 import movieService from './appwrite/movieConfig.js';
@@ -29,12 +29,20 @@ function App() {
     } else {
       dispatch(logout())
     }
+    if (response[2].status === 'fulfilled') {
+      dispatch(setMovieGenre(response[2].value.genres))
+    }
+    if (response[3].status === 'fulfilled') {
+      dispatch(setTvGenre(response[3].value.genres))
+    }
   }
 
   useEffect(() => {
     Promise.allSettled([
       fetchDataFromApi("/configuration"),
       authService.getCurrentUser(),
+      fetchDataFromApi('/genre/movie/list'),
+      fetchDataFromApi('/genre/tv/list')
     ])
       .then((response) => {
         handleResponse(response);

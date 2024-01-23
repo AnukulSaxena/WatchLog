@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { setMode } from '../../../store/movieSlice.js'
 
-const Switcher = () => {
+const Switcher = ({ className = '' }) => {
     const [isChecked, setIsChecked] = useState(false)
     const dispatch = useDispatch()
 
@@ -13,8 +13,8 @@ const Switcher = () => {
     }
 
     return (
-        <div>
-            <label className=' inline-flex cursor-pointer items-center justify-center rounded-md bg-white p-1'>
+        <div className={className}>
+            <label className=' flex cursor-pointer rounded-l-md bg-white p-1'>
                 <input
                     type='checkbox'
                     name='Switcher'
@@ -22,16 +22,16 @@ const Switcher = () => {
                     checked={isChecked}
                     onChange={handleCheckboxChange}
                 />
-                <span
-                    className={`flex items-center space-x-[6px] w-8 rounded py-1 px-3 text-sm font-medium ${!isChecked ? ' bg-neutral-500 ' : ''
+                <div
+                    className={`  w-8 rounded text-center md:w-16 text-lg ${!isChecked ? ' bg-neutral-500 text-white' : ''
                         }`}
                 >
                     +
-                </span>
-                <span
-                    className={`flex text-center space-x-[6px] w-8 rounded py-1  px-3 text-sm font-medium ${isChecked ? ' bg-neutral-500' : ''
+                </div>
+                <div
+                    className={`text-center  w-8 rounded md:w-16 text-lg  ${isChecked ? ' bg-neutral-500 text-white' : ''
                         }`}
-                >-</span>
+                >-</div>
             </label>
         </div>
     )

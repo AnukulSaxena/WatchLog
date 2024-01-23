@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { setMediaType } from '../../../store/homeSlice.js'
 
-const MediaSwitcher = () => {
+const MediaSwitcher = ({ className = "" }) => {
     const [isChecked, setIsChecked] = useState(true)
     const dispatch = useDispatch()
 
@@ -16,8 +16,8 @@ const MediaSwitcher = () => {
     }
 
     return (
-        <div>
-            <label className=' inline-flex cursor-pointer items-center justify-center rounded-md bg-white p-1'>
+        <div className={className}>
+            <label className=' flex cursor-pointer rounded-r-md bg-white p-1'>
                 <input
                     type='checkbox'
                     name='Switcher'
@@ -25,16 +25,16 @@ const MediaSwitcher = () => {
                     checked={isChecked}
                     onChange={handleCheckboxChange}
                 />
-                <span
-                    className={` space-x-[6px] w-8 rounded py-1 px-2 text-sm font-medium ${!isChecked ? ' bg-neutral-500 ' : ''
+                <div
+                    className={` text-center  w-8 rounded md:w-16 text-lg  ${!isChecked ? ' bg-neutral-500 text-white' : ''
                         }`}
                 >
                     TV
-                </span>
-                <span
-                    className={`flex text-center space-x-[6px] w-8 rounded py-1  pl-1 text-sm font-medium ${isChecked ? ' bg-neutral-500' : ''
+                </div>
+                <div
+                    className={`text-center  w-8 rounded md:w-16 text-lg  ${isChecked ? ' bg-neutral-500 text-white' : ''
                         }`}
-                >MV</span>
+                >MV</div>
             </label>
         </div>
     )

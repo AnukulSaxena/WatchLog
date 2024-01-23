@@ -1,11 +1,8 @@
 import React from "react";
-import { useSelector } from "react-redux";
 import Img from "./Img";
 import Avatar from "./Avatar";
 
 const Cast = ({ data, loading }) => {
-
-
 
 
     return (

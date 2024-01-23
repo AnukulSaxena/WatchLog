@@ -7,11 +7,10 @@ const SearchBar = () => {
     const [inputValue, setInputValue] = useState('');
 
     const handleClick = () => {
-        console.log(inputValue, selectedOption)
-
-        console.log("SearchComponent :: handleClick :: clicked")
-
-        navigate(`/search/${selectedOption}/${inputValue}`);
+        if (inputValue) {
+            navigate(`/search/${selectedOption}/${inputValue}`);
+            setInputValue("")
+        }
     };
 
     return (
