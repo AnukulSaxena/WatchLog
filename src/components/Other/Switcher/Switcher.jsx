@@ -14,7 +14,7 @@ const Switcher = ({ className = '' }) => {
 
     return (
         <div className={className}>
-            <label className=' flex cursor-pointer rounded-l-md bg-white p-1'>
+            <label className=' flex cursor-pointer rounded-md bg-white p-1'>
                 <input
                     type='checkbox'
                     name='Switcher'

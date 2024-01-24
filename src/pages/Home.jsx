@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { InfiniteScrollComponent } from '../components'
+import { Filters, InfiniteScrollComponent } from '../components'
 import { fetchDataFromApi } from '../utils/api'
 import { useDispatch, useSelector } from 'react-redux'
 import { setMovieData as setMovieDataState } from '../store/movieSlice'
@@ -10,11 +10,12 @@ function Home() {
     const [pageNum, setPageNum] = useState(1)
     const [loading, setLoading] = useState(true)
     const { userData, status } = useSelector(state => state.auth)
-    const { mediaType } = useSelector(state => state.home)
+    const { mediaType, paramFilters } = useSelector(state => state.home)
     const dispatch = useDispatch()
 
+
     const fetchNextPageData = () => {
-        fetchDataFromApi(`/discover/${mediaType}`, { page: pageNum })
+        fetchDataFromApi(`/discover/${mediaType}?page=${pageNum}`, paramFilters)
             .then((res) => {
                 if (data) {
                     setData((prevData) => ({
@@ -29,7 +30,7 @@ function Home() {
 
     async function handleUseEffect() {
         try {
-            const response = await fetchDataFromApi(`/discover/${mediaType}`, { page: 1 });
+            const response = await fetchDataFromApi(`/discover/${mediaType}?page=${1}`, paramFilters);
             setData(response);
             setPageNum(2);
             if (status) {
@@ -52,9 +53,10 @@ function Home() {
             setLoading(true)
         }
 
-    }, [status, mediaType])
+    }, [status, mediaType, paramFilters])
     return (
-        <div className='dark:bg-neutral-700 min-h-screen pt-14'>
+        <div className='dark:bg-neutral-700 min-h-screen pt-20'>
+            <Filters />
             {
                 !loading &&
                 <InfiniteScrollComponent

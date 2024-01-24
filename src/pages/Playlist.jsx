@@ -3,7 +3,6 @@ import { Spinner } from '../components'
 import { useEffect } from 'react';
 import conf from '../conf/conf';
 import movieService from '../render/movieconfig';
-import GenreMenu from '../components/Footer/GenreMenu';
 
 function Playlist() {
     function handleClick() {
@@ -23,7 +22,6 @@ function Playlist() {
             <button className='mt-40 p-3 bg-white rounded-lg' onClick={handleClick}>
                 name
             </button>
-            <GenreMenu />
 
         </div>
     )

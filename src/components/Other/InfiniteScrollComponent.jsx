@@ -16,7 +16,7 @@ function InfiniteScrollComponent({
     return (
         <div>
             <InfiniteScroll
-                className='py-10 flex flex-wrap justify-center gap-3'
+                className='py-4 flex flex-wrap justify-center gap-3'
                 dataLength={data?.length || []}
                 next={fetchNextPageData}
                 hasMore={pageNum <= total_pages}

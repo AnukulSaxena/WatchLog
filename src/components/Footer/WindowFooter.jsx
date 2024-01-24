@@ -2,16 +2,17 @@ import React from 'react'
 import { Switcher, MediaSwitcher } from '../'
 import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
-import GenreMenu from './GenreMenu'
 
 function WindowFooter() {
     const movieData = useSelector(state => state.movie.movieData)
     return (
         <div>
             <nav className="fixed z-10 round w-full bottom-0 p-2 dark:bg-neutral-800 flex justify-center">
-                <div className="flex w-fit bg-white rounded-md md:gap-4 justify-center ">
+                <div className="flex w-fit gap-6 rounded-md md:gap-32 justify-center ">
                     <Switcher />
-                    <GenreMenu />
+                    <Link to="/" >
+                        <span className="self-center text-xl font-semibold whitespace-nowrap dark:text-white">WatchLog</span>
+                    </Link>
                     <MediaSwitcher />
                 </div>
             </nav>
@@ -43,11 +44,6 @@ export default WindowFooter
 //         <GenreMenu
 
 //         />
-//         <div className="flex gap-5">
-//             <Link to="/" className="flex items-center">
-//                 <span className="self-center text-xl font-semibold whitespace-nowrap dark:text-white">WatchLog</span>
-//             </Link>
-
-//         </div>
+//
 //     </div>
 // </div>

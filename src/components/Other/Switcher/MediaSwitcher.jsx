@@ -17,7 +17,7 @@ const MediaSwitcher = ({ className = "" }) => {
 
     return (
         <div className={className}>
-            <label className=' flex cursor-pointer rounded-r-md bg-white p-1'>
+            <label className=' flex cursor-pointer rounded-md bg-white p-1'>
                 <input
                     type='checkbox'
                     name='Switcher'

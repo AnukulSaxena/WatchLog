@@ -8,8 +8,8 @@ const headers = {
 }
 
 export const fetchDataFromApi = async (url, params) => {
-    // console.log("url: ", url)
-    // console.log("params: ", params)
+    console.log("url: ", url)
+    console.log("params: ", params)
     try {
         const { data } = await axios.get(BASE_URL + url, {
             headers,

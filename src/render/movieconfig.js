@@ -55,6 +55,7 @@ class MovieService {
 
     async getMovieDocs(slug, mediaType) {
         try {
+            console.log("movieConfig :: getMovieDocs :: Sending Request")
             const response = await fetch(
                 `${conf.renderUrl}/api/v1/${mediaType}/watched/getall/${slug}`, {
                 method: "GET",
@@ -62,7 +63,9 @@ class MovieService {
                     "Content-Type": "application/json",
                 }
             });
+            console.log("movieConfig :: getMovieDocs :: Response", response)
             return await response.json();
+
 
         } catch (error) {
             console.log("Appwrite serive :: getPosts :: error", error);

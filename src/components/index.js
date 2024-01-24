@@ -17,7 +17,8 @@ import DropdownMenu from './Other/DropDownMenu.jsx'
 import Toggle from './Other/Toggle.jsx'
 import MediaSwitcher from './Other/Switcher/MediaSwitcher.jsx'
 import CreditSwitcher from './Other/Switcher/CreditSwitcher.jsx'
-
+import Filters from './Other/Filters/Filters.jsx'
+import GenreMenu from './Other/Switcher/GenreMenu/GenreMenu.jsx'
 export {
     Footer,
     Header,
@@ -37,6 +38,8 @@ export {
     DropdownMenu,
     Toggle,
     MediaSwitcher,
-    CreditSwitcher
+    CreditSwitcher,
+    Filters,
+    GenreMenu
 }
 

@@ -5,8 +5,12 @@ const homeSlice = createSlice({
     initialState: {
         url: {},
         mediaType: "movie",
-        movieGenre: [],
-        tvGenre: []
+        filterData: {},
+        paramFilters: {
+            with_genres: '',
+            with_origin_country: '',
+            with_original_language: ''
+        }
     },
     reducers: {
         setApiConfiguration: (state, action) => {
@@ -15,16 +19,17 @@ const homeSlice = createSlice({
         setMediaType: (state, action) => {
             state.mediaType = action.payload;
         },
-        setMovieGenre: (state, action) => {
-            state.movieGenre = action.payload;
+        setFilterData: (state, action) => {
+            state.filterData = action.payload;
         },
-        setTvGenre: (state, action) => {
-            state.tvGenre = action.payload;
+        setParamFilters: (state, action) => {
+            state.paramFilters = action.payload;
         }
+
     },
 });
 
 // Action creators are generated for each case reducer function
-export const { setApiConfiguration, setMediaType, setMovieGenre, setTvGenre } = homeSlice.actions;
+export const { setApiConfiguration, setMediaType, setFilterData, setParamFilters } = homeSlice.actions;
 
 export default homeSlice.reducer;

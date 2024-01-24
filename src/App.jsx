@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import './App.css';
 import { fetchDataFromApi } from './utils/api';
 import { useDispatch } from 'react-redux';
-import { setApiConfiguration, setMovieGenre, setTvGenre } from './store/homeSlice.js';
+import { setApiConfiguration, setFilterData } from './store/homeSlice.js';
 import authService from './appwrite/auth.js';
 import { login, logout } from './store/authSlice.js';
 import movieService from './appwrite/movieConfig.js';
@@ -14,9 +14,15 @@ function App() {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(true);
 
+  let filters = {
+    genre: {
+      movieGenre: [],
+      tvGenre: []
+    }
+  }
+
   function handleResponse(response) {
     if (response[0].status === 'fulfilled') {
-      console.log(response)
       const url = {
         poster: response[0].value.images.secure_base_url + "w342",
         backdrop: response[0].value.images.secure_base_url + "original",
@@ -24,31 +30,39 @@ function App() {
       };
       dispatch(setApiConfiguration(url));
     }
+
     if (response[1].status === 'fulfilled') {
       dispatch(login(response[1].value))
     } else {
       dispatch(logout())
     }
-    if (response[2].status === 'fulfilled') {
-      dispatch(setMovieGenre(response[2].value.genres))
-    }
-    if (response[3].status === 'fulfilled') {
-      dispatch(setTvGenre(response[3].value.genres))
-    }
+  }
+
+  async function getFilters() {
+    const movieGenreData = await fetchDataFromApi('/genre/movie/list')
+    filters.genre.movieGenre = movieGenreData.genres;
+    const tvGenreData = await fetchDataFromApi('/genre/tv/list')
+    filters.genre.tvGenre = tvGenreData.genres;
+    const countryData = await fetchDataFromApi('/configuration/countries')
+    filters['country'] = countryData.map(item => ({ id: item.iso_3166_1, name: item.english_name }))
+
+
+    const languageData = await fetchDataFromApi('/configuration/languages')
+    filters['language'] = languageData.map(item => ({ id: item.iso_639_1, name: item.english_name }))
+
+    console.log(filters)
+    dispatch(setFilterData(filters))
   }
 
   useEffect(() => {
+    getFilters();
     Promise.allSettled([
       fetchDataFromApi("/configuration"),
       authService.getCurrentUser(),
-      fetchDataFromApi('/genre/movie/list'),
-      fetchDataFromApi('/genre/tv/list')
     ])
       .then((response) => {
         handleResponse(response);
       }).finally(() => setLoading(false))
-
-
   }, []);
 
   return !loading && (
