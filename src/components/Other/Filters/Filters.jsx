@@ -54,10 +54,10 @@ function Filters() {
                 setOptions(filterData?.country);
                 break;
             case "Sort By":
-                setOptions({});
+                setOptions([]);
                 break;
             default:
-                setOptions({});
+                setOptions([]);
         }
         setLoading(false);
     }
