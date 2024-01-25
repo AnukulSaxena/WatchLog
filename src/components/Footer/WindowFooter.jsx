@@ -1,18 +1,24 @@
 import React from 'react'
 import { Switcher, MediaSwitcher } from '../'
 import { useSelector } from 'react-redux'
-import { Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 function WindowFooter() {
+    const navigate = useNavigate()
     const movieData = useSelector(state => state.movie.movieData)
+
+    function handleClick() {
+        window.scrollTo(0, 0);
+        navigate('/')
+    }
     return (
         <div>
             <nav className="fixed z-10 round w-full bottom-0 p-2 dark:bg-neutral-800 flex justify-center">
                 <div className="flex w-fit gap-6 rounded-md md:gap-32 justify-center ">
                     <Switcher />
-                    <Link to="/" >
-                        <span className="self-center text-xl font-semibold whitespace-nowrap dark:text-white">WatchLog</span>
-                    </Link>
+                    <button
+                        onClick={handleClick}
+                        className="self-center text-xl font-semibold whitespace-nowrap dark:text-white">WatchLog</button>
                     <MediaSwitcher />
                 </div>
             </nav>

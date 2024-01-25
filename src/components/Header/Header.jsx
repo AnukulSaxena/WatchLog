@@ -1,13 +1,15 @@
-import { useState, useEffect } from "react";
-import { NavLink } from "react-router-dom";
+import { useState, useEffect, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import { useSelector } from 'react-redux'
 import LogoutBtn from "./LogoutBtn";
 import Search from "./Search.jsx";
 
 const Header = () => {
+    const navigate = useNavigate()
     const authStatus = useSelector((state) => state.auth.status)
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [scrollDirection, setScrollDirection] = useState("up");
+    const filterPanelRef = useRef(null);
 
     let prevScrollY = 0;
 
@@ -62,6 +64,18 @@ const Header = () => {
 
     };
 
+    function handleClickOutside(event) {
+
+        if (filterPanelRef.current && !filterPanelRef.current.contains(event.target)) {
+            setIsMenuOpen(false);
+
+        }
+
+    }
+    function handleNavigateClick(event) {
+        navigate(event.target.value)
+    }
+
     useEffect(() => {
         console.log("UseEffect Header.");
         const handleResize = () => {
@@ -71,15 +85,20 @@ const Header = () => {
         };
         window.addEventListener("resize", handleResize);
         window.addEventListener("scroll", handleScroll);
+        document.addEventListener('mousedown', handleClickOutside);
+
         return () => {
             window.removeEventListener("resize", handleResize);
             window.removeEventListener("scroll", handleScroll);
+            document.removeEventListener('mousedown', handleClickOutside);
         };
     }, []);
 
     return (
-        <header className={`fixed top-0 z-10 w-full bg-neutral-700 border-gray-200 px-4 lg:px-6 py-4 dark:bg-neutral-800 duration-300 transition-transform ${(scrollDirection === "down") ? "-translate-y-full" : "translate-y-0"
-            }`} >
+        <header
+            ref={filterPanelRef}
+            className={`fixed top-0 z-10 w-full bg-neutral-700 border-gray-200 px-4 lg:px-6 py-4 dark:bg-neutral-800 duration-300 transition-transform ${(scrollDirection === "down") ? "-translate-y-full" : "translate-y-0"
+                }`} >
             <nav className="">
                 <div className="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
                     <Search />
@@ -118,10 +137,11 @@ const Header = () => {
                             {navItems.map((item) =>
                                 item.active ? (
                                     <li key={item.name} className={`${isMenuOpen ? " w-full" : ""} text-center`}>
-                                        <NavLink to={item.slug} className={({ isActive }) =>
-                                            `block ${isMenuOpen ? " w-full" : ""} py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0 ${isActive ? " dark:text-orange-700" : " dark:text-gray-400"} lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700`
-                                        }>{item.name}</NavLink>
-
+                                        <button
+                                            value={item.slug}
+                                            onClick={handleNavigateClick}
+                                            className={`block ${isMenuOpen ? " w-full" : ""} py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700`}>{item.name}
+                                        </button>
                                     </li>
                                 ) : null
                             )}

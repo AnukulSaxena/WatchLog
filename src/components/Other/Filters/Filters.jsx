@@ -22,7 +22,7 @@ function Filters() {
     }
     const multiOption = [
         { name: 'Genre', id: 'with_genres' },
-        { name: 'Sort By', id: 'sort-by' },
+        { name: 'Sort By', id: 'sort_by' },
         { name: 'Language', id: 'with_original_language' }
         , { name: 'Country', id: 'with_origin_country' }
     ];
@@ -30,16 +30,10 @@ function Filters() {
     function togglePanel() {
         setIsOpen(prev => !prev);
 
-    }
-
-    function handleClickOutside(event) {
-
-        if (filterPanelRef.current && !filterPanelRef.current.contains(event.target)) {
-            setIsOpen(false);
-
-        }
 
     }
+
+
 
     function handleOptions() {
         console.log("handling filters");
@@ -54,7 +48,7 @@ function Filters() {
                 setOptions(filterData?.country);
                 break;
             case "Sort By":
-                setOptions([]);
+                setOptions(filterData?.sort);
                 break;
             default:
                 setOptions([]);
@@ -67,7 +61,14 @@ function Filters() {
         setCurrentOption(selectedOption);
     }
 
+    function handleClickOutside(event) {
 
+        if (filterPanelRef.current && !filterPanelRef.current.contains(event.target)) {
+            setIsOpen(false);
+
+        }
+
+    }
 
     useEffect(() => {
         setLoading(true);
@@ -76,11 +77,12 @@ function Filters() {
         return () => {
             document.removeEventListener('mousedown', handleClickOutside);
         };
-    }, [mediaType, currentOption]);
+    }, [mediaType, currentOption, filterData]);
 
-    return (
+    return !loading && (
         <div className={`flex justify-center z-10 w-full h-9 px-4 lg:px-6 dark:bg-neutral-700`}>
             <button
+                id='resetButton'
                 onClick={togglePanel}
                 className="filters-button dark:bg-neutra-700 dark:text-white px-6 md:px-10 rounded-md border border-gray-100 hover:bg-neutral-600 text-lg"
             >
@@ -123,6 +125,7 @@ function Filters() {
                 <div
                     className='w-full h-11 dark:bg-neutral-700 border-t p-1 border-neutral-600 flex rounded-b justify-center dark:text-white'>
                     <button
+
                         onClick={handleReset}
                         className='text-lg border-gray-100 hover:dark:bg-white hover:dark:text-black px-8 md:px-12 rounded-md border'>
                         Reset

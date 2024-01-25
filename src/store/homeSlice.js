@@ -9,7 +9,8 @@ const homeSlice = createSlice({
         paramFilters: {
             with_genres: '',
             with_origin_country: '',
-            with_original_language: ''
+            with_original_language: '',
+            sort_by: 'popularity.desc'
         }
     },
     reducers: {

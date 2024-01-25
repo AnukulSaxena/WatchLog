@@ -45,8 +45,23 @@ function App() {
     filters.genre.tvGenre = tvGenreData.genres;
     const countryData = await fetchDataFromApi('/configuration/countries')
     filters['country'] = countryData.map(item => ({ id: item.iso_3166_1, name: item.english_name }))
+    filters['sort'] = [
+      { id: 'popularity.desc', name: 'Popularity Descending' },
+      { id: 'popularity.asc', name: 'Popularity Ascending' },
 
+      { id: 'revenue.desc', name: 'Revenue Descending' },
+      { id: 'revenue.asc', name: 'Revenue Ascending' },
 
+      { id: 'primary_release_date.desc', name: 'Release Date Descending' },
+      { id: 'primary_release_date.asc', name: 'Release Date Ascending' },
+
+      { id: 'vote_average.desc', name: 'Vote Average Descending' },
+      { id: 'vote_average.asc', name: 'Vote Average Ascending' },
+
+      { id: 'vote_count.desc', name: 'Vote Count Descending' },
+      { id: 'vote_count.asc', name: 'Vote Count Ascending' },
+
+    ]
     const languageData = await fetchDataFromApi('/configuration/languages')
     filters['language'] = languageData.map(item => ({ id: item.iso_639_1, name: item.english_name }))
 
