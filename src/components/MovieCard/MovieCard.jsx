@@ -56,9 +56,9 @@ const MovieCard = ({ data, initStatus, crossCheck,
     const handleCheckboxToggle = () => {
         if (status) {
             if (isChecked) {
-                mode ? deleteMovieDocInRender() : console.log("Please Change the Mode");
+                mode ? deleteMovieDocInRender() : window.alert("Please Change the Mode");
             } else {
-                !mode ? addMovieDocInRender() : console.log("Please Change the Mode");
+                !mode ? addMovieDocInRender() : window.alert("Please Change the Mode");
             }
         }
     };
