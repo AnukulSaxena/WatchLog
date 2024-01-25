@@ -28,9 +28,9 @@ function InfiniteScrollComponent({
                 }
             >
                 {data?.map((item, index) => {
-                    return (searchType === 'person') ? <Avatar item={item} /> :
+                    return (searchType === 'person') ? <Avatar key={item.id} item={item} /> :
                         <MovieCard
-                            key={index}
+                            key={item.id}
                             data={item}
                             initStatus={initStatus}
                             crossCheck={crossCheck}

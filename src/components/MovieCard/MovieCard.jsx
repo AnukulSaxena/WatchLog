@@ -72,10 +72,8 @@ const MovieCard = ({ data, initStatus, crossCheck,
             const targetKey = 'id';
             const targetValue = data.id;
             const foundObject = await movieData?.data?.find(obj => obj[targetKey] === targetValue);
-
             if (foundObject) {
                 setIsChecked(true);
-
             }
         }
         setLoading(false);
@@ -87,7 +85,7 @@ const MovieCard = ({ data, initStatus, crossCheck,
 
             setIsChecked(false)
         }
-    }, [])
+    }, [movieData])
 
 
     return (

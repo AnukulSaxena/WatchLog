@@ -33,12 +33,12 @@ function Home() {
             const response = await fetchDataFromApi(`/discover/${mediaType}?page=${1}`, paramFilters);
             setData(response);
             setPageNum(2);
+            setLoading(false);
             if (status) {
                 const responseData = await movieService.getMovieDocs(userData?.$id, mediaType);
                 console.log("Home :: handleUseEffect :: responseData ", responseData);
                 dispatch(setMovieDataState(responseData));
             }
-            setLoading(false);
 
         } catch (error) {
             console.error("Home :: HandleUseffect :: error", error)

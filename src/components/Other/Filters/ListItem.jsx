@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { setParamFilters } from '../../../store/homeSlice';
 
+
 function ListItem({ item, currentOption }) {
     const { mediaType, paramFilters } = useSelector((state) => state.home);
     const [isChecked, setIsChecked] = useState(false);
@@ -11,7 +12,6 @@ function ListItem({ item, currentOption }) {
     useEffect(() => {
         const checkItemPresence = () => {
             const filters = paramFilters[currentOption.id];
-            console.log(filters)
 
             if (currentOption.name === 'Genre') {
                 setIsChecked(filters.split(',').includes(item.id.toString()));

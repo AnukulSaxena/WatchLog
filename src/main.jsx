@@ -28,7 +28,7 @@ const router = createBrowserRouter([
       {
         path: "/playlist",
         element: (
-          <AuthLayout authentication>
+          <AuthLayout authentication={false}>
             <Playlist />
           </AuthLayout>
         )
@@ -52,7 +52,7 @@ const router = createBrowserRouter([
       {
         path: "/:mediaType/:id",
         element: (
-          <AuthLayout authentication>
+          <AuthLayout authentication={false}>
             <Detail />
           </AuthLayout>
         )
@@ -60,14 +60,14 @@ const router = createBrowserRouter([
       {
         path: "/credits/:id/:knownFor",
         element: (
-          <AuthLayout authentication>
+          <AuthLayout authentication={false}>
             <MovieCredits />
           </AuthLayout>
         )
       }, {
         path: "/search/:searchType/:query",
         element: (
-          <AuthLayout authentication>
+          <AuthLayout authentication={false}>
             <Search />
           </AuthLayout>
         )
