@@ -29,7 +29,7 @@ function MovieDetail({ data }) {
 
             <div className='my-5'>
                 <h4 className="mb-6 text-xl font-bold leading-none tracking-tight text-gray-900 lg:text-2xl dark:text-white">Genre</h4>
-                <div>
+                <div className='flex flex-wrap gap-2'>
                     {data?.genres?.map((genre) => {
                         return (
                             <span key={genre?.id} className='bg-gray-100 text-gray-800 text-sm font-medium me-2 px-2.5 py-1 rounded dark:bg-neutral-900 dark:text-gray-300'> {genre?.name} </span>
@@ -42,28 +42,78 @@ function MovieDetail({ data }) {
                         detailKey={'Status'}
                         detailInfo={data?.status}
                     />
-                    <SubDetail
-                        detailKey={'Release Date'}
-                        detailInfo={data?.release_date}
-                    />
-                    <SubDetail
-                        detailKey={'Runtime'}
-                        detailInfo={data?.runtime}
-                    />
 
-
+                    {
+                        data?.release_date &&
+                        <SubDetail
+                            detailKey={'Release Date'}
+                            detailInfo={data?.release_date}
+                        />
+                    }
+                    {
+                        data?.runtime &&
+                        <SubDetail
+                            detailKey={'Runtime'}
+                            detailInfo={data?.runtime}
+                        />
+                    }
+                    {
+                        data?.episode_run_time &&
+                        <SubDetail
+                            detailKey={'Episose Run Time'}
+                            detailInfo={data?.episode_run_time}
+                        />
+                    }
                 </div>
-                <div className='lg:flex flex-wrap lg:gap-8 pt-5 '>
-                    <SubDetail
-                        detailKey={'Budget'}
-                        detailInfo={data?.budget}
-                    />
-                    <SubDetail
-                        detailKey={'Revenue'}
-                        detailInfo={data?.revenue}
-                    />
+                {
+                    data?.first_air_date &&
+                    <div className='lg:flex flex-wrap lg:gap-8 pt-5 '>
+                        <SubDetail
+                            detailKey={'First Air Date'}
+                            detailInfo={data?.first_air_date}
+                        />
+                        <SubDetail
+                            detailKey={'Last Air Date'}
+                            detailInfo={data?.last_air_date}
+                        />
 
-                </div>
+                        {
+                            data?.next_episode_to_air &&
+                            <SubDetail
+                                detailKey={'Next Episode'}
+                                detailInfo={data?.next_episode_to_air}
+                            />
+                        }
+                    </div>
+                }
+
+                {
+                    data?.number_of_seasons &&
+                    <div className='lg:flex flex-wrap lg:gap-8 pt-5 '>
+                        <SubDetail
+                            detailKey={'Number of Seasons'}
+                            detailInfo={data?.number_of_seasons}
+                        />
+                        <SubDetail
+                            detailKey={'Number of Episodes'}
+                            detailInfo={data?.number_of_episodes}
+                        />
+                    </div>
+                }
+
+                {
+                    data?.budget &&
+                    <div className='lg:flex flex-wrap lg:gap-8 pt-5 '>
+                        <SubDetail
+                            detailKey={'Budget'}
+                            detailInfo={data?.budget}
+                        />
+                        <SubDetail
+                            detailKey={'Revenue'}
+                            detailInfo={data?.revenue}
+                        />
+                    </div>
+                }
                 <div className='lg:flex  flex-wrap lg:gap-8 pt-5 '>
                     <SubDetail
                         detailKey={'Vote Average'}

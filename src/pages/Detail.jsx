@@ -6,6 +6,7 @@ import Cast from '../components/Other/MovieDetail/Cast';
 import Crew from '../components/Other/MovieDetail/Crew';
 import { MovieDetail, Img, Rating } from '../components';
 import Carousel from '../components/Other/MovieDetail/Carousel';
+
 function Detail() {
     const { mediaType, id } = useParams()
     const [data, setData] = useState(null);
@@ -50,9 +51,11 @@ function Detail() {
 
                     />
                 </div>
-                <MovieDetail
-                    data={data}
-                />
+                {
+                    data && <MovieDetail
+                        data={data}
+                    />
+                }
             </div>
             <div className=' my-5 bg-neutral-700 h-fit border border-gray-400 row-auto w-full p-5'>
 
@@ -79,12 +82,14 @@ function Detail() {
                     data?.id && <Carousel
                         id={data?.id}
                         type='similar'
+                        mediaType={mediaType}
                     />
                 }
                 {
                     data?.id && <Carousel
                         id={data?.id}
                         type='recommendations'
+                        mediaType={mediaType}
                     />
                 }
 
