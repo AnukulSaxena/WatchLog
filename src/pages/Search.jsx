@@ -43,12 +43,12 @@ function Search() {
             console.log("Search Page :: initialFetch :: Response", response);
             setData(response);
             setPageNum(prev => prev + 1)
+            setLoading(false)
             if (status && searchType !== 'person') {
                 const responseData = await movieService.getMovieDocs(userData?.$id, searchType);
                 console.log("Home :: handleUseEffect :: responseData ", responseData);
                 dispatch(setMovieDataState(responseData));
             }
-            setLoading(false)
         } catch (error) {
             console.error("Search :: initFetch :: Errro", error);
 

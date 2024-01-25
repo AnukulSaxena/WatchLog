@@ -25,12 +25,12 @@ function MovieCredits() {
         } else {
             setMovieData(response.crew)
         }
+        setLoading(false);
         if (status) {
             const responseData = await movieService.getMovieDocs(userData?.$id, mediaType);
             console.log("Home :: handleUseEffect :: responseData ", responseData);
             dispatch(setMovieDataState(responseData));
         }
-        setLoading(false);
     }
 
     useEffect(() => {
