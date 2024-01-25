@@ -89,7 +89,7 @@ const MovieCard = ({ data, initStatus, crossCheck,
 
 
     return (
-        <div className=" md:w-48 w-44  relative">
+        <div className=" max-w-44 min-w-44 md:min-w-48 md:max-w-48 h-fit relative">
             {
                 data.poster_path && data.poster_path !== " " ?
                     <div

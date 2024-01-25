@@ -1,6 +1,5 @@
 import React from "react";
-import Img from "./Img";
-import Avatar from "./Avatar";
+import Avatar from "../Avatar";
 
 const Cast = ({ data, loading }) => {
 

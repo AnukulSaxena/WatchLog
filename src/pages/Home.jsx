@@ -13,7 +13,6 @@ function Home() {
     const { mediaType, paramFilters } = useSelector(state => state.home)
     const dispatch = useDispatch()
 
-
     const fetchNextPageData = () => {
         fetchDataFromApi(`/discover/${mediaType}?page=${pageNum}`, paramFilters)
             .then((res) => {

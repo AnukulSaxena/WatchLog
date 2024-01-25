@@ -97,7 +97,7 @@ const Header = () => {
     return (
         <header
             ref={filterPanelRef}
-            className={`fixed top-0 z-10 w-full bg-neutral-700 border-gray-200 px-4 lg:px-6 py-4 dark:bg-neutral-800 duration-300 transition-transform ${(scrollDirection === "down") ? "-translate-y-full" : "translate-y-0"
+            className={`fixed top-0 z-50 w-full bg-neutral-700 border-gray-200 px-4 lg:px-6 py-4 dark:bg-neutral-800 duration-300 transition-transform ${(scrollDirection === "down") ? "-translate-y-full" : "translate-y-0"
                 }`} >
             <nav className="">
                 <div className="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">

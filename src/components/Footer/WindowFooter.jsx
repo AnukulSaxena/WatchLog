@@ -18,7 +18,8 @@ function WindowFooter() {
                     <Switcher />
                     <button
                         onClick={handleClick}
-                        className="self-center text-xl font-semibold whitespace-nowrap dark:text-white">WatchLog</button>
+                        className="self-center text-xl font-semibold whitespace-nowrap dark:text-white"
+                    >WatchLog</button>
                     <MediaSwitcher />
                 </div>
             </nav>

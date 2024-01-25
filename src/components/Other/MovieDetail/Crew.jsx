@@ -1,8 +1,6 @@
 import React from "react";
-import { useSelector } from "react-redux";
-import Img from "./Img";
-import { useNavigate } from "react-router-dom";
-import Avatar from "./Avatar";
+
+import Avatar from "../Avatar";
 
 const Crew = ({ data, loading }) => {
 
