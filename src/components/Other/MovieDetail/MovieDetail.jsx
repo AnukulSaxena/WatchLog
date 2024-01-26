@@ -76,14 +76,6 @@ function MovieDetail({ data }) {
                             detailKey={'Last Air Date'}
                             detailInfo={data?.last_air_date}
                         />
-
-                        {
-                            data?.next_episode_to_air &&
-                            <SubDetail
-                                detailKey={'Next Episode'}
-                                detailInfo={data?.next_episode_to_air}
-                            />
-                        }
                     </div>
                 }
 
