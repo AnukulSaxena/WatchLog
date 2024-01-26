@@ -1,18 +1,21 @@
 import React, { useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { setMediaType } from '../../../store/homeSlice.js'
 import { setParamFilters } from '../../../store/homeSlice.js'
 
 const MediaSwitcher = ({ className = "" }) => {
     const [isChecked, setIsChecked] = useState(true)
     const dispatch = useDispatch()
+    const { paramFilters } = useSelector(state => state.home)
 
     const handleCheckboxChange = () => {
-        dispatch(setParamFilters({
+        const updatedParamsFilters = {
+            ...paramFilters,
             with_genres: '',
-            with_origin_country: '',
-            with_original_language: '',
-        }))
+        };
+
+
+        dispatch(setParamFilters(updatedParamsFilters));
         if (isChecked) {
             dispatch(setMediaType("tv"))
         } else {

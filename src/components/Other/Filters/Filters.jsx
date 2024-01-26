@@ -18,6 +18,7 @@ function Filters() {
             with_genres: '',
             with_origin_country: '',
             with_original_language: '',
+            sort_by: 'vote_count.desc'
         }))
     }
     const multiOption = [

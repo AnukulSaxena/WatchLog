@@ -10,7 +10,7 @@ const homeSlice = createSlice({
             with_genres: '',
             with_origin_country: '',
             with_original_language: '',
-            sort_by: 'popularity.desc'
+            sort_by: 'vote_count.desc'
         }
     },
     reducers: {
