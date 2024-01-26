@@ -94,17 +94,18 @@ function MovieDetail({ data }) {
                 }
 
                 {
-                    data?.budget &&
-                    <div className='lg:flex flex-wrap lg:gap-8 pt-5 '>
-                        <SubDetail
-                            detailKey={'Budget'}
-                            detailInfo={data?.budget}
-                        />
-                        <SubDetail
-                            detailKey={'Revenue'}
-                            detailInfo={data?.revenue}
-                        />
-                    </div>
+                    (data?.revenue) ?
+                        <div className='lg:flex flex-wrap lg:gap-8 pt-5 '>
+                            <SubDetail
+                                detailKey={'Budget'}
+                                detailInfo={data?.budget}
+                            />
+                            <SubDetail
+                                detailKey={'Revenue'}
+                                detailInfo={data?.revenue}
+                            />
+                        </div> : <div></div>
+
                 }
                 <div className='lg:flex  flex-wrap lg:gap-8 pt-5 '>
                     <SubDetail

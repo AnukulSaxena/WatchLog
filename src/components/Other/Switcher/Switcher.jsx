@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { setMode } from '../../../store/movieSlice.js'
+import { setParamFilters } from '../../../store/homeSlice.js'
 
 const Switcher = ({ className = '' }) => {
     const [isChecked, setIsChecked] = useState(false)
@@ -8,8 +9,10 @@ const Switcher = ({ className = '' }) => {
 
     const handleCheckboxChange = () => {
         console.log(isChecked)
+
         dispatch(setMode(!isChecked))
         setIsChecked(!isChecked)
+
     }
 
     return (

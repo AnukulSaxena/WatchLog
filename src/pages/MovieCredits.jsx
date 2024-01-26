@@ -60,6 +60,7 @@ function MovieCredits() {
                             data={item}
                             initStatus={false}
                             crossCheck={true}
+                            mediaType={mediaType}
                         />
                     })}
                 </div>

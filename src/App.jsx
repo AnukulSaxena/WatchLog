@@ -25,7 +25,7 @@ function App() {
     if (response[0].status === 'fulfilled') {
       const url = {
         poster: response[0].value.images.secure_base_url + "w342",
-        backdrop: response[0].value.images.secure_base_url + "original",
+        backdrop: response[0].value.images.secure_base_url + "w780",
         profile: response[0].value.images.secure_base_url + "original"
       };
       dispatch(setApiConfiguration(url));

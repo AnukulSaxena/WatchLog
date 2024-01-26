@@ -65,6 +65,7 @@ function Home() {
                     total_pages={data?.total_pages}
                     initStatus={false}
                     crossCheck={true}
+                    searchType={mediaType}
                 />
 
             }

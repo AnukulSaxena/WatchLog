@@ -30,6 +30,7 @@ function Carousel({ id, type, mediaType }) {
                                 data={item}
                                 initStatus={false}
                                 crossCheck={true}
+                                mediaType={mediaType}
                             />
                         )
                 }

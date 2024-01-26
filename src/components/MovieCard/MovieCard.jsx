@@ -8,7 +8,7 @@ import FakeImage from './FakeImage.jsx';
 
 
 const MovieCard = ({ data, initStatus, crossCheck,
-    mediaType = useSelector((state) => state.home.mediaType)
+    mediaType
 }) => {
     const { url } = useSelector((state) => state.home);
     const posterUrl = url.poster + data.poster_path;

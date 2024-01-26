@@ -17,7 +17,7 @@ function Filters() {
         dispatch(setParamFilters({
             with_genres: '',
             with_origin_country: '',
-            with_original_language: ''
+            with_original_language: '',
         }))
     }
     const multiOption = [
