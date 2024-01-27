@@ -18,13 +18,16 @@ function Home() {
             .then((res) => {
                 if (data) {
                     setData((prevData) => ({
-                        ...res, results: [...prevData.results, ...res.results],
+                        ...res, results: [...prevData?.results, ...res?.results],
                     }));
                 } else {
                     setData(res)
                 }
-                setPageNum((prev) => (prev + 1));
-            });
+                setPageNum(pageNum + 1);
+            })
+            .catch((error) => {
+                console.error("Home :: fetchNextPageData :: Error", error)
+            })
     };
 
     async function handleUseEffect() {

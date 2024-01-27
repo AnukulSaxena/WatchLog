@@ -68,15 +68,19 @@ const MovieCard = ({ data, initStatus, crossCheck,
     }
 
     async function checkStatus() {
-        if (status) {
-            const targetKey = 'id';
-            const targetValue = data.id;
-            const foundObject = await movieData?.data?.find(obj => obj[targetKey] === targetValue);
-            if (foundObject) {
-                setIsChecked(true);
+        try {
+            if (status) {
+                const targetKey = 'id';
+                const targetValue = data.id;
+                const foundObject = await movieData?.data?.find(obj => obj[targetKey] === targetValue);
+                if (foundObject) {
+                    setIsChecked(true);
+                }
             }
+            setLoading(false);
+        } catch (error) {
+            console.error("MovieCard :: checkStatus :: Error", error)
         }
-        setLoading(false);
     }
 
     useEffect(() => {

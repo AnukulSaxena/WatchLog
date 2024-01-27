@@ -8,7 +8,7 @@ function Avatar({ item }) {
     const { url } = useSelector(state => state.home)
     let imgUrl = url.backdrop + item.profile_path;
 
-    async function handleClick() {
+    function handleClick() {
         navigate(`/credits/${item.id}/${item.known_for_department}`)
 
     }

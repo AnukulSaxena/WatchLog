@@ -19,6 +19,6 @@ export const fetchDataFromApi = async (url, params) => {
         return data
     } catch (err) {
         console.log(err);
-        return err
+        throw err
     }
 }

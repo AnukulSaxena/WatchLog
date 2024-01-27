@@ -19,6 +19,9 @@ function LogoutBtn({ isMenuOpen }) {
 
             })
             .then(() => navigate("/"))
+            .catch(error => {
+                console.error("LogoutBtn :: handleLogout :: Error", error)
+            })
     }
 
     return (

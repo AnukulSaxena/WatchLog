@@ -19,17 +19,21 @@ function MovieCredits() {
     }
 
     async function initialStatus() {
-        const response = await fetchDataFromApi(`/person/${id}/${mediaType}_credits`);
-        if (isChecked) {
-            setMovieData(response.cast)
-        } else {
-            setMovieData(response.crew)
-        }
-        setLoading(false);
-        if (status) {
-            const responseData = await movieService.getMovieDocs(userData?.$id, mediaType);
-            console.log("Home :: handleUseEffect :: responseData ", responseData);
-            dispatch(setMovieDataState(responseData));
+        try {
+            const response = await fetchDataFromApi(`/person/${id}/${mediaType}_credits`);
+            if (isChecked) {
+                setMovieData(response.cast)
+            } else {
+                setMovieData(response.crew)
+            }
+            setLoading(false);
+            if (status) {
+                const responseData = await movieService.getMovieDocs(userData?.$id, mediaType);
+                console.log("Home :: handleUseEffect :: responseData ", responseData);
+                dispatch(setMovieDataState(responseData));
+            }
+        } catch (error) {
+            console.error("MovieCredits :: initialStatus :: Error", error)
         }
     }
 

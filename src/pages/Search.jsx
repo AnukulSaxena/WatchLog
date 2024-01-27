@@ -17,9 +17,6 @@ function Search() {
 
 
     const fetchNextPageData = async () => {
-
-
-        console.log("page ", pageNum, " searchType ", searchType, " Loading ", loading, " data ", data);
         fetchDataFromApi(`/search/${searchType}?query=${query}&page=${pageNum}`)
             .then((res) => {
                 setPageNum((prev) => prev + 1);
@@ -32,8 +29,6 @@ function Search() {
             .catch(error => {
                 console.error("Search :: fetchNextPageData :: error", error)
             })
-
-
     };
 
 
@@ -60,7 +55,6 @@ function Search() {
         setPageNum(1)
         setLoading(true)
         initialFetch();
-        console.log("skdfksfksdjfksdkfsjdkfdskj")
 
     }, [query, searchType])
 

@@ -15,17 +15,21 @@ function Watched() {
     const [pageNum, setPageNum] = useState(1);
 
     async function getNextPageData(page = pageNum) {
-        const response = await movieService.getPaginatedMovieDocs({
-            user_id: userData?.$id,
-            pageNum: page,
-            limit: 25
-        }, mediaType)
-        console.log("Watched :: getNextPageData :: response", response)
-        setPageNum(prev => prev + 1);
-        setData((prevData) => ({
-            ...response, data: [...prevData?.data, ...response?.data],
-        }));
-        setLoading(false);
+        try {
+            const response = await movieService.getPaginatedMovieDocs({
+                user_id: userData?.$id,
+                pageNum: page,
+                limit: 25
+            }, mediaType)
+            console.log("Watched :: getNextPageData :: response", response)
+            setPageNum(prev => prev + 1);
+            setData((prevData) => ({
+                ...response, data: [...prevData?.data, ...response?.data],
+            }));
+            setLoading(false);
+        } catch (error) {
+            console.error("Watched :: getNextPageData :: Error", error)
+        }
     }
 
     useEffect(() => {
@@ -59,6 +63,8 @@ function Watched() {
                     total_pages={Math.ceil(data?.totalCount / 25)}
                     initStatus={true}
                     crossCheck={false}
+                    searchType={mediaType}
+
                 />
             }
         </div>

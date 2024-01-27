@@ -15,6 +15,9 @@ function Carousel({ id, type, mediaType }) {
                 if (res?.results?.length)
                     setLoading(false);
             })
+            .catch(error => {
+                console.error("Carousel :: useffect :: Error", error)
+            })
     }, [])
     return !loading && (
         < div className=" h-fit" >

@@ -17,11 +17,15 @@ function Detail() {
 
 
     const fetchData = async () => {
-        const response = await fetchDataFromApi(`/${mediaType}/${id}`)
-        setData(response)
-        setLoading(false)
-        const res = await fetchDataFromApi(`/${mediaType}/${id}/credits`)
-        setCreditData(res);
+        try {
+            const response = await fetchDataFromApi(`/${mediaType}/${id}`)
+            setData(response)
+            setLoading(false)
+            const res = await fetchDataFromApi(`/${mediaType}/${id}/credits`)
+            setCreditData(res);
+        } catch (error) {
+            console.error("Detail :: fetchData :: Error", error)
+        }
     };
 
 
@@ -29,9 +33,6 @@ function Detail() {
         setLoading(true)
         window.scrollTo(0, 0);
         fetchData()
-        // return () => {
-
-        // }
     }, [id])
 
 
