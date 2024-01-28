@@ -26,13 +26,13 @@ const Switcher = ({ className = '' }) => {
                     onChange={handleCheckboxChange}
                 />
                 <div
-                    className={`  w-8 rounded text-center md:w-16 text-lg ${!isChecked ? ' bg-neutral-500 text-white' : ''
+                    className={`  w-8 rounded text-center md:w-16 text-lg ${!isChecked ? ' bg-neutral-700 text-white' : ''
                         }`}
                 >
                     +
                 </div>
                 <div
-                    className={`text-center  w-8 rounded md:w-16 text-lg  ${isChecked ? ' bg-neutral-500 text-white' : ''
+                    className={`text-center  w-8 rounded md:w-16 text-lg  ${isChecked ? ' bg-neutral-700 text-white' : ''
                         }`}
                 >-</div>
             </label>

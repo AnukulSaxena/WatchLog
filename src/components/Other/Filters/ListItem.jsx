@@ -51,11 +51,11 @@ function ListItem({ item, currentOption }) {
     }
 
     return !loading && (
-        <li className='w-full h-8 text-center dark:text-white'>
+        <li className='w-full h-8 text-center text-white'>
             <button
                 value={item.name}
                 onClick={handleClick}
-                className={`h-full w-full truncate px-2 hover:text-black ${isChecked ? 'dark:bg-neutral-500 text-white' : ''}`}>
+                className={`h-full w-full truncate px-2 hover:text-black ${isChecked ? 'bg-neutral-500 text-white' : ''}`}>
                 {item.name}
             </button>
         </li>

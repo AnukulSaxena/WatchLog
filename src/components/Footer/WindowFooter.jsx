@@ -13,12 +13,12 @@ function WindowFooter() {
     }
     return (
         <div>
-            <nav className="fixed z-10 round w-full bottom-0 p-2 dark:bg-neutral-800 flex justify-center">
+            <nav className="fixed z-10 round w-full bottom-0 p-2 bg-neutral-800 flex justify-center">
                 <div className="flex w-fit gap-6 rounded-md md:gap-32 justify-center ">
                     <Switcher />
                     <button
                         onClick={handleClick}
-                        className="self-center text-xl font-semibold whitespace-nowrap dark:text-white"
+                        className="self-center text-xl font-semibold whitespace-nowrap text-white"
                     >WatchLog</button>
                     <MediaSwitcher />
                 </div>

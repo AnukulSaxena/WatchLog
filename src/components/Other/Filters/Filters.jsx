@@ -81,29 +81,29 @@ function Filters() {
     }, [mediaType, currentOption, filterData]);
 
     return !loading && (
-        <div className={`flex justify-center z-10 w-full h-9 px-4 lg:px-6 dark:bg-neutral-700`}>
+        <div className={`flex justify-center z-10 w-full h-9 px-4 lg:px-6 bg-neutral-700`}>
             <button
                 id='resetButton'
                 onClick={togglePanel}
-                className="filters-button dark:bg-neutra-700 dark:text-white px-6 md:px-10 rounded-md border border-gray-100 hover:bg-neutral-600 text-lg"
+                className="filters-button bg-neutra-700 text-white px-6 md:px-10 rounded-md border border-gray-100 hover:bg-neutral-600 text-lg"
             >
                 Filters
             </button>
 
             <div
                 ref={filterPanelRef}
-                className={` ${isOpen ? " " : "hidden"}  rounded-t-md absolute top-40 z-20 h-96 w-80 md:w-[590px] bg-white dark:bg-neutral-700`}
+                className={` ${isOpen ? " " : "hidden"}  rounded-t-md absolute top-40 z-20 h-96 w-80 md:w-[590px]  bg-neutral-700`}
             >
 
                 <div className='flex h-full'>
                     <div className='w-1/3 h-full border-r border-neutral-600'>
                         <ul>
                             {multiOption?.map((item, index) => (
-                                <li key={index} className='w-full h-8 text-center dark:text-white'>
+                                <li key={index} className='w-full h-8 text-center text-white'>
                                     <button
                                         value={item.name}
                                         onClick={handlemultiOptionClick}
-                                        className={`h-full w-full ${currentOption === item && "dark:bg-white rounded-md dark:text-black"} hover:rounded-md hover:bg-white hover:text-black`}
+                                        className={`h-full w-full ${currentOption === item && "bg-white rounded-md text-black"} hover:rounded-md hover:bg-white hover:text-black`}
                                     >
                                         {item.name}
                                     </button>
@@ -124,11 +124,11 @@ function Filters() {
                     </div>
                 </div>
                 <div
-                    className='w-full h-11 dark:bg-neutral-700 border-t p-1 border-neutral-600 flex rounded-b justify-center dark:text-white'>
+                    className='w-full h-11 bg-neutral-700 border-t p-1 border-neutral-600 flex rounded-b justify-center text-white'>
                     <button
 
                         onClick={handleReset}
-                        className='text-lg border-gray-100 hover:dark:bg-white hover:dark:text-black px-8 md:px-12 rounded-md border'>
+                        className='text-lg border-gray-100 hover:bg-white hover:text-black px-8 md:px-12 rounded-md border'>
                         Reset
                     </button>
                 </div>

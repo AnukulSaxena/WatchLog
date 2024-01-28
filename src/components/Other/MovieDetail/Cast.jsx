@@ -8,8 +8,8 @@ const Cast = ({ data, loading }) => {
 
 
         < div className="" >
-            <div className="text-center text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-4xl dark:text-white">Top Cast</div>
-            <hr className="h-px my-10 bg-gray-200 border-0 dark:bg-gray-400"></hr>
+            <div className="text-center text-4xl font-extrabold leading-none tracking-tight  md:text-4xl text-white">Top Cast</div>
+            <hr className="h-px my-10  border-0 bg-gray-400"></hr>
             {
                 !loading && (
                     <div className="flex gap-5 overflow-x-scroll no-scrollbar">

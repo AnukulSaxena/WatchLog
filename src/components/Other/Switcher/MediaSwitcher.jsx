@@ -35,13 +35,13 @@ const MediaSwitcher = ({ className = "" }) => {
                     onChange={handleCheckboxChange}
                 />
                 <div
-                    className={` text-center  w-8 rounded md:w-16 text-lg  ${!isChecked ? ' bg-neutral-500 text-white' : ''
+                    className={` text-center  w-8 rounded md:w-16 text-lg  ${!isChecked ? ' bg-neutral-700 text-white' : ''
                         }`}
                 >
                     TV
                 </div>
                 <div
-                    className={`text-center  w-8 rounded md:w-16 text-lg  ${isChecked ? ' bg-neutral-500 text-white' : ''
+                    className={`text-center  w-8 rounded md:w-16 text-lg  ${isChecked ? ' bg-neutral-700 text-white' : ''
                         }`}
                 >MV</div>
             </label>

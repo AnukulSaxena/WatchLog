@@ -10,7 +10,7 @@ function Playlist() {
         window.scrollTo(0, 0);
     }, [])
     return (
-        <div className=' min-h-screen dark:bg-neutral-700 text-white w-full text-center'>
+        <div className=' min-h-screen bg-neutral-700 text-white w-full text-center'>
             <Spinner height='h-96' />
             Coming Soon
         </div>

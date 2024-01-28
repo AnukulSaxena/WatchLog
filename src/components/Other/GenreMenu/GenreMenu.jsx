@@ -56,7 +56,7 @@ const GenreMenu = ({ className = '' }) => {
             <button
                 onClick={() => setIsOpen(prev => !prev)}
                 type="button"
-                className={`inline-flex dark:bg-neutral-700 w-full  text-white justify-end ${selectedOption.length ? "rounded-r-md" : "rounded-md"} ${isOpen ? "rounded-tr-md" : ""} px-4 bg-white font-medium  hover:bg-neutral-500`}
+                className={`inline-flex bg-neutral-700 w-full  text-white justify-end ${selectedOption.length ? "rounded-r-md" : "rounded-md"} ${isOpen ? "rounded-tr-md" : ""} px-4 bg-white font-medium  hover:bg-neutral-500`}
                 id="options-menu"
                 aria-haspopup="true"
                 aria-expanded="true"

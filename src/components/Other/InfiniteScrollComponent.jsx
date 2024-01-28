@@ -22,7 +22,7 @@ function InfiniteScrollComponent({
                 hasMore={pageNum <= total_pages}
                 loader={<Spinner />}
                 endMessage={
-                    <p className='text-center w-full dark:text-white'>
+                    <p className='text-center w-full text-white'>
                         <b>Yay! You have seen it all</b>
                     </p>
                 }

@@ -40,8 +40,8 @@ function Detail() {
         <div className=" min-h-screen bg-neutral-700 max-h-fit">
             {
                 !loading &&
-                <div className='px-5 lg:pt-24 pt-16 dark:bg-neutral-700 lg:px-20 xl:px-40'>
-                    <div className=' dark:bg-neutral-700 border border-gray-400 lg:max-h-[520px] p-5 lg:flex gap-5  w-full '>
+                <div className='px-5 lg:pt-24 pt-16 bg-neutral-700 lg:px-20 xl:px-40'>
+                    <div className=' bg-neutral-700 border border-gray-400 lg:max-h-[520px] p-5 lg:flex gap-5  w-full '>
                         <div className=" relative min-w-80 min-h-[480px] ">
                             <Rating
                                 starWidth=' w-4 lg:w-5'

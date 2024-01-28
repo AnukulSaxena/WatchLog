@@ -57,7 +57,7 @@ function Home() {
 
     }, [status, mediaType, paramFilters])
     return (
-        <div className='dark:bg-neutral-700 min-h-screen pt-20'>
+        <div className='bg-neutral-700 min-h-screen pt-20'>
             <Filters />
             {
                 !loading &&

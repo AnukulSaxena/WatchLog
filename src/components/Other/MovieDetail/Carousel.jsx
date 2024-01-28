@@ -21,8 +21,8 @@ function Carousel({ id, type, mediaType }) {
     }, [])
     return !loading && (
         < div className=" h-fit" >
-            <div className="text-center text-4xl font-extrabold  tracking-tight text-gray-900 md:text-4xl dark:text-white">{type}</div>
-            <hr className="h-px my-10 bg-gray-200 border-0 dark:bg-gray-400"></hr>
+            <div className="text-center text-4xl font-extrabold  tracking-tight  md:text-4xl text-white">{type}</div>
+            <hr className="h-px my-10  border-0 bg-gray-400"></hr>
             <div className="flex gap-5 md:h-80 h-72 w-full no-scrollbar overflow-x-scroll">
                 {
                     !loading &&

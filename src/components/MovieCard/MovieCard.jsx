@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import './styles.css';
+
 import { useSelector } from 'react-redux';
 import movieService from '../../render/movieconfig.js';
 import { useNavigate } from 'react-router-dom';
@@ -60,6 +60,8 @@ const MovieCard = ({ data, initStatus, crossCheck,
             } else {
                 !mode ? addMovieDocInRender() : window.alert("Please Change the Mode");
             }
+        } else {
+            window.alert("Please Login First.")
         }
     };
 

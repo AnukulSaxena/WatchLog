@@ -16,10 +16,10 @@ const DropdownMenu = ({ className = '' }) => {
             </button>
             {
                 isOpen && (
-                    <ul className=" z-10 absolute bottom-0 right-0 mb-12 mx-2 w-44 rounded-md shadow-lg bg-white dark:bg-neutral-700 dark:text-white ring-1 ring-black ring-opacity-5">
-                        <li className="px-4 border-gray-200 border rounded-t dark:border-gray-600  py-2">Option 1</li>
-                        <li className="px-4 border-gray-200 border-x  dark:border-gray-600 py-2">Option 2</li>
-                        <li className="px-4 border-gray-200 border rounded-b dark:border-gray-600 py-2">Option 3</li>
+                    <ul className=" z-10 absolute bottom-0 right-0 mb-12 mx-2 w-44 rounded-md   bg-neutral-700 text-white ">
+                        <li className="px-4  border rounded-t border-gray-600  py-2">Option 1</li>
+                        <li className="px-4  border-x  border-gray-600 py-2">Option 2</li>
+                        <li className="px-4  border rounded-b border-gray-600 py-2">Option 3</li>
                     </ul>
                 )
             }

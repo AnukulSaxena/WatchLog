@@ -7,7 +7,7 @@ function Login() {
         window.scrollTo(0, 0);
     }, [])
     return (
-        <div className=' min-h-screen py-40 px-10 dark:bg-neutral-700'>
+        <div className=' min-h-screen py-40 px-10 bg-neutral-700'>
             <LoginForm />
 
         </div>

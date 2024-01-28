@@ -60,7 +60,7 @@ function Search() {
 
 
     return (
-        <div className='dark:bg-neutral-700 min-h-screen pt-14'>
+        <div className='bg-neutral-700 min-h-screen pt-14'>
             {
                 !loading &&
                 <InfiniteScrollComponent
