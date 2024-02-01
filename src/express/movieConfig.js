@@ -8,6 +8,7 @@ class MovieService {
             headers: {
                 'Content-Type': 'application/json',
             },
+            withCredentials: true,
         });
     }
 
@@ -15,9 +16,6 @@ class MovieService {
         try {
             const response = await this.axiosInstance.patch(`/playlists/addtowatched/${mediaType}`, {
                 id,
-            }, {
-
-                withCredentials: true,
             });
             console.log('Added Successfully', response.data.data);
             return true;
@@ -31,8 +29,6 @@ class MovieService {
         try {
             const response = await this.axiosInstance.patch(`/playlists/removefromwatched/${mediaType}`, {
                 id,
-            }, {
-                withCredentials: true,
             });
             console.log('Removed successfully', response.data.data);
             return true;
@@ -48,8 +44,8 @@ class MovieService {
                 params: {
                     page,
                     limit,
-                },
-                withCredentials: true,
+                }
+
             });
             console.log('fetched successfully', response.data.data);
             return response.data.data;
@@ -63,7 +59,7 @@ class MovieService {
         try {
             const response = await this.axiosInstance.get(`/playlists/singlewatched/${name}`, {
 
-                withCredentials: true,
+
             });
             console.log('fetched successfully', response.data.data);
             return response.data.data;
@@ -79,31 +75,3 @@ export default movieServicex;
 
 
 
-// [
-//     {
-//         '$match': {
-//             'owner': new ObjectId('65ba6f38ccfb462a0214765e')
-//         }
-//     }, {
-//         '$unwind': {
-//             'path': '$movieId'
-//         }
-//     }, {
-//         '$group': {
-//             '_id': '$movieId'
-//         }
-//     }, {
-//         '$lookup': {
-//             'from': 'movies',
-//             'localField': '_id',
-//             'foreignField': 'id',
-//             'as': 'watchedMovies'
-//         }
-//     }, {
-//         '$project': {
-//             'watchedMovies.title': 1,
-//             'watchedMovies.id': 1,
-//             'watchedMovies.poster_path': 1
-//         }
-//     }
-// ]

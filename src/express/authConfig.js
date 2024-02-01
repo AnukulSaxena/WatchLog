@@ -1,66 +1,74 @@
-import { Client, Account, ID } from "appwrite";
-import conf from "../conf/conf.js";
-import axios from 'axios'
+import axios from 'axios';
+import conf from '../conf/conf.js';
+
 class AuthService {
+    constructor() {
+        this.axiosInstance = axios.create({
+            baseURL: conf.expressUrl,
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            withCredentials: true, // Set credentials here
+        });
+    }
 
     async createAccount(data) {
         try {
-            return await axios.post(`${conf.expressUrl}/users/register`,
-                data, {
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            });
+            const response = await this.axiosInstance.post('/users/register', data);
 
-            // if (userAccount) {
-            //     return this.loginAccount({ email, password });
-            // } else {
-            //     return userAccount;
-            // }
+            return response.data;
         } catch (error) {
-            console.log("Express serive :: createAccount :: error", error)
-
-            throw error.response.data
+            console.log('Express service :: createAccount :: error', error);
+            throw error.response.data;
         }
     }
 
     async loginAccount(data) {
         try {
-            return await axios.post(`${conf.expressUrl}/users/login`,
-                data, {
+            const response = await this.axiosInstance.post('/users/login', data);
 
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            });
+            return response.data;
         } catch (error) {
-            console.log("Appwrite serive :: login :: error", error)
-            throw error.response.data
+            console.log('Appwrite service :: login :: error', error);
+            throw error.response.data;
         }
     }
 
-    // async getCurrentUser() {
-    //     try {
-    //         return await this.account.get();
-    //     } catch (error) {
-    //         console.log("Appwrite serive :: getCurrentUser :: error", error);
-    //         throw error
-    //     }
-    // }
+    async getCurrentUser() {
+        try {
+            return await this.axiosInstance.get('/users/current-user')
+        } catch (error) {
+            console.log("Appwrite serive :: getCurrentUser :: error", error);
+            throw error
+        }
+    }
 
-    // async logoutAccount() {
-    //     try {
-    //         console.log("Logout clicked");
-    //         return await this.account.deleteSessions();
+    async logoutAccount() {
+        try {
+            console.log("Logout clicked");
+            return await this.axiosInstance.post('/users/logout')
 
-    //     } catch (error) {
-    //         console.log("Appwrite serive :: logout :: error", error);
-    //         throw error
-    //     }
-    // }
-
+        } catch (error) {
+            console.log("Appwrite serive :: logout :: error", error);
+            throw error
+        }
+    }
 }
 
 const authService = new AuthService();
-
 export default authService;
+
+// async getCurrentUser() {
+//
+// }
+
+// async logoutAccount() {
+//     try {
+//         console.log("Logout clicked");
+//         return await this.account.deleteSessions();
+
+//     } catch (error) {
+//         console.log("Appwrite serive :: logout :: error", error);
+//         throw error
+//     }
+// }

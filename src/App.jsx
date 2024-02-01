@@ -3,7 +3,7 @@ import './App.css';
 import { fetchDataFromApi } from './utils/api';
 import { useDispatch } from 'react-redux';
 import { setApiConfiguration, setFilterData } from './store/homeSlice.js';
-import authService from './appwrite/auth.js';
+import authService from './express/authConfig.js';
 import { login, logout } from './store/authSlice.js';
 import movieService from './appwrite/movieConfig.js';
 import { setMovieData as setMovieDataState } from './store/movieSlice.js';
@@ -32,7 +32,7 @@ function App() {
     }
 
     if (response[1].status === 'fulfilled') {
-      dispatch(login(response[1].value))
+      dispatch(login(response[1].value.data.data))
     } else {
       dispatch(logout())
     }

@@ -17,13 +17,14 @@ function SignupForm() {
             setError("");
             const session = await authService.loginAccount(data);
             if (session) {
-
-                const userData = session.data.data
+                console.log(session)
+                const userData = session.data.user
                 console.log("userData", userData)
                 dispatch(authLogin(userData))
                 navigate("/")
             }
         } catch (error) {
+            console.error(error)
             setError(error.message)
         }
     }
