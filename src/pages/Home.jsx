@@ -36,11 +36,6 @@ function Home() {
             setData(response);
             setPageNum(2);
             setLoading(false);
-            if (status) {
-                const responseData = await movieService.getMovieDocs(userData?.$id, mediaType);
-                console.log("Home :: handleUseEffect :: responseData ", responseData);
-                dispatch(setMovieDataState(responseData));
-            }
 
         } catch (error) {
             console.error("Home :: HandleUseffect :: error", error)

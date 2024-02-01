@@ -2,50 +2,66 @@ import React, { useEffect, useState } from 'react'
 import movieService from '../render/movieconfig';
 import { useSelector } from 'react-redux'
 import { InfiniteScrollComponent } from '../components'
-
+import movieServicex from '../express/movieConfig';
 function Watched() {
     const { status, userData } = useSelector(state => state.auth);
     const { mediaType } = useSelector(state => state.home)
     const [loading, setLoading] = useState(true);
     const [data, setData] = useState({
-        success: true,
-        data: [],
-        totalCount: 0
+        results: [],
+        total_results: 0
     });
     const [pageNum, setPageNum] = useState(1);
 
-    async function getNextPageData(page = pageNum) {
+    // async function getNextPageData(page = pageNum) {
+    //     try {
+    //         const response = await movieService.getPaginatedMovieDocs({
+    //             user_id: userData?.$id,
+    //             pageNum: page,
+    //             limit: 25
+    //         }, mediaType)
+    //         console.log("Watched :: getNextPageData :: response", response)
+    //         setPageNum(prev => prev + 1);
+    //         setData((prevData) => ({
+    //             ...response, data: [...prevData?.data, ...response?.data],
+    //         }));
+    //         setLoading(false);
+    //     } catch (error) {
+    //         console.error("Watched :: getNextPageData :: Error", error)
+    //     }
+    // }
+
+    async function getNextPageData() {
         try {
-            const response = await movieService.getPaginatedMovieDocs({
-                user_id: userData?.$id,
-                pageNum: page,
-                limit: 25
-            }, mediaType)
-            console.log("Watched :: getNextPageData :: response", response)
-            setPageNum(prev => prev + 1);
+            const response = await movieServicex.getWatched(mediaType, pageNum);
             setData((prevData) => ({
-                ...response, data: [...prevData?.data, ...response?.data],
+                ...response, results: [...prevData?.results, ...response?.results],
             }));
-            setLoading(false);
+            setPageNum(prev => prev + 1)
+
         } catch (error) {
-            console.error("Watched :: getNextPageData :: Error", error)
+            console.error(error.message)
         }
     }
 
     useEffect(() => {
+        setLoading(true)
         window.scrollTo(0, 0);
-        if (status) {
-            getNextPageData(1);
-            console.log(pageNum)
-        }
+        movieServicex.getWatched(mediaType)
+            .then((res) => {
+                setData(res)
+                setLoading(false)
+                setPageNum(2)
+            })
+
+
         return () => {
 
             setPageNum(1)
             setLoading(true)
             setData({
-                success: true,
-                data: [],
-                totalCount: 0
+                results: [],
+                total_results: 0
             })
         }
 
@@ -57,10 +73,10 @@ function Watched() {
             {
                 !loading &&
                 <InfiniteScrollComponent
-                    data={data?.data}
+                    data={data?.results}
                     fetchNextPageData={getNextPageData}
                     pageNum={pageNum}
-                    total_pages={Math.ceil(data?.totalCount / 25)}
+                    total_pages={Math.ceil(data?.total_results / 20)}
                     initStatus={true}
                     crossCheck={false}
                     searchType={mediaType}
