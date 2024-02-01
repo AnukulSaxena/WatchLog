@@ -17,8 +17,9 @@ function SignupForm() {
             setError("");
             const session = await authService.loginAccount(data);
             if (session) {
-                console.log(session)
-                const userData = session.data.data.user
+
+                const userData = session.data.data
+                console.log("userData", userData)
                 dispatch(authLogin(userData))
                 navigate("/")
             }

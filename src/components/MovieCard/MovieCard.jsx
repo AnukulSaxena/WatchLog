@@ -22,7 +22,7 @@ const MovieCard = ({ data, initStatus, crossCheck,
 
     const deleteMovieDocInExpress = async () => {
         setIsChecked(false);
-        const isDeleted = await movieServicex.removeId(data.id, mediaType)
+        const isDeleted = await movieServicex.removeId(data.id, mediaType, userData.accessToken)
         if (!isDeleted)
             setIsChecked(true)
     }
@@ -30,7 +30,7 @@ const MovieCard = ({ data, initStatus, crossCheck,
     const addMovieDocInExpress = async () => {
 
         setIsChecked(true)
-        const isAdded = await movieServicex.createMovieDocxxx(data.id, mediaType)
+        const isAdded = await movieServicex.createMovieDocxxx(data.id, mediaType, userData.accessToken)
         if (!isAdded)
             setIsChecked(false)
     }

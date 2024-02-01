@@ -1,13 +1,15 @@
 import conf from "../conf/conf.js";
+
 class MovieService {
 
-    async createMovieDocxxx(id, mediaType) {
+    async createMovieDocxxx(id, mediaType, accessToken) {
         try {
 
             const response = await fetch(`${conf.expressUrl}/playlists/addtowatched/${mediaType}`, {
                 method: "PATCH",
                 headers: {
                     "Content-Type": "application/json",
+                    "Authorization": "Bearer " + accessToken
                 },
                 body: JSON.stringify({ id }),
             });
@@ -20,14 +22,14 @@ class MovieService {
         }
     }
 
-    async removeId(id, mediaType) {
+    async removeId(id, mediaType, accessToken) {
         try {
 
             const response = await fetch(`${conf.expressUrl}/playlists/removefromwatched/${mediaType}`, {
                 method: "PATCH",
                 headers: {
                     "Content-Type": "application/json",
-                    "Authorization": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWJhNmYzOGNjZmI0NjJhMDIxNDc2NWUiLCJlbWFpbCI6ImNvcG9wb2NvQGdtYWlsLmNvbSIsInVzZXJuYW1lIjoiY29wb3BvY28iLCJmdWxsTmFtZSI6ImNvcG8gcG9jbyIsImlhdCI6MTcwNjcxNjk5OCwiZXhwIjoxNzA2ODAzMzk4fQ.vzVDeif2h8bjdZc4rUkJRIW93pEzyvyA_TGNddGnTys"
+                    "Authorization": "Bearer " + accessToken
                 },
                 body: JSON.stringify({ id }),
             });
@@ -40,12 +42,13 @@ class MovieService {
         }
     }
 
-    async getWatched(mediaType, page = 1, limit = 20) {
+    async getWatched(accessToken, mediaType, page = 1, limit = 20) {
         try {
             const response = await fetch(`${conf.expressUrl}/playlists/getwatched/${mediaType}?page=${page}&limit=${limit}`, {
                 method: "GET",
                 headers: {
-                    "Content-Type": "application/json"
+                    "Content-Type": "application/json",
+                    "Authorization": "Bearer " + accessToken
                 }
             });
             const resData = await response.json()
@@ -57,12 +60,13 @@ class MovieService {
         }
     }
 
-    async getSingleWatched(name) {
+    async getSingleWatched(name, accessToken) {
         try {
             const response = await fetch(`${conf.expressUrl}/playlists/singlewatched/${name}`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
+                    "Authorization": "Bearer " + accessToken
                 }
             });
             const resData = await response.json()

@@ -33,7 +33,7 @@ function Watched() {
 
     async function getNextPageData() {
         try {
-            const response = await movieServicex.getWatched(mediaType, pageNum);
+            const response = await movieServicex.getWatched(userData.accessToken, mediaType, pageNum);
             setData((prevData) => ({
                 ...response, results: [...prevData?.results, ...response?.results],
             }));
@@ -47,7 +47,7 @@ function Watched() {
     useEffect(() => {
         setLoading(true)
         window.scrollTo(0, 0);
-        movieServicex.getWatched(mediaType)
+        movieServicex.getWatched(userData.accessToken, mediaType)
             .then((res) => {
                 setData(res)
                 setLoading(false)
