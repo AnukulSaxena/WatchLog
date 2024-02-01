@@ -13,7 +13,7 @@ export default function Protected({ children, authentication = true }) {
     const dispatch = useDispatch()
     useEffect(() => {
 
-        movieServicex.getSingleWatched(userData?.username + " Watched")
+        movieServicex.getSingleWatched()
             .then((res) => {
                 console.log("AuthLayout :: useEffect :: Response", res)
                 if (res) dispatch(setMovieData(res))

@@ -55,9 +55,9 @@ class MovieService {
         }
     }
 
-    async getSingleWatched(name) {
+    async getSingleWatched() {
         try {
-            const response = await this.axiosInstance.get(`/playlists/singlewatched/${name}`, {
+            const response = await this.axiosInstance.get(`/playlists/singlewatched`, {
 
 
             });
