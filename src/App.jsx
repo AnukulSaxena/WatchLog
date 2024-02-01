@@ -1,12 +1,10 @@
 import { useEffect, useState } from 'react';
-import './App.css';
+
 import { fetchDataFromApi } from './utils/api';
 import { useDispatch } from 'react-redux';
 import { setApiConfiguration, setFilterData } from './store/homeSlice.js';
 import authService from './express/authConfig.js';
 import { login, logout } from './store/authSlice.js';
-import movieService from './appwrite/movieConfig.js';
-import { setMovieData as setMovieDataState } from './store/movieSlice.js';
 import { Header, Footer } from '../src/components'
 import { Outlet } from 'react-router-dom';
 
