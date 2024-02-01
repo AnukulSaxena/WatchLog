@@ -1,86 +1,80 @@
+import axios from 'axios';
 import conf from "../conf/conf.js";
 
 class MovieService {
+    constructor() {
+        this.axiosInstance = axios.create({
+            baseURL: conf.expressUrl,
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+    }
 
-    async createMovieDocxxx(id, mediaType, accessToken) {
+    async createMovieDocxxx(id, mediaType) {
         try {
+            const response = await this.axiosInstance.patch(`/playlists/addtowatched/${mediaType}`, {
+                id,
+            }, {
 
-            const response = await fetch(`${conf.expressUrl}/playlists/addtowatched/${mediaType}`, {
-                method: "PATCH",
-                headers: {
-                    "Content-Type": "application/json",
-                    "Authorization": "Bearer " + accessToken
+                withCredentials: true,
+            });
+            console.log('Added Successfully', response.data.data);
+            return true;
+        } catch (error) {
+            console.log('movieService :: addToWatched :: Error', error);
+            return false;
+        }
+    }
+
+    async removeId(id, mediaType) {
+        try {
+            const response = await this.axiosInstance.patch(`/playlists/removefromwatched/${mediaType}`, {
+                id,
+            }, {
+                withCredentials: true,
+            });
+            console.log('Removed successfully', response.data.data);
+            return true;
+        } catch (error) {
+            console.log('movieService :: removeFromWatched :: Error', error);
+            return false;
+        }
+    }
+
+    async getWatched(mediaType, page = 1, limit = 20) {
+        try {
+            const response = await this.axiosInstance.get(`/playlists/getwatched/${mediaType}`, {
+                params: {
+                    page,
+                    limit,
                 },
-                body: JSON.stringify({ id }),
+                withCredentials: true,
             });
-            const xx = await response.json()
-            console.log("Added Successfully", xx.data)
-            return true
+            console.log('fetched successfully', response.data.data);
+            return response.data.data;
         } catch (error) {
-            console.log("movieService :: addToWatched :: Error", error);
-            return false
+            console.log('movieService :: getWatched :: Error', error);
+            return [];
         }
     }
 
-    async removeId(id, mediaType, accessToken) {
+    async getSingleWatched(name) {
         try {
+            const response = await this.axiosInstance.get(`/playlists/singlewatched/${name}`, {
 
-            const response = await fetch(`${conf.expressUrl}/playlists/removefromwatched/${mediaType}`, {
-                method: "PATCH",
-                headers: {
-                    "Content-Type": "application/json",
-                    "Authorization": "Bearer " + accessToken
-                },
-                body: JSON.stringify({ id }),
+                withCredentials: true,
             });
-            const xx = await response.json()
-            console.log("Removed successfully", xx.data)
-            return true
+            console.log('fetched successfully', response.data.data);
+            return response.data.data;
         } catch (error) {
-            console.log("movieService :: removeFromWatched :: Error", error);
-            return false
+            console.log('movieService :: getWatched :: Error', error);
+            return [];
         }
     }
-
-    async getWatched(accessToken, mediaType, page = 1, limit = 20) {
-        try {
-            const response = await fetch(`${conf.expressUrl}/playlists/getwatched/${mediaType}?page=${page}&limit=${limit}`, {
-                method: "GET",
-                headers: {
-                    "Content-Type": "application/json",
-                    "Authorization": "Bearer " + accessToken
-                }
-            });
-            const resData = await response.json()
-            console.log("fetched successfully", resData.data)
-            return resData.data
-        } catch (error) {
-            console.log("movieService :: getWatched :: Error", error);
-            return []
-        }
-    }
-
-    async getSingleWatched(name, accessToken) {
-        try {
-            const response = await fetch(`${conf.expressUrl}/playlists/singlewatched/${name}`, {
-                method: "GET",
-                headers: {
-                    "Content-Type": "application/json",
-                    "Authorization": "Bearer " + accessToken
-                }
-            });
-            const resData = await response.json()
-            console.log("fetched successfully", resData.data)
-            return resData.data
-        } catch (error) {
-            console.log("movieService :: getWatched :: Error", error);
-            return []
-        }
-    }
-
 }
-const movieServicex = new MovieService();
 
+const movieServicex = new MovieService();
 export default movieServicex;
 
 
