@@ -1,17 +1,59 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Spinner } from '../components'
 import { useEffect } from 'react';
-import conf from '../conf/conf';
 
+import PlaylistForm from '../components/PlaylistForm/PlaylistForm';
+import PlaylistCard from '../components/PlaylistForm/PlaylistCard';
+import playlistService from '../express/playlistConfig';
 function Playlist() {
-
+    const [isClicked, setIsClicked] = useState(false)
+    const [playlistData, setPlaylistData] = useState([])
+    const [loading, setLoading] = useState(true)
+    function handleCreate() {
+        console.log('new clicked ')
+        setIsClicked(prev => !prev)
+    }
     useEffect(() => {
         window.scrollTo(0, 0);
+        playlistService.getUserPlaylists()
+            .then(response => {
+                console.log("Playlist :: userPlalLists :: response", response)
+                setPlaylistData(response)
+            }).finally(setLoading(false))
+        return () => {
+            setLoading(true)
+            setPlaylistData([])
+        }
+
     }, [])
     return (
-        <div className=' min-h-screen bg-neutral-700 text-white w-full text-center'>
-            <Spinner height='h-96' />
-            Coming Soon
+        <div className=' min-h-screen pt-20 bg-neutral-700 text-white w-full text-center'>
+            <button
+                onClick={handleCreate}
+                className="filters-button bg-neutra-700 text-white px-6 md:px-10 rounded-md border border-gray-100 hover:bg-neutral-600 text-lg"
+            >
+                New
+            </button>
+            {
+                isClicked &&
+                <PlaylistForm
+                    handleClose={handleCreate}
+                />
+            }
+            {
+                !loading ?
+                    <div className='flex mt-5 flex-wrap gap-3 justify-center sm:gap-5'>
+                        {
+                            playlistData.map((item, index) => (
+                                <PlaylistCard
+                                    key={item.name + index}
+                                    data={item}
+                                />
+                            ))
+                        }
+                    </div> : <Spinner />
+            }
+
         </div>
     )
 }

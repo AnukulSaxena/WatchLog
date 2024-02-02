@@ -38,22 +38,6 @@ class MovieService {
         }
     }
 
-    async getWatched(mediaType, page = 1, limit = 20) {
-        try {
-            const response = await this.axiosInstance.get(`/playlists/getwatched/${mediaType}`, {
-                params: {
-                    page,
-                    limit,
-                }
-            });
-            console.log('fetched successfully', response.data.data);
-            return response.data.data;
-        } catch (error) {
-            console.log('movieService :: getWatched :: Error', error);
-            return [];
-        }
-    }
-
     async getSingleWatched() {
         try {
             const response = await this.axiosInstance.get(`/playlists/singlewatched`);

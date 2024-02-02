@@ -24,11 +24,7 @@ const Header = () => {
             slug: "/playlist",
             active: authStatus
         },
-        {
-            name: "Watched",
-            slug: "/watched",
-            active: authStatus
-        },
+
         {
             name: "Profile",
             slug: "/profile",

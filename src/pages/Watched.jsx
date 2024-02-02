@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { InfiniteScrollComponent } from '../components'
-import movieServicex from '../express/movieConfig';
+import { useParams } from 'react-router-dom';
+import playlistService from '../express/playlistConfig';
 function Watched() {
+    const { playlistId } = useParams();
     const { mediaType } = useSelector(state => state.home)
     const [loading, setLoading] = useState(true);
     const [data, setData] = useState({
@@ -13,7 +15,7 @@ function Watched() {
 
 
     async function getNextPageData() {
-        const response = await movieServicex.getWatched(mediaType, pageNum);
+        const response = await playlistService.getSinglePlaylistData(playlistId, mediaType, pageNum);
         if (response) {
             setData((prevData) => ({
                 ...response, results: [...prevData?.results, ...response?.results],
@@ -25,13 +27,16 @@ function Watched() {
     useEffect(() => {
         setLoading(true)
         window.scrollTo(0, 0);
-        movieServicex.getWatched(mediaType)
+        playlistService.getSinglePlaylistData(playlistId, mediaType)
             .then((res) => {
                 if (res) {
                     setData(res)
-                    setLoading(false)
+
                     setPageNum(2)
                 }
+            })
+            .finally(() => {
+                setLoading(false)
             })
 
 
@@ -49,7 +54,7 @@ function Watched() {
 
 
     return (
-        <div className='bg-neutral-700 min-h-screen pt-14'>
+        <div className='bg-neutral-700 min-h-screen pt-20'>
             {
                 !loading &&
                 <InfiniteScrollComponent
