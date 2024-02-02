@@ -31,6 +31,7 @@ class AuthService {
         } catch (error) {
             console.log('Appwrite service :: login :: error', error);
             // throw error?.response?.data;
+
         }
     }
 
