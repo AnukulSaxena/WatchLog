@@ -2,8 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Filters, InfiniteScrollComponent } from '../components'
 import { fetchDataFromApi } from '../utils/api'
 import { useDispatch, useSelector } from 'react-redux'
-import { setMovieData as setMovieDataState } from '../store/movieSlice'
-import movieService from '../render/movieconfig'
+
 
 function Home() {
     const [data, setData] = useState(null)
@@ -36,11 +35,6 @@ function Home() {
             setData(response);
             setPageNum(2);
             setLoading(false);
-            if (status) {
-                const responseData = await movieService.getMovieDocs(userData?.$id, mediaType);
-                console.log("Home :: handleUseEffect :: responseData ", responseData);
-                dispatch(setMovieDataState(responseData));
-            }
 
         } catch (error) {
             console.error("Home :: HandleUseffect :: error", error)

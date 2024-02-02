@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Input, Button } from '../index.js'
 import { useForm } from 'react-hook-form'
 import { Link, useNavigate } from 'react-router-dom'
-import authService from '../../appwrite/auth.js'
+import authService from '../../express/authConfig.js'
 import { useDispatch } from 'react-redux'
 import { login } from '../../store/authSlice.js'
 
@@ -15,14 +15,16 @@ function SignupForm() {
     const create = async (data) => {
         setError("")
         try {
-            const userData = await authService.createAccount(data);
-            if (userData) {
-                const userData = await authService.getCurrentUser();
-                dispatch(login(userData))
-                navigate('/')
-            }
+            const response = await authService.createAccount(data)
+
+
+            // if (userData) {
+            //     const userData = await authService.getCurrentUser();
+            //     dispatch(login(userData))
+            //     navigate('/')
+            // }
         } catch (error) {
-            setError(error.message)
+            setError(error?.message)
         }
     }
 
@@ -36,10 +38,10 @@ function SignupForm() {
                 <form onSubmit={handleSubmit(create)}>
                     <div className=' space-y-5 '>
                         <Input
-                            label="Name"
+                            label="Full Name"
                             placeholder="Enter Your Name : "
                             {
-                            ...register("name", {
+                            ...register("fullName", {
                                 required: true,
                             })
                             }
@@ -50,6 +52,15 @@ function SignupForm() {
                             type="email"
                             {
                             ...register("email", {
+                                required: true,
+                            })}
+                        />
+                        <Input
+                            label="Username"
+                            placeholder="Enter Your Username : "
+                            type="text"
+                            {
+                            ...register("username", {
                                 required: true,
                             })}
                         />

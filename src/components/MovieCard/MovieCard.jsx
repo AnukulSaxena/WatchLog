@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 
 import { useSelector } from 'react-redux';
-import movieService from '../../render/movieconfig.js';
+
 import { useNavigate } from 'react-router-dom';
 import { Img, Rating, DropdownMenu, Toggle } from '../../components'
 import FakeImage from './FakeImage.jsx';
-
+import movieServicex from '../../express/movieConfig.js';
 
 const MovieCard = ({ data, initStatus, crossCheck,
     mediaType
@@ -20,45 +20,27 @@ const MovieCard = ({ data, initStatus, crossCheck,
     const navigate = useNavigate()
 
 
-    const deleteMovieDocInRender = async () => {
+    const deleteMovieDocInExpress = async () => {
         setIsChecked(false);
-        try {
-            const isDeleted = await movieService.deleteMovieDoc({
-                id: data.id,
-                user_id: userData.$id
-            }, mediaType)
-            console.log("MovieCard :: deletmovieDocFA :: response", isDeleted)
-
-        } catch (error) {
-            console.error("MovieCard :: deleteMovieInDB :: Error ", error)
-            setIsChecked(true);
-        }
+        const isDeleted = await movieServicex.removeId(data.id, mediaType)
+        if (!isDeleted)
+            setIsChecked(true)
     }
 
-    const addMovieDocInRender = async () => {
-        setIsChecked(true)
-        try {
-            const movie = await movieService.createMovieDoc({
-                title: data?.title || data?.name,
-                poster_path: data?.poster_path || " ",
-                id: data.id,
-                user_id: userData.$id,
-                vote_average: data.vote_average
-            }, mediaType)
-            console.log("Moviecard :: addmovieInAppwrite :: response ", movie)
+    const addMovieDocInExpress = async () => {
 
-        } catch (error) {
-            console.error("MovieCard :: addMoveDocInDB :: Error", error);
-            setIsChecked(false);
-        }
+        setIsChecked(true)
+        const isAdded = await movieServicex.addId(data.id, mediaType)
+        if (!isAdded)
+            setIsChecked(false)
     }
 
     const handleCheckboxToggle = () => {
         if (status) {
             if (isChecked) {
-                mode ? deleteMovieDocInRender() : window.alert("Please Change the Mode");
+                mode ? deleteMovieDocInExpress() : window.alert("Please Change the Mode");
             } else {
-                !mode ? addMovieDocInRender() : window.alert("Please Change the Mode");
+                !mode ? addMovieDocInExpress() : window.alert("Please Change the Mode");
             }
         } else {
             window.alert("Please Login First.")
@@ -69,29 +51,23 @@ const MovieCard = ({ data, initStatus, crossCheck,
         navigate(`/${mediaType}/${data.id}`)
     }
 
-    async function checkStatus() {
-        try {
-            if (status) {
-                const targetKey = 'id';
-                const targetValue = data.id;
-                const foundObject = await movieData?.data?.find(obj => obj[targetKey] === targetValue);
-                if (foundObject) {
-                    setIsChecked(true);
-                }
-            }
-            setLoading(false);
-        } catch (error) {
-            console.error("MovieCard :: checkStatus :: Error", error)
-        }
-    }
+
 
     useEffect(() => {
-        checkStatus();
+        setLoading(true)
+        if (status) {
+            const targetValue = data.id;
+            const foundObject = movieData[`${mediaType}Id`]?.find(item => item === targetValue);
+            if (foundObject) {
+                setIsChecked(true);
+            }
+        }
+        setLoading(false)
         return () => {
 
             setIsChecked(false)
         }
-    }, [movieData])
+    }, [movieData, mediaType])
 
 
     return (

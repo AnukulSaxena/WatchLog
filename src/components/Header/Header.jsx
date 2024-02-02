@@ -30,6 +30,11 @@ const Header = () => {
             active: authStatus
         },
         {
+            name: "Profile",
+            slug: "/profile",
+            active: authStatus
+        },
+        {
             name: "Login",
             slug: "/login",
             active: !authStatus

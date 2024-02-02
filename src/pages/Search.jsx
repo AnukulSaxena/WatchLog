@@ -2,18 +2,17 @@ import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom';
 import { fetchDataFromApi } from '../utils/api';
 import { InfiniteScrollComponent } from '../components';
+import { setMovieData } from '../store/movieSlice';
 import { useSelector, useDispatch } from 'react-redux';
-import movieService from '../render/movieconfig';
-import { setMovieData as setMovieDataState } from '../store/movieSlice';
-
-
+import movieServicex from '../express/movieConfig';
 function Search() {
+    const { status } = useSelector(state => state.auth)
+    const dispatch = useDispatch();
     const [pageNum, setPageNum] = useState(1);
     const [loading, setLoading] = useState(true);
     const [data, setData] = useState(null);
-    const dispatch = useDispatch()
+
     const { searchType, query } = useParams()
-    const { status, userData } = useSelector(state => state.auth)
 
 
     const fetchNextPageData = async () => {
@@ -39,11 +38,6 @@ function Search() {
             setData(response);
             setPageNum(prev => prev + 1)
             setLoading(false)
-            if (status && searchType !== 'person') {
-                const responseData = await movieService.getMovieDocs(userData?.$id, searchType);
-                console.log("Home :: handleUseEffect :: responseData ", responseData);
-                dispatch(setMovieDataState(responseData));
-            }
         } catch (error) {
             console.error("Search :: initFetch :: Errro", error);
 
@@ -55,6 +49,18 @@ function Search() {
         setPageNum(1)
         setLoading(true)
         initialFetch();
+        if (status) {
+            movieServicex.getSingleWatched()
+                .then((res) => {
+                    if (res) dispatch(setMovieData(res))
+                    else dispatch(setMovieData({
+                        movieId: [],
+                        tvId: []
+                    }))
+                })
+
+        }
+
 
     }, [query, searchType])
 

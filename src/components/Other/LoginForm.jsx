@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Input, Button } from '../index.js'
 import { useForm } from 'react-hook-form'
 import { Link, useNavigate } from 'react-router-dom'
-import authService from '../../appwrite/auth.js'
+import authService from '../../express/authConfig.js'
 import { useDispatch } from 'react-redux'
 import { login as authLogin } from '../../store/authSlice.js'
 
@@ -12,24 +12,20 @@ function SignupForm() {
     const [error, setError] = useState("");
     const navigate = useNavigate()
 
-
     const login = async (data) => {
         try {
             setError("");
             const session = await authService.loginAccount(data);
             if (session) {
-                await authService.getCurrentUser()
-                    .then((userData) => {
-                        console.log("1st then")
-                        dispatch(authLogin(userData))
-                    })
-                    .finally(() => {
-                        console.log("2nd then")
-                        navigate("/")
-                    })
+                console.log(session)
+                const userData = session.data.user
+                console.log("userData", userData)
+                dispatch(authLogin(userData))
+                navigate("/")
             }
         } catch (error) {
-            setError(error.message)
+
+            setError(error?.message)
         }
     }
 
