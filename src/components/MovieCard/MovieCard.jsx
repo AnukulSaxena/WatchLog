@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 import { useSelector } from 'react-redux';
-import movieService from '../../render/movieconfig.js';
+
 import { useNavigate } from 'react-router-dom';
 import { Img, Rating, DropdownMenu, Toggle } from '../../components'
 import FakeImage from './FakeImage.jsx';
@@ -30,7 +30,7 @@ const MovieCard = ({ data, initStatus, crossCheck,
     const addMovieDocInExpress = async () => {
 
         setIsChecked(true)
-        const isAdded = await movieServicex.createMovieDocxxx(data.id, mediaType)
+        const isAdded = await movieServicex.addId(data.id, mediaType)
         if (!isAdded)
             setIsChecked(false)
     }
@@ -54,6 +54,7 @@ const MovieCard = ({ data, initStatus, crossCheck,
 
 
     useEffect(() => {
+        setLoading(true)
         if (status) {
             const targetValue = data.id;
             const foundObject = movieData[`${mediaType}Id`]?.find(item => item === targetValue);

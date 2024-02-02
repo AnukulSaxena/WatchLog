@@ -2,7 +2,6 @@ import React from 'react'
 import { Spinner } from '../components'
 import { useEffect } from 'react';
 import conf from '../conf/conf';
-import movieService from '../render/movieconfig';
 
 function Playlist() {
 

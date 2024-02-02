@@ -8,24 +8,20 @@ export default function Protected({ children, authentication = true }) {
     const navigate = useNavigate()
     const [loader, setLoader] = useState(true)
     const authStatus = useSelector(state => state.auth.status)
-    const userData = useSelector(state => state.auth.userData)
     const { mediaType } = useSelector(state => state.home)
     const dispatch = useDispatch()
     useEffect(() => {
+        if (authStatus) {
+            movieServicex.getSingleWatched()
+                .then((res) => {
+                    if (res) dispatch(setMovieData(res))
+                    else dispatch(setMovieData({
+                        movieId: [],
+                        tvId: []
+                    }))
+                })
 
-        movieServicex.getSingleWatched()
-            .then((res) => {
-                console.log("AuthLayout :: useEffect :: Response", res)
-                if (res) dispatch(setMovieData(res))
-                else dispatch(setMovieData({
-                    movieId: [],
-                    tvId: []
-                }))
-            })
-            .catch(error => {
-                console.error("Authlayout :: useEffect :: Error", error)
-
-            })
+        }
 
         if (authentication && authStatus !== authentication) {
             navigate("/login")

@@ -2,8 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Filters, InfiniteScrollComponent } from '../components'
 import { fetchDataFromApi } from '../utils/api'
 import { useDispatch, useSelector } from 'react-redux'
-import { setMovieData as setMovieDataState } from '../store/movieSlice'
-import movieService from '../render/movieconfig'
+
 
 function Home() {
     const [data, setData] = useState(null)

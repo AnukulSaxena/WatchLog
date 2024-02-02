@@ -3,16 +3,14 @@ import { useParams } from 'react-router-dom'
 import { fetchDataFromApi } from '../utils/api'
 import { MovieCard, CreditSwitcher } from '../components'
 import { useSelector, useDispatch } from 'react-redux'
-import { setMovieData as setMovieDataState } from '../store/movieSlice'
-import movieService from '../render/movieconfig'
+
 function MovieCredits() {
     const { id } = useParams()
     const [movieData, setMovieData] = useState(null)
     const [isChecked, setIsChecked] = useState(true)
-    const { status, userData } = useSelector(state => state.auth)
     const { mediaType } = useSelector(state => state.home)
     const [loading, setLoading] = useState(true);
-    const dispatch = useDispatch()
+
 
     function handleChangeCredit() {
         setIsChecked(prev => !prev);
@@ -27,11 +25,6 @@ function MovieCredits() {
                 setMovieData(response.crew)
             }
             setLoading(false);
-            if (status) {
-                const responseData = await movieService.getMovieDocs(userData?.$id, mediaType);
-                console.log("Home :: handleUseEffect :: responseData ", responseData);
-                dispatch(setMovieDataState(responseData));
-            }
         } catch (error) {
             console.error("MovieCredits :: initialStatus :: Error", error)
         }

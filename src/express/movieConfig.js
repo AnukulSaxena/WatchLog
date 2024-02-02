@@ -12,7 +12,7 @@ class MovieService {
         });
     }
 
-    async createMovieDocxxx(id, mediaType) {
+    async addId(id, mediaType) {
         try {
             const response = await this.axiosInstance.patch(`/playlists/addtowatched/${mediaType}`, {
                 id,
@@ -45,7 +45,6 @@ class MovieService {
                     page,
                     limit,
                 }
-
             });
             console.log('fetched successfully', response.data.data);
             return response.data.data;
@@ -57,15 +56,12 @@ class MovieService {
 
     async getSingleWatched() {
         try {
-            const response = await this.axiosInstance.get(`/playlists/singlewatched`, {
-
-
-            });
+            const response = await this.axiosInstance.get(`/playlists/singlewatched`);
             console.log('fetched successfully', response.data.data);
             return response.data.data;
         } catch (error) {
             console.log('movieService :: getWatched :: Error', error);
-            return [];
+            return null
         }
     }
 }

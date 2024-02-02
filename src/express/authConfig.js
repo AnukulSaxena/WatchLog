@@ -30,7 +30,7 @@ class AuthService {
             return response.data;
         } catch (error) {
             console.log('Appwrite service :: login :: error', error);
-            // throw error?.response?.data;
+            throw error?.response?.data;
 
         }
     }
@@ -40,7 +40,7 @@ class AuthService {
             return await this.axiosInstance.get('/users/current-user')
         } catch (error) {
             console.log("Appwrite serive :: getCurrentUser :: error", error);
-            throw error
+            return null
         }
     }
 
