@@ -4,7 +4,7 @@ import { fetchDataFromApi } from '../utils/api';
 import { InfiniteScrollComponent } from '../components';
 import { setMovieData } from '../store/movieSlice';
 import { useSelector, useDispatch } from 'react-redux';
-import movieServicex from '../express/movieConfig';
+import playlistService from '../express/playlistConfig';
 function Search() {
     const { status } = useSelector(state => state.auth)
     const dispatch = useDispatch();
@@ -50,15 +50,10 @@ function Search() {
         setLoading(true)
         initialFetch();
         if (status) {
-            movieServicex.getSingleWatched()
+            playlistService.getUserPlaylists()
                 .then((res) => {
-                    if (res) dispatch(setMovieData(res))
-                    else dispatch(setMovieData({
-                        movieId: [],
-                        tvId: []
-                    }))
+                    dispatch(setMovieData(res))
                 })
-
         }
 
 

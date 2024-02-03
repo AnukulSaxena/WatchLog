@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
+import playlistService from '../../express/playlistConfig'
 import movieServicex from '../../express/movieConfig'
 import { setMovieData } from '../../store/movieSlice'
 export default function Protected({ children, authentication = true }) {
@@ -12,15 +13,10 @@ export default function Protected({ children, authentication = true }) {
     const dispatch = useDispatch()
     useEffect(() => {
         if (authStatus) {
-            movieServicex.getSingleWatched()
+            playlistService.getUserPlaylists()
                 .then((res) => {
-                    if (res) dispatch(setMovieData(res))
-                    else dispatch(setMovieData({
-                        movieId: [],
-                        tvId: []
-                    }))
+                    dispatch(setMovieData(res))
                 })
-
         }
 
         if (authentication && authStatus !== authentication) {

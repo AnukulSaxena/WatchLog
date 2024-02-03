@@ -58,18 +58,3 @@ class AuthService {
 
 const authService = new AuthService();
 export default authService;
-
-// async getCurrentUser() {
-//
-// }
-
-// async logoutAccount() {
-//     try {
-//         console.log("Logout clicked");
-//         return await this.account.deleteSessions();
-
-//     } catch (error) {
-//         console.log("Appwrite serive :: logout :: error", error);
-//         throw error
-//     }
-// }

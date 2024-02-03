@@ -12,10 +12,10 @@ class MovieService {
         });
     }
 
-    async addId(id, mediaType) {
+    async addId(id, mediaType, playlistId) {
         try {
             const response = await this.axiosInstance.patch(`/playlists/addtowatched/${mediaType}`, {
-                id,
+                id, playlistId
             });
             console.log('Added Successfully', response.data.data);
             return true;
@@ -25,10 +25,10 @@ class MovieService {
         }
     }
 
-    async removeId(id, mediaType) {
+    async removeId(id, mediaType, playlistId) {
         try {
             const response = await this.axiosInstance.patch(`/playlists/removefromwatched/${mediaType}`, {
-                id,
+                id, playlistId
             });
             console.log('Removed successfully', response.data.data);
             return true;

@@ -2,19 +2,18 @@ import React, { useEffect, useState } from 'react';
 
 import { useSelector } from 'react-redux';
 
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { Img, Rating, DropdownMenu, Toggle } from '../../components'
 import FakeImage from './FakeImage.jsx';
 import movieServicex from '../../express/movieConfig.js';
 
-const MovieCard = ({ data, initStatus, crossCheck,
-    mediaType
-}) => {
+const MovieCard = ({ data, initStatus = true, mediaType, crossCheck = true }) => {
+    const { playlistId } = useParams()
     const { url } = useSelector((state) => state.home);
     const posterUrl = url.poster + data.poster_path;
     const [isChecked, setIsChecked] = useState(initStatus);
     const [loading, setLoading] = useState(false)
-    const { status, userData } = useSelector(state => state.auth)
+    const { status } = useSelector(state => state.auth)
     const { movieData, mode } = useSelector(state => state.movie)
 
     const navigate = useNavigate()
@@ -22,7 +21,7 @@ const MovieCard = ({ data, initStatus, crossCheck,
 
     const deleteMovieDocInExpress = async () => {
         setIsChecked(false);
-        const isDeleted = await movieServicex.removeId(data.id, mediaType)
+        const isDeleted = await movieServicex.removeId(data.id, mediaType, playlistId)
         if (!isDeleted)
             setIsChecked(true)
     }
@@ -30,7 +29,7 @@ const MovieCard = ({ data, initStatus, crossCheck,
     const addMovieDocInExpress = async () => {
 
         setIsChecked(true)
-        const isAdded = await movieServicex.addId(data.id, mediaType)
+        const isAdded = await movieServicex.addId(data.id, mediaType, playlistId)
         if (!isAdded)
             setIsChecked(false)
     }
@@ -55,19 +54,18 @@ const MovieCard = ({ data, initStatus, crossCheck,
 
     useEffect(() => {
         setLoading(true)
-        if (status) {
+
+        if (crossCheck && movieData.length) {
+            console.log("in CrossCheck")
             const targetValue = data.id;
-            const foundObject = movieData[`${mediaType}Id`]?.find(item => item === targetValue);
+            const foundObject = movieData[0][`${mediaType}Id`]?.find(item => item === targetValue);
             if (foundObject) {
                 setIsChecked(true);
             }
         }
         setLoading(false)
-        return () => {
 
-            setIsChecked(false)
-        }
-    }, [movieData, mediaType])
+    }, [movieData, mediaType, isChecked])
 
 
     return (
@@ -90,6 +88,8 @@ const MovieCard = ({ data, initStatus, crossCheck,
                     />
             }
             <DropdownMenu
+                id={data.id}
+                mediaType={mediaType}
                 className='absolute h-9 bottom-2  md:bottom-1 right-0'
             />
             <Rating

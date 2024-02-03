@@ -13,10 +13,10 @@ function Profile() {
             <div>
                 Full Name: {userData.fullName}
             </div>
-            <div>
+            {/* <div>
                 <span>MovieCount: {movieData.movieId.length}</span>
                 <span> TvCount: {movieData.tvId.length}</span>
-            </div>
+            </div> */}
 
 
         </div>

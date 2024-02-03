@@ -25,7 +25,7 @@ function Playlist() {
             setPlaylistData([])
         }
 
-    }, [])
+    }, [isClicked])
     return (
         <div className=' min-h-screen pt-20 bg-neutral-700 text-white w-full text-center'>
             <button

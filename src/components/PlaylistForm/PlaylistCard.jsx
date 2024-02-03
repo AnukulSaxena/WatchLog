@@ -19,9 +19,9 @@ function PlaylistCard({ data }) {
 
             </div>
 
-            <div className="sm:p-4 pt-2 px-2 h-1/2 no-scrollbar bg-transparent rounded-b-md overflow-y-scroll ">
+            <div className="sm:p-4 text-start sm:pt-2  px-2 h-1/2 no-scrollbar bg-transparent rounded-b-md overflow-y-scroll ">
 
-                <h5 className="mb-2 sm:text-2xl text-lg sm:font-bold font-semibold  text-white">{data.name}</h5>
+                <h5 className="sm:mb-2 sm:text-2xl text-lg sm:font-bold font-semibold  text-white">{data.name}</h5>
 
                 <p className="font-normal text-gray-400">{data.description}</p>
 

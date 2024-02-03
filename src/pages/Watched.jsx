@@ -52,7 +52,6 @@ function Watched() {
 
     }, [mediaType]);
 
-
     return (
         <div className='bg-neutral-700 min-h-screen pt-20'>
             {
