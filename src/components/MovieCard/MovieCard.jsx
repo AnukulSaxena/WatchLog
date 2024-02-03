@@ -8,7 +8,7 @@ import FakeImage from './FakeImage.jsx';
 import movieServicex from '../../express/movieConfig.js';
 
 const MovieCard = ({ data, initStatus = true, mediaType, crossCheck = true }) => {
-    const { playlistId } = useParams()
+    let { playlistId } = useParams()
     const { url } = useSelector((state) => state.home);
     const posterUrl = url.poster + data.poster_path;
     const [isChecked, setIsChecked] = useState(initStatus);
@@ -20,6 +20,9 @@ const MovieCard = ({ data, initStatus = true, mediaType, crossCheck = true }) =>
 
 
     const deleteMovieDocInExpress = async () => {
+        if (!playlistId) {
+            playlistId = movieData[0]._id
+        }
         setIsChecked(false);
         const isDeleted = await movieServicex.removeId(data.id, mediaType, playlistId)
         if (!isDeleted)
@@ -27,7 +30,9 @@ const MovieCard = ({ data, initStatus = true, mediaType, crossCheck = true }) =>
     }
 
     const addMovieDocInExpress = async () => {
-
+        if (!playlistId) {
+            playlistId = movieData[0]._id
+        }
         setIsChecked(true)
         const isAdded = await movieServicex.addId(data.id, mediaType, playlistId)
         if (!isAdded)
@@ -48,6 +53,7 @@ const MovieCard = ({ data, initStatus = true, mediaType, crossCheck = true }) =>
     };
 
     const handleImgClick = () => {
+
         navigate(`/${mediaType}/${data.id}`)
     }
 
@@ -73,7 +79,7 @@ const MovieCard = ({ data, initStatus = true, mediaType, crossCheck = true }) =>
         <div className=" w-44 flex items-center justify-center md:w-48 md:h-72 h-64 rounded-md overflow-hidden">
             <div
                 onClick={handleImgClick}
-                className='h-full w-full relative'>
+                className='h-full w-full hover:cursor-pointer relative'>
                 <Img
                     className=" rounded-md"
                     src={posterUrl}

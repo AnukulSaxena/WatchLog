@@ -10,14 +10,15 @@ const DropdownMenu = ({ className = '', id, mediaType }) => {
 
 
     function handleClickOutside(event) {
-
+        event.stopPropagation()
         if (filterPanelRef.current && !filterPanelRef.current.contains(event.target)) {
             setIsOpen(false);
 
         }
     }
 
-    function handleClick(item) {
+    function handleClick(e, item) {
+        e.stopPropagation()
         console.log(id, mediaType, item._id)
         movieServicex.addId(id, mediaType, item._id)
         setIsOpen(false)
@@ -60,7 +61,7 @@ const DropdownMenu = ({ className = '', id, mediaType }) => {
                                 movieData.map((item, index) => (
                                     <li
                                         key={item.name + index}
-                                        onClick={() => { handleClick(item) }}
+                                        onClick={(e) => { handleClick(e, item) }}
                                         className="px-4 hover:bg-neutral-800 py-1 truncate">
 
                                         {item.name}

@@ -5,7 +5,7 @@ import Playlist from "./Playlist";
 import Signup from "./Signup";
 import Watched from "./Watched";
 import MovieCredits from './MovieCredits'
-import Search from './Search.jsx'
+import Search from './Search/Search.jsx'
 import Profile from "./Profile.jsx";
 
 

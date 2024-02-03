@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom';
-import { fetchDataFromApi } from '../utils/api';
-import { InfiniteScrollComponent } from '../components';
-import { setMovieData } from '../store/movieSlice';
+import { fetchDataFromApi } from '../../utils/api';
+import { InfiniteScrollComponent } from '../../components';
+import { setMovieData } from '../../store/movieSlice';
 import { useSelector, useDispatch } from 'react-redux';
-import playlistService from '../express/playlistConfig';
+import playlistService from '../../express/playlistConfig';
 function Search() {
     const { status } = useSelector(state => state.auth)
     const dispatch = useDispatch();
@@ -60,8 +60,10 @@ function Search() {
     }, [query, searchType])
 
 
+
     return (
-        <div className='bg-neutral-700 min-h-screen pt-14'>
+        <div className='bg-neutral-700 min-h-screen pt-20'>
+
             {
                 !loading &&
                 <InfiniteScrollComponent

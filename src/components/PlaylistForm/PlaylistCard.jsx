@@ -1,14 +1,20 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 function PlaylistCard({ data }) {
     const navigate = useNavigate()
+    const [isActice, setIsActive] = useState(false)
     function handleClick() {
-        if (data.movieId.length || data.tvId.length) {
-            console.log("click")
-            navigate(`/watched/${data._id}`)
-        }
+        console.log("click")
+        navigate(`/watched/${data._id}`)
+
     }
+    useEffect(() => {
+        if (data.movieId.length || data.tvId.length)
+            setIsActive(true)
+
+    }, [])
+
     return (
         <div
 
