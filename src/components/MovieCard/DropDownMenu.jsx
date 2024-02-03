@@ -23,7 +23,8 @@ const DropdownMenu = ({ className = '', id, mediaType }) => {
         setIsOpen(false)
     }
 
-    function handleOpenClick() {
+    function handleOpenClick(e) {
+        e.stopPropagation()
         console.log(isOpen)
         setIsOpen(prev => !prev)
 
@@ -38,39 +39,44 @@ const DropdownMenu = ({ className = '', id, mediaType }) => {
         }
     }, [movieData])
     return (
-        <div className={`${className}`}>
+        <>
             <button
-                className=" text-white  h-14 w-10 "
+                className=" absolute bottom-0 text-white md:bottom-1 right-0 h-10 w-14"
                 onClick={handleOpenClick}
             >
-                <svg className="w-5 h-5  rounded-md ml-5 mb-2 " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 4 15">
+                <svg className="w-5 h-5  rounded-md ml-8 mt-2  " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 4 15">
                     <path d="M3.5 1.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Zm0 6.041a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Zm0 5.959a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Z" />
                 </svg>
 
             </button>
             {
                 isOpen && !loading && (
-                    <ul
-                        ref={filterPanelRef}
-                        className=" z-10 absolute  -bottom-[2.5px] md:-bottom-1 right-10 max-h-44 overflow-y-scroll no-scrollbar w-[136px]  md:w-[152px] rounded-lg   bg-neutral-700 text-white ">
-                        {
-                            movieData.map((item, index) => (
-                                <li
-                                    key={item.name + index}
-                                    onClick={() => { handleClick(item) }}
-                                    className="px-4 hover:bg-neutral-800 py-1 truncate">
+                    <div className=' absolute inset-0 bg-neutral-800 backdrop-blur-sm bg-opacity-30 flex justify-center items-center'>
 
-                                    {item.name}
-                                </li>)
+                        <ul
+                            ref={filterPanelRef}
+                            className="  max-h-44 overflow-y-scroll no-scrollbar w-[136px]  md:w-[152px] rounded-lg   bg-neutral-700 text-white ">
+                            {
+                                movieData.map((item, index) => (
+                                    <li
+                                        key={item.name + index}
+                                        onClick={() => { handleClick(item) }}
+                                        className="px-4 hover:bg-neutral-800 py-1 truncate">
 
-                            )
-                        }
+                                        {item.name}
+                                    </li>)
 
-                    </ul>
+                                )
+                            }
+
+                        </ul>
+
+                    </div>
                 )
             }
-        </div >
+        </>
     );
 };
 
 export default DropdownMenu;
+

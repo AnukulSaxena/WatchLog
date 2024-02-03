@@ -34,7 +34,8 @@ const MovieCard = ({ data, initStatus = true, mediaType, crossCheck = true }) =>
             setIsChecked(false)
     }
 
-    const handleCheckboxToggle = () => {
+    const handleCheckboxToggle = (e) => {
+        e.stopPropagation()
         if (status) {
             if (isChecked) {
                 mode ? deleteMovieDocInExpress() : window.alert("Please Change the Mode");
@@ -65,46 +66,29 @@ const MovieCard = ({ data, initStatus = true, mediaType, crossCheck = true }) =>
         }
         setLoading(false)
 
-    }, [movieData, mediaType, isChecked])
+    }, [movieData, mediaType])
 
 
     return (
-        <div className=" max-w-44 min-w-44 md:min-w-48 md:max-w-48 h-fit relative">
-            {
-                data.poster_path && data.poster_path !== " " ?
-                    <div
-                        className=' min-h-64 md:min-h-72 max-h-72'
-                        onClick={handleImgClick}
-                    >
-                        <Img
-                            className=" w-auto cursor-pointer rounded-xl z-0"
-                            src={posterUrl}
-                            alt={data.poster_path}
-                        />
-                    </div>
-                    :
-                    <FakeImage
-                        title={data.title || data.name}
-                    />
-            }
-            <DropdownMenu
-                id={data.id}
-                mediaType={mediaType}
-                className='absolute h-9 bottom-2  md:bottom-1 right-0'
-            />
-            <Rating
-                movieRating={data.vote_average}
-                className={'absolute top-0 m-1 bg-neutral-700 rounded-lg px-1 '}
-            />
-            {!loading &&
+        <div className=" w-44 flex items-center justify-center md:w-48 md:h-72 h-64 rounded-md overflow-hidden">
+            <div
+                onClick={handleImgClick}
+                className='h-full w-full relative'>
+                <Img
+                    className=" rounded-md"
+                    src={posterUrl}
+                    alt={data.poster_path}
+
+                />
+
+
                 <div
-                    className='absolute h-10 cursor-pointer w-14 bottom-1 md:bottom-0 left-0'
                     onClick={handleCheckboxToggle}
-                >
+                    className='h-10 w-14 absolute bottom-0 left-0'>
+
                     <button
                         className={`absolute bottom-1 left-1  inline-flex flex-shrink-0 h-6 w-11 border-2 border-transparent rounded-lg  transition-colors ease-in-out duration-200 focus:outline-none ${isChecked ? 'bg-neutral-500' : 'bg-gray-200'
                             }`}
-
 
                     >
                         <span
@@ -113,10 +97,63 @@ const MovieCard = ({ data, initStatus = true, mediaType, crossCheck = true }) =>
                         ></span>
                     </button>
                 </div>
-            }
 
-        </div>
+
+                <DropdownMenu
+                    id={data.id}
+                    mediaType={mediaType}
+
+                />
+
+
+
+            </div>
+
+        </div >
     );
 };
 
 export default MovieCard;
+
+{/* <div
+    className=' w-full min-h-full'
+    onClick={handleImgClick}
+>
+
+    <div
+        className=' absolute inset-0 flex items-end justify-center opacity-0 hover:opacity-70 bg-neutral-800 transition-opacity duration-300 ease-in-out'>
+
+    </div>
+</div> */}
+
+
+// {
+//     data.poster_path && data.poster_path !== " " ?
+//         <div
+//             className=' min-h-64 md:min-h-72 max-h-72'
+//             onClick={handleImgClick}
+//         >
+//             <Img
+//                 className=" w-auto cursor-pointer rounded-xl z-0"
+//                 src={posterUrl}
+//                 alt={data.poster_path}
+//             />
+//         </div>
+//         :
+//         <FakeImage
+//             title={data.title || data.name}
+//         />
+// }
+
+// <Rating
+//     movieRating={data.vote_average}
+//     className={'absolute top-0 m-1 bg-neutral-700 rounded-lg px-1 '}
+// />
+// {!loading &&
+{/* <div
+    className='absolute h-10 cursor-pointer w-14 bottom-1 md:bottom-0 left-0'
+    onClick={handleCheckboxToggle}
+>
+
+</div>
+// } */}

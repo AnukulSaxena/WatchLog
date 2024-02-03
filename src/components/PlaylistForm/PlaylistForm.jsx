@@ -15,8 +15,8 @@ function PlaylistForm({ handleClose }) {
     }
 
     return (
-        <div className='h-96 w-72 rounded-md absolute inset-0 top-20 p-5 mx-auto bg-neutral-800'>
-            <div className="flex flex-col h-full">
+        <div className=' fixed inset-0 flex justify-center items-center bg-neutral-800 backdrop-blur-sm bg-opacity-30   '>
+            <div className="flex flex-col h-96 w-72 p-5 rounded-md bg-neutral-800">
                 <div className="flex justify-between items-center pb-4 mb-4 rounded-t border-b sm:mb-5 border-gray-600">
                     <h3 className="text-lg font-semibold text-white">
                         Create New

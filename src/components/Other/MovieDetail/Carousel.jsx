@@ -20,10 +20,10 @@ function Carousel({ id, type, mediaType }) {
             })
     }, [])
     return !loading && (
-        < div className=" h-fit" >
+        < div className=" h-fit overflow-x-scroll no-scrollbar" >
             <div className="text-center text-4xl font-extrabold  tracking-tight  md:text-4xl text-white">{type}</div>
             <hr className="h-px my-10  border-0 bg-gray-400"></hr>
-            <div className="flex gap-5 md:h-80 h-72 w-full no-scrollbar overflow-x-scroll">
+            <div className="flex gap-5 md:h-80 h-72 w-fit no-scrollbar overflow-x-scroll">
                 {
                     !loading &&
                     data?.results?.map

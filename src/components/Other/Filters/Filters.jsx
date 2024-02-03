@@ -91,46 +91,52 @@ function Filters() {
             </button>
 
             <div
-                ref={filterPanelRef}
-                className={` ${isOpen ? " " : "hidden"}  rounded-t-md absolute top-40 z-20 h-96 w-80 md:w-[590px]  bg-neutral-700`}
+                className={`${isOpen ? " " : "hidden"}
+                flex justify-center items-center
+                fixed z-40 inset-0 bg-neutral-800 bg-opacity-30 backdrop-blur-sm`}
             >
-
-                <div className='flex h-full'>
-                    <div className='w-1/3 h-full border-r border-neutral-600'>
-                        <ul>
-                            {multiOption?.map((item, index) => (
-                                <li key={index} className='w-full h-8 text-center text-white'>
-                                    <button
-                                        value={item.name}
-                                        onClick={handlemultiOptionClick}
-                                        className={`h-full w-full ${currentOption === item && "bg-white rounded-md text-black"} hover:rounded-md hover:bg-white hover:text-black`}
-                                    >
-                                        {item.name}
-                                    </button>
-                                </li>
-                            ))}
-                        </ul>
-                    </div>
-                    <div className=' w-2/3 h-full  overflow-auto no-scrollbar'>
-                        <ul>
-                            {options?.map((item, index) => (
-                                <ListItem
-                                    key={currentOption.name + mediaType + index}
-                                    item={item}
-                                    currentOption={currentOption}
-                                />
-                            ))}
-                        </ul>
-                    </div>
-                </div>
                 <div
-                    className='w-full h-11 bg-neutral-700 border-t p-1 border-neutral-600 flex rounded-b justify-center text-white'>
-                    <button
+                    ref={filterPanelRef}
+                    className={`   rounded-t-md absolute top-40 z-20 h-96 w-80 md:w-[590px]  bg-neutral-700`}
+                >
 
-                        onClick={handleReset}
-                        className='text-lg border-gray-100 hover:bg-white hover:text-black px-8 md:px-12 rounded-md border'>
-                        Reset
-                    </button>
+                    <div className='flex h-full'>
+                        <div className='w-1/3 z-50 h-full border-r border-neutral-600'>
+                            <ul>
+                                {multiOption?.map((item, index) => (
+                                    <li key={index} className='w-full h-8 text-center text-white'>
+                                        <button
+                                            value={item.name}
+                                            onClick={handlemultiOptionClick}
+                                            className={`h-full w-full ${currentOption === item && "bg-white rounded-md text-black"} hover:rounded-md hover:bg-white hover:text-black`}
+                                        >
+                                            {item.name}
+                                        </button>
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                        <div className=' w-2/3 h-full  overflow-auto no-scrollbar'>
+                            <ul>
+                                {options?.map((item, index) => (
+                                    <ListItem
+                                        key={currentOption.name + mediaType + index}
+                                        item={item}
+                                        currentOption={currentOption}
+                                    />
+                                ))}
+                            </ul>
+                        </div>
+                    </div>
+                    <div
+                        className='w-full h-11 bg-neutral-700 border-t p-1 border-neutral-600 flex rounded-b justify-center text-white'>
+                        <button
+
+                            onClick={handleReset}
+                            className='text-lg border-gray-100 hover:bg-white hover:text-black px-8 md:px-12 rounded-md border'>
+                            Reset
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
