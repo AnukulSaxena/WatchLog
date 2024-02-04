@@ -1,17 +1,19 @@
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import ConfirmationForm from '../../../components/Other/ConfirmationForm';
+import playlistService from '../../../express/playlistConfig';
+import { useNavigate, useParams } from 'react-router-dom';
 function EditForm({ handleClose, oldName }) {
+    const navigate = useNavigate()
+    const { playlistId } = useParams()
     const { register, handleSubmit } = useForm()
     const [error, setError] = useState("");
     const [isConfOpen, setIsConfOpen] = useState(false)
     const [mode, setMode] = useState('')
-    function handleUpdate({ name, description }) {
-        if (name.trim() || description.trim()) {
-            setMode("update")
-            setIsConfOpen(prev => !prev)
-        }
-
+    async function handleUpdate(data) {
+        console.log(data)
+        await playlistService.updatePlaylist(data, playlistId)
+        navigate(`/playlist`)
     }
     function handleDelete() {
         setMode("delete")
@@ -27,12 +29,17 @@ function EditForm({ handleClose, oldName }) {
 
 
             <div className="flex flex-col h-96 w-72 p-5 rounded-md bg-neutral-800 relative">
-                <button
-                    onClick={handleDelete}
-                    className="absolute bottom-16 right-8 bg-red-700 gap-1 hover:bg-gray-400 text-gray-800 font-bold py-1 px-4 rounded inline-flex items-center">
-                    <img className='h-5' src="/svg/delete.svg" alt="" />
-                    <span>Delete</span>
-                </button>
+
+
+                {
+                    (oldName !== "Watched") &&
+                    <button
+                        onClick={handleDelete}
+                        className="absolute bottom-16 right-8 bg-red-700 gap-1 hover:bg-gray-400 text-black font-bold py-1 px-4 rounded inline-flex items-center">
+                        <img className='h-5' src="/svg/delete.svg" alt="delete SVG" />
+                        <span>Delete</span>
+                    </button>
+                }
 
                 {
                     isConfOpen &&
@@ -82,14 +89,14 @@ function EditForm({ handleClose, oldName }) {
                                         className='w-full text-sm h-8 px-3 rounded-md bg-neutral-700 text-gray-300 border border-neutral-500'
                                         {...register("name")}
                                         placeholder="New Name"
-
+                                        required
                                     />
 
                                     <textarea
                                         className='w-full rounded-md px-3 h-20  bg-neutral-700 text-gray-300 border border-neutral-500'
                                         {...register("description")}
                                         placeholder="New Description.. "
-
+                                        required
                                     />
                                 </div>
                             }

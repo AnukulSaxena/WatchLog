@@ -14,14 +14,17 @@ function ConfirmationForm({ mode, closeConfMenu }) {
                 await playlistService.deletePlaylist(playlistId)
                 navigate('/playlist')
             }
-
-
         }
     }
     return (
         <div
-            className=' w-60 h-40 flex justify-center items-center bg-white rounded-md'
+            className=' w-60 h-40 flex flex-col justify-center items-center bg-white rounded-md'
         >
+            <div
+                className='h-20 w-full px-2 font-semibold'
+            >
+                This will permanently {mode} your playlist.
+            </div>
             <div
                 className='w-full h-10 py-1 flex justify-center gap-10'
             >

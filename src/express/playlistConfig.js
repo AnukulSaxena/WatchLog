@@ -59,6 +59,16 @@ class PlaylistService {
         }
     }
 
+    async updatePlaylist(data, playlistId) {
+        try {
+            const response = await this.axiosInstance.patch(`/playlists/${playlistId}`, data);
+            console.log('Playlist Updated Successfully', response);
+            return true;
+        } catch (error) {
+            console.log('movieService :: updatePlaylist :: Error', error);
+            return false;
+        }
+    }
 }
 
 const playlistService = new PlaylistService();

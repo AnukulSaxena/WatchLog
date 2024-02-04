@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from 'react-redux'
 import LogoutBtn from "./LogoutBtn";
-import "/svg/icons8-search.svg"
+
 import SeachBar from "./SeachBar";
 
 const Header = () => {
