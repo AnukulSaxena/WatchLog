@@ -36,7 +36,7 @@ const router = createBrowserRouter([
         )
       },
       {
-        path: "/watched/:playlistId",
+        path: "/watched/:playlistId/:name",
         element: (
           <AuthLayout authentication>
             <Watched />

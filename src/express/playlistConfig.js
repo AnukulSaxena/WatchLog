@@ -48,6 +48,17 @@ class PlaylistService {
         }
     }
 
+    async deletePlaylist(playlistId) {
+        try {
+            const response = await this.axiosInstance.delete(`/playlists/${playlistId}`);
+            console.log('PlaylistConfig :: deletePlaylist :: response ', response);
+            return true
+        } catch (error) {
+            console.log('movieService :: getWatched :: Error', error);
+            return false
+        }
+    }
+
 }
 
 const playlistService = new PlaylistService();

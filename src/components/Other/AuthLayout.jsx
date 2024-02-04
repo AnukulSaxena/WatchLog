@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import playlistService from '../../express/playlistConfig'
-import movieServicex from '../../express/movieConfig'
 import { setMovieData } from '../../store/movieSlice'
 export default function Protected({ children, authentication = true }) {
 

@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
-import playlistService from '../../express/playlistConfig';
+import playlistService from '../../../express/playlistConfig';
 
 function PlaylistForm({ handleClose }) {
     const { register, handleSubmit } = useForm()

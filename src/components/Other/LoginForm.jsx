@@ -41,6 +41,9 @@ function SignupForm() {
                             label="Email"
                             placeholder="Enter Your Email : "
                             type="email"
+                            name="email"
+                            id="r0"
+                            autoComplete="email"
                             {
                             ...register("email", {
                                 required: true,
@@ -50,6 +53,9 @@ function SignupForm() {
                             label="Password"
                             placeholder="Enter Your Password : "
                             type="password"
+                            name="password"
+                            id="r1"
+                            autoComplete="current-password"
                             {
                             ...register("password", {
                                 required: true,

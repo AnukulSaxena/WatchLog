@@ -6,7 +6,7 @@ function PlaylistCard({ data }) {
     const [isActice, setIsActive] = useState(false)
     function handleClick() {
         console.log("click")
-        navigate(`/watched/${data._id}`)
+        navigate(`/watched/${data._id}/${data.name}`)
 
     }
     useEffect(() => {

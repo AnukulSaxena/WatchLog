@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
-import { Spinner } from '../components'
+import { Spinner } from '../../components'
 import { useEffect } from 'react';
 
-import PlaylistForm from '../components/PlaylistForm/PlaylistForm';
-import PlaylistCard from '../components/PlaylistForm/PlaylistCard';
-import playlistService from '../express/playlistConfig';
+import PlaylistForm from './PlaylistForm/PlaylistForm';
+import PlaylistCard from './PlaylistForm/PlaylistCard';
+import playlistService from '../../express/playlistConfig';
 function Playlist() {
     const [isClicked, setIsClicked] = useState(false)
     const [playlistData, setPlaylistData] = useState([])
