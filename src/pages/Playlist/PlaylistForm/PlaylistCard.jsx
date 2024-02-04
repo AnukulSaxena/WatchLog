@@ -1,18 +1,20 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { useSelector } from 'react-redux'
+import { fetchPlaylistData } from '../../../utils/api'
 
 function PlaylistCard({ data }) {
     const navigate = useNavigate()
     const [isActice, setIsActive] = useState(false)
-    function handleClick() {
-        console.log("click")
-        navigate(`/watched/${data._id}/${data.name}`)
+    const { mediaType } = useSelector(state => state.home)
 
+    async function handleClick() {
+        console.log(data)
+        navigate(`/watched/${data._id}/${data.name}`)
     }
     useEffect(() => {
         if (data.movieId.length || data.tvId.length)
             setIsActive(true)
-
     }, [])
 
     return (

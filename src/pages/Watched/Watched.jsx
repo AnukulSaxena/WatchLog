@@ -1,31 +1,32 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
-import { InfiniteScrollComponent } from '../../components'
+import InfiniteScroll from 'react-infinite-scroll-component';
 import { useParams } from 'react-router-dom';
 import playlistService from '../../express/playlistConfig';
+import { Spinner, MovieCard } from '../../components';
 import EditForm from './EditForm/EditForm';
+import { fetchPlaylistData } from '../../utils/api';
 function Watched() {
+
     const { playlistId, name } = useParams();
     const { mediaType } = useSelector(state => state.home)
     const [loading, setLoading] = useState(true);
-    const [data, setData] = useState({
-        results: [],
-        total_results: 0
-    });
+    const [data, setData] = useState([]);
     const [isOpen, setIsOpen] = useState(false);
     const [pageNum, setPageNum] = useState(1);
-
+    const { movieData } = useSelector(state => state.movie)
+    const [dataLength, setDataLength] = useState(0)
+    const [playlistIndex, setPlaylistIndex] = useState(-1)
     function handleClose() {
         console.log("Clicked")
         setIsOpen(prev => !prev)
     }
 
-    async function getNextPageData() {
-        const response = await playlistService.getSinglePlaylistData(playlistId, mediaType, pageNum);
-        if (response) {
-            setData((prevData) => ({
-                ...response, results: [...prevData?.results, ...response?.results],
-            }));
+    async function fetchNextPageData() {
+        console.log(pageNum, dataLength, pageNum <= Math.ceil(dataLength / 20), playlistIndex);
+        const response = await fetchPlaylistData(mediaType, movieData[playlistIndex], pageNum)
+        if (response.length) {
+            setData((prevData) => ([...prevData, ...response]));
             setPageNum(prev => prev + 1)
         }
     }
@@ -33,27 +34,28 @@ function Watched() {
     useEffect(() => {
         setLoading(true)
         window.scrollTo(0, 0);
-        playlistService.getSinglePlaylistData(playlistId, mediaType)
-            .then((res) => {
-                if (res) {
-                    setData(res)
+        const sip = movieData.findIndex((element) => (element.name === name))
+        setPlaylistIndex(sip)
 
+        if (sip !== -1) {
+            fetchPlaylistData(mediaType, movieData[sip])
+                .then(res => {
+                    console.log("Watched :: useEffect :: res", res)
+                    setData(res)
                     setPageNum(2)
-                }
-            })
-            .finally(() => {
-                setLoading(false)
-            })
+                    setDataLength(movieData[sip][`${mediaType}Id`].length)
+                }).finally(() => {
+                    setLoading(false)
+
+                })
+        }
 
 
         return () => {
 
             setPageNum(1)
             setLoading(true)
-            setData({
-                results: [],
-                total_results: 0
-            })
+            setData([])
         }
 
     }, [mediaType]);
@@ -80,16 +82,29 @@ function Watched() {
             </div>
             {
                 !loading &&
-                <InfiniteScrollComponent
-                    data={data?.results}
-                    fetchNextPageData={getNextPageData}
-                    pageNum={pageNum}
-                    total_pages={Math.ceil(data?.total_results / 20)}
-                    initStatus={true}
-                    crossCheck={false}
-                    searchType={mediaType}
-
-                />
+                <InfiniteScroll
+                    className='py-4 flex flex-wrap justify-center gap-3'
+                    dataLength={dataLength || []}
+                    next={fetchNextPageData}
+                    hasMore={data.length < dataLength}
+                    loader={<Spinner />}
+                    endMessage={
+                        <p className='text-center w-full text-white'>
+                            <b>Yay! You have seen it all</b>
+                        </p>
+                    }
+                >
+                    {data?.map((item, index) => {
+                        return (!(item.status === 'fulfilled')) ? <></> :
+                            <MovieCard
+                                key={index}
+                                data={item.value}
+                                initStatus={true}
+                                crossCheck={false}
+                                mediaType={mediaType}
+                            />
+                    })}
+                </InfiniteScroll>
             }
         </div>
     );

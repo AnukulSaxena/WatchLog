@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import playlistService from '../../express/playlistConfig'
 import { setMovieData } from '../../store/movieSlice'
-export default function Protected({ children, authentication = true }) {
+export default function Protected({ children, authentication = true, check = true }) {
 
     const navigate = useNavigate()
     const [loader, setLoader] = useState(true)
@@ -18,10 +18,10 @@ export default function Protected({ children, authentication = true }) {
                 })
         }
 
-        if (authentication && authStatus !== authentication) {
+        if (check && authentication && authStatus !== authentication) {
             navigate("/login")
-            // } else if (!authentication && authStatus !== authentication) {
-            //     navigate("/")
+        } else if (!authentication && authStatus !== authentication) {
+            navigate("/")
         }
         setLoader(false)
     }, [authStatus, navigate, authentication, mediaType])

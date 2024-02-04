@@ -75,6 +75,7 @@ const Header = () => {
 
     }
     function handleNavigateClick(event) {
+        closeMenu()
         navigate(event.target.value)
     }
     function toggleSearchBar() {
