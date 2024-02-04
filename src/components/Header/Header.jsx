@@ -112,19 +112,20 @@ const Header = () => {
 
             <header
                 ref={filterPanelRef}
-                className={`fixed top-0 z-50 w-full  border-gray-200 px-4 lg:px-6 py-2 bg-neutral-800 duration-300 transition-transform ${(scrollDirection === "down") ? "-translate-y-full" : "translate-y-0"
+                className={`fixed top-0 z-50 w-full  border-gray-200 px-2 lg:px-6 py-4 bg-neutral-800 duration-300 transition-transform ${(scrollDirection === "down") ? "-translate-y-full" : "translate-y-0"
                     }`} >
 
                 <nav className="">
                     <div className="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
                         <div
-                            className="h-10"
+                            className="h-10 cursor-pointer flex items-center "
+                            onClick={toggleSearchBar}
                         >
                             {
                                 !isSearchBarOpen &&
                                 <img
-                                    onClick={toggleSearchBar}
-                                    className="h-full"
+
+                                    className="h-7"
                                     src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAACXBIWXMAAAsTAAALEwEAmpwYAAADtklEQVR4nO2aX2iPURjHTwwXhNpuFLZERFktWhQT5d+GVpJYrBZxh5gLxZR24U+UG4YLIiJRZDcSRbiQEtuF1PyNyDJ/Nv/20bHnzeNts99++52zM3s/N7+b3/t+n/Oc857znOd5jElISEhISEhIcASQBUwByoAqYD9wGDgI7ALWAEXAEPO/AAwFVgNXgI+kxnfgNrAZGGl6I8AIYA/woYNB/gDeA0/lt+Uf/zsN5JveADAAqASaYgN5Lct9JTAeGBh7rh+QC5QAu4G62PM/gRogx4QKMAa4GzP8GlAM9E/jfQXAceCbet8rYI4JDdo2r0Zl6ENgdobePRa4HFsNG0woAIuAZjGuFdgXX+IZ0ikHPilHVGdaI92Zjwb/FVjuWG8y8FI5YatLvVS++UY1+PnGA0Ae8EytuFIfuu3t9neVEU5nPg4wUY5P5DfXeDagUi3DvV7F/9hQLM631PoOcprUbp/xDa8LthxRE7HQl+geJZqRo64btuSoT+GOr9i+KQpyTAAAO9SEzHAtVq7Eik0AANnqKD7mWqxWxfZZJhCA82JXYzphd1eOvigSqzEBIZesiEJXIlOVyAoTEDZvoGzb6EpklRKZYAIDeCO2HXUlUKWSFD129ncEcFPsu+pK4EAUepoAAS6KffddCdSIwAsTIMApsa/elcBBEXhrAkQdhQ9cCVSrq28/ExiSfrPccCWwVp0Cfq+fKQA0iG0nXQnMUg4oMQEBDJdcoWWbK5EhUrSw7DYBIen0iLkuhe443WnTBDgkdtlL0WCXQluUpwtMANigzJ5MYtNl12KjJBK0nDABAFSoSVnqQ/CMiNmKzTjngp3P/mOx57m9sfoQzVc7rtsl17Xk7DqfwjVKuNyb8N82TAI+iw11XmY/loy0hUqk7j/ZeAQYBjwSfbsap/nU/42t0qpPwZar8owHgEEq7LVU+dBtF1ulVYbYctVE437m9eCv9/i9hD+XJCRHv8ThNx8t+4iWILLTtO3GUZmqVSo2ORk86uz7v6iB31BtNcE4oVRVaaLVYIsW2d0YeIU655EgbKe01BSH6ITRwKXYMm2WZEVZZ11fcqsrkdj+Xew99cD02P/Dc4IFWNBOv1CEzd7eAi4AZ4Fzspk1qFNFYyO89R2d88E6wQLMtOWqWP9QKrRIX9CyVAKcoJ2gukQLgU2yQdoZvwc8sTk8WRE2qbkdmJdOt2jwTvCBbdOJ9SwtNn0NEieY9j6HItPHnbDf9EVo62M80Gu7zhMSEhISEhKMD34BTiRIeBg5cMgAAAAASUVORK5CYII=" />
 
                             }

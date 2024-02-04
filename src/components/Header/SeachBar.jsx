@@ -36,6 +36,11 @@ function SeachBar({ toggleSearchBar }) {
         }
 
     }
+    const handleKeyDown = (event) => {
+        if (event.key === 'Enter') {
+            handleClick()
+        }
+    };
 
 
     useEffect(() => {
@@ -55,6 +60,7 @@ function SeachBar({ toggleSearchBar }) {
                 className='w-full h-10 pl-5 rounded-sm'
                 value={inputValue}
                 onChange={(e) => setInputValue(e.target.value)}
+                onKeyDown={handleKeyDown}
                 type="text" />
 
             <div
