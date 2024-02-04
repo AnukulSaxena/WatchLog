@@ -11,8 +11,8 @@ function EditForm({ handleClose, oldName }) {
     const [isConfOpen, setIsConfOpen] = useState(false)
     const [mode, setMode] = useState('')
     async function handleUpdate(data) {
-        console.log(data)
-        await playlistService.updatePlaylist(data, playlistId)
+        if (!data)
+            await playlistService.updatePlaylist(data, playlistId)
         navigate(`/playlist`)
     }
     function handleDelete() {
