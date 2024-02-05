@@ -62,8 +62,8 @@ const router = createBrowserRouter([
       {
         path: "/credits/:id/:knownFor",
         element: (
-          <AuthLayout>
-            <MovieCredits check={false} />
+          <AuthLayout check={false}>
+            <MovieCredits />
           </AuthLayout>
         )
       }, {
