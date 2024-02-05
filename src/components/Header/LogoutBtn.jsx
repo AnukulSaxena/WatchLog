@@ -15,10 +15,7 @@ function LogoutBtn({ isMenuOpen }) {
             .then((response) => {
                 console.log("session deleted with ", response);
                 dispatch(logout())
-                dispatch(setMovieData({
-                    movieId: [],
-                    tvId: []
-                }))
+                dispatch(setMovieData([]))
 
             })
             .then(() => navigate("/"))

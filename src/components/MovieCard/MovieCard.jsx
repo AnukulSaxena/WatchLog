@@ -14,14 +14,14 @@ const MovieCard = ({ data, initStatus = true, mediaType, crossCheck = true }) =>
     const [isChecked, setIsChecked] = useState(initStatus);
     const [loading, setLoading] = useState(false)
     const { status } = useSelector(state => state.auth)
-    const { movieData, mode } = useSelector(state => state.movie)
+    const { movieData, mode, movieDataIndex } = useSelector(state => state.movie)
 
     const navigate = useNavigate()
 
 
     const deleteMovieDocInExpress = async () => {
         if (!playlistId) {
-            playlistId = movieData[0]._id
+            playlistId = movieData[movieDataIndex]._id
         }
         setIsChecked(false);
         const isDeleted = await movieServicex.removeId(data.id, mediaType, playlistId)
@@ -31,7 +31,7 @@ const MovieCard = ({ data, initStatus = true, mediaType, crossCheck = true }) =>
 
     const addMovieDocInExpress = async () => {
         if (!playlistId) {
-            playlistId = movieData[0]._id
+            playlistId = movieData[movieDataIndex]._id
         }
         setIsChecked(true)
         const isAdded = await movieServicex.addId(data.id, mediaType, playlistId)
@@ -65,14 +65,18 @@ const MovieCard = ({ data, initStatus = true, mediaType, crossCheck = true }) =>
         if (crossCheck && movieData.length) {
             console.log("in CrossCheck")
             const targetValue = data.id;
-            const foundObject = movieData[0][`${mediaType}Id`]?.find(item => item === targetValue);
+            const foundObject = movieData[movieDataIndex][`${mediaType}Id`]?.find(item => item === targetValue);
             if (foundObject) {
                 setIsChecked(true);
             }
         }
         setLoading(false)
 
-    }, [movieData, mediaType])
+        return () => {
+            setIsChecked(initStatus)
+        }
+
+    }, [movieData, mediaType, movieDataIndex])
 
 
     return (

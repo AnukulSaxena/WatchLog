@@ -5,6 +5,7 @@ const movieSlice = createSlice({
     initialState: {
         movieData: [],
         mode: false,
+        movieDataIndex: 0,
     },
     reducers: {
         setMovieData: (state, action) => {
@@ -12,10 +13,13 @@ const movieSlice = createSlice({
         },
         setMode: (state, action) => {
             state.mode = action.payload;
+        },
+        setMovieDataIndex: (state, action) => {
+            state.movieDataIndex = action.payload;
         }
     }
 })
 
-export const { setMovieData, setMode } = movieSlice.actions;
+export const { setMovieData, setMode, setMovieDataIndex } = movieSlice.actions;
 
 export default movieSlice.reducer
