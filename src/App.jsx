@@ -74,12 +74,15 @@ function App() {
       })
   }, []);
 
-  return !loading && (
+  return (
     <div >
       <Header />
-      <main>
-        <Outlet />
-      </main>
+      {
+        !loading &&
+        <main>
+          <Outlet />
+        </main>
+      }
       <Footer />
     </div>
   );

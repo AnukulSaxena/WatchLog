@@ -73,6 +73,7 @@ function Filters() {
 
     useEffect(() => {
         setLoading(true);
+        console.log("getFilterdat", filterData)
         handleOptions();
         document.addEventListener('mousedown', handleClickOutside);
         return () => {
