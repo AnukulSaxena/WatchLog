@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import DemoLoadingScreen from './DemoLoadingScreen.jsx'
 import authService from '../../express/authConfig.js'
 import { login } from '../../store/authSlice.js'
-
+import MovieCardSkeleton from '../../components/MovieCard/MovieCardSkeleton.jsx'
 function Home() {
     const [isLoadingScreenOpen, setIsLoadingScreenOpen] = useState(false)
     const [data, setData] = useState(null)
@@ -97,8 +97,17 @@ function Home() {
             }
 
             <Filters />
-            {
-                !loading &&
+            {loading ? (
+                <div
+                    className='py-4 flex flex-wrap justify-center gap-3'
+                >
+                    {
+                        Array.from({ length: 20 }).map((_, index) => (
+                            <MovieCardSkeleton key={index} />
+                        ))
+                    }
+                </div>
+            ) : (
                 <InfiniteScrollComponent
                     data={data?.results}
                     fetchNextPageData={fetchNextPageData}
@@ -108,8 +117,7 @@ function Home() {
                     crossCheck={true}
                     searchType={mediaType}
                 />
-
-            }
+            )}
         </div>
     )
 }

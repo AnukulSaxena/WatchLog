@@ -1,4 +1,4 @@
-import Detail from "./Detail";
+import Detail from "./Detail/Detail.jsx";
 import Home from "./Home/Home";
 import Login from "./Login";
 import Playlist from "./Playlist/Playlist.jsx";
