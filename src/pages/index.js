@@ -7,7 +7,7 @@ import Watched from "./Watched/Watched.jsx";
 import MovieCredits from './MovieCredits'
 import Search from './Search/Search.jsx'
 import Profile from "./Profile.jsx";
-
+import Error from "./Error/Error.jsx";
 
 export {
     Detail,
@@ -18,5 +18,6 @@ export {
     Watched,
     MovieCredits,
     Search,
-    Profile
+    Profile,
+    Error
 }

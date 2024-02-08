@@ -6,12 +6,17 @@ import { AuthLayout } from './components/index.js'
 import { Provider } from 'react-redux'
 import { store } from './store/store.js'
 import App from './App.jsx'
-import { Detail, Home, Login, Playlist, Signup, Watched, MovieCredits, Search, Profile } from './pages'
+import {
+  Detail,
+  Error,
+  Home, Login, Playlist, Signup, Watched, MovieCredits, Search, Profile
+} from './pages'
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
+    errorElement: <Error />,
     children: [
       {
         path: "/",
