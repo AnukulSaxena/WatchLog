@@ -7,6 +7,7 @@ function PlaylistForm({ handleClose }) {
     const [error, setError] = useState("");
 
     async function create(data) {
+        console.log(data)
         const response = await playlistService.createPlaylist(data);
         if (response)
             handleClose()

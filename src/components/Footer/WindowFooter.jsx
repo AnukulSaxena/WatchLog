@@ -1,21 +1,46 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Switcher, MediaSwitcher } from '../'
 import { useSelector } from 'react-redux'
-
+import PlaylistPanel from './PlaylistPanel';
 function WindowFooter() {
-    const movieData = useSelector(state => state.movie.movieData)
-
+    const [currentPlaylist, setCurrentPlaylist] = useState('Watched');
+    const [isPanelOpen, setIsPanelOpen] = useState(false);
+    const { movieData, movieDataIndex } = useSelector(state => state.movie)
+    function handleClick() {
+        setIsPanelOpen(prev => !prev)
+    }
+    useEffect(() => {
+        if (movieData.length) {
+            setCurrentPlaylist(movieData[movieDataIndex]?.name)
+            setIsPanelOpen(false)
+        }
+    }, [movieDataIndex])
 
     return (
-        <div>
-            <nav className="fixed z-10 round w-full bottom-0 p-2 bg-neutral-800 flex md:px-72 px-20 justify-center">
+
+        <>
+            {
+                isPanelOpen &&
+                <PlaylistPanel />
+            }
+            <nav className="fixed z-10 round w-full bottom-0 p-2 bg-neutral-800 flex md:px-72 px-10 justify-center">
                 <div className="flex w-full gap-6 rounded-md md:gap-32 justify-between ">
                     <Switcher />
-
+                    <div
+                        className='md:w-32 w-28 text-white relative text-lg text-center p-1 bg-white rounded-md '
+                    >
+                        <button
+                            onClick={handleClick}
+                            className='w-full rounded-md h-full px-2 truncate  bg-neutral-800'
+                        >
+                            {currentPlaylist}
+                        </button>
+                    </div>
                     <MediaSwitcher />
                 </div>
             </nav>
-        </div>
+        </>
+
     )
 }
 
