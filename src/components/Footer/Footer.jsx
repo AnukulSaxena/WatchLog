@@ -8,7 +8,7 @@ const Footer = () => {
         navigate('/')
     }
     return (
-        <div className="absolute -bottom-[270px] w-full">
+        <div className=" w-full">
             <WindowFooter />
             <footer className=" mb-12 bg-neutral-800">
                 <div className="mx-auto w-full max-w-screen-xl p-4 py-6 lg:py-8">

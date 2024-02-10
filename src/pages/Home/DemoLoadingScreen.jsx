@@ -18,7 +18,7 @@ function DemoLoadingScreen({ toggleDemoPanel }) {
     }, []);
     return (
         <div
-            className='flex justify-center items-center absolute bg-neutral-800 backdrop-blur-lg bg-opacity-30 inset-0 z-10'
+            className='flex justify-center items-center fixed bg-neutral-800 backdrop-blur-lg bg-opacity-30 inset-0 z-10'
         >
             <div
                 ref={demoPanelRef}

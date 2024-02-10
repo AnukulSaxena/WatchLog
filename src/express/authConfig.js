@@ -7,15 +7,31 @@ class AuthService {
             baseURL: conf.expressUrl,
             headers: {
                 'Content-Type': 'application/json',
+
             },
             withCredentials: true, // Set credentials here
         });
+    }
+    setAuthTokenFromLocalStorage() {
+        const token = localStorage.getItem('token');
+        if (token) {
+            console.log(token);
+            this.setAuthToken(token);
+        }
+    }
+
+    setAuthToken(token) {
+        if (token) {
+            this.axiosInstance.defaults.headers['Authorization'] = `Bearer ${token}`;
+        } else {
+            delete this.axiosInstance.defaults.headers['Authorization'];
+        }
     }
 
     async createAccount(data) {
         try {
             const response = await this.axiosInstance.post('/users/register', data);
-
+            console.log(response)
             return response.data;
         } catch (error) {
             console.log('Express service :: createAccount :: error', error);
@@ -26,6 +42,14 @@ class AuthService {
     async loginAccount(data) {
         try {
             const response = await this.axiosInstance.post('/users/login', data);
+            const tokenObject = {
+                accessToken: response.data.data.accessToken,
+                refreshToken: response.data.data.refreshToken
+            };
+
+            localStorage.setItem("token", JSON.stringify(tokenObject));
+            this.setAuthTokenFromLocalStorage();
+            console.log(response)
 
             return response.data;
         } catch (error) {
@@ -37,6 +61,7 @@ class AuthService {
 
     async getCurrentUser() {
         try {
+            // this.setAuthTokenFromLocalStorage();
             return await this.axiosInstance.get('/users/current-user')
         } catch (error) {
             console.log("Appwrite serive :: getCurrentUser :: error", error);
@@ -47,6 +72,8 @@ class AuthService {
     async logoutAccount() {
         try {
             console.log("Logout clicked");
+            localStorage.removeItem("token");
+            this.setAuthToken(null);
             return await this.axiosInstance.post('/users/logout')
 
         } catch (error) {

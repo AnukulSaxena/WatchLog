@@ -10,6 +10,24 @@ class PlaylistService {
             },
             withCredentials: true,
         });
+        this.setAuthTokenFromLocalStorage();
+    }
+
+    setAuthTokenFromLocalStorage() {
+        const token = JSON.parse(localStorage.getItem('token'));
+        if (token) {
+            this.setAuthToken(token);
+        }
+    }
+
+    setAuthToken(token) {
+        if (token) {
+            console.log(typeof (token))
+            console.log("playlsitconfig :: setauthtoken :: token", token)
+            this.axiosInstance.defaults.headers.common['Authorization'] = `Bearer ${token['accessToken']}`;
+        } else {
+            delete this.axiosInstance.defaults.headers.common['Authorization'];
+        }
     }
 
     async createPlaylist(data) {
