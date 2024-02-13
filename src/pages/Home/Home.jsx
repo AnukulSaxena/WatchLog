@@ -73,7 +73,6 @@ function Home() {
         window.scrollTo(0, 0);
         handleUseEffect();
         return () => {
-            console.log("MovieCard :: UseEffect :: return")
             setLoading(true)
         }
 

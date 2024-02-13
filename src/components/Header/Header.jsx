@@ -86,7 +86,6 @@ const Header = () => {
         setIsSearchBarOpen(prev => !prev)
     }
     useEffect(() => {
-        console.log("UseEffect Header.");
         const handleResize = () => {
             if (window.innerWidth > 768) {
                 closeMenu();

@@ -35,7 +35,7 @@ function EditForm({ handleClose, oldName }) {
                     (oldName !== "Watched") &&
                     <button
                         onClick={handleDelete}
-                        className="absolute bottom-16 right-8 bg-red-700 gap-1 hover:bg-gray-400 text-black font-bold py-1 px-4 rounded inline-flex items-center">
+                        className="absolute bottom-[62px] right-8 bg-red-700 gap-1 hover:bg-gray-400 text-black font-bold py-1 px-4 rounded inline-flex items-center">
                         <img className='h-5' src="/svg/delete.svg" alt="delete SVG" />
                         <span>Delete</span>
                     </button>

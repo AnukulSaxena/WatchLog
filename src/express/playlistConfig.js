@@ -22,8 +22,6 @@ class PlaylistService {
 
     setAuthToken(token) {
         if (token) {
-            console.log(typeof (token))
-            console.log("playlsitconfig :: setauthtoken :: token", token)
             this.axiosInstance.defaults.headers.common['Authorization'] = `Bearer ${token['accessToken']}`;
         } else {
             delete this.axiosInstance.defaults.headers.common['Authorization'];
@@ -58,7 +56,6 @@ class PlaylistService {
                     limit,
                 }
             });
-            console.log('PlaylistConfig :: getSinglePlaylist :: response ', response.data.data);
             return response.data.data;
         } catch (error) {
             console.log('movieService :: getWatched :: Error', error);
@@ -69,7 +66,6 @@ class PlaylistService {
     async deletePlaylist(playlistId) {
         try {
             const response = await this.axiosInstance.delete(`/playlists/${playlistId}`);
-            console.log('PlaylistConfig :: deletePlaylist :: response ', response);
             return true
         } catch (error) {
             console.log('movieService :: getWatched :: Error', error);
@@ -80,10 +76,32 @@ class PlaylistService {
     async updatePlaylist(data, playlistId) {
         try {
             const response = await this.axiosInstance.patch(`/playlists/${playlistId}`, data);
-            console.log('Playlist Updated Successfully', response);
             return true;
         } catch (error) {
             console.log('movieService :: updatePlaylist :: Error', error);
+            return false;
+        }
+    }
+
+    async getPlaylistBD(playlistId, mediaType) {
+        try {
+            const response = await this.axiosInstance.get(`/playlists/backdrop/${playlistId}/${mediaType}`)
+
+            return response.data.data
+        } catch (error) {
+            console.log("playlistService :: getPlaylistBD :: Error", error)
+            return []
+        }
+    }
+
+    async setPlaylistBD(playlistId, backdrop_path) {
+        try {
+            console.log(playlistId, backdrop_path)
+            const response = await this.axiosInstance.patch(`/playlists/backdrop/${playlistId}/movie`, { backdrop_path });
+            console.log(response)
+            return true;
+        } catch (error) {
+            console.log('movieService :: setPlaylistBD :: Error', error);
             return false;
         }
     }

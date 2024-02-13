@@ -11,7 +11,6 @@ export default function Protected({ children, authentication = true, check = tru
     const { mediaType } = useSelector(state => state.home)
     const dispatch = useDispatch()
     useEffect(() => {
-        console.log(check, authentication, authStatus)
         if (authStatus) {
             playlistService.getUserPlaylists()
                 .then((res) => {

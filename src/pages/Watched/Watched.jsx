@@ -4,6 +4,7 @@ import { InfiniteScrollComponent } from '../../components'
 import { useParams } from 'react-router-dom';
 import playlistService from '../../express/playlistConfig';
 import EditForm from './EditForm/EditForm';
+import BackDropPanel from './EditForm/BackDropPanel';
 function Watched() {
     const { playlistId, name } = useParams();
     const { mediaType } = useSelector(state => state.home)
@@ -14,6 +15,7 @@ function Watched() {
     });
     const [isOpen, setIsOpen] = useState(false);
     const [pageNum, setPageNum] = useState(1);
+    const [backDropPanelOpen, setBackDropPanelOpen] = useState(false)
 
     function handleClose() {
         console.log("Clicked")
@@ -29,6 +31,9 @@ function Watched() {
             setPageNum(prev => prev + 1)
         }
     }
+    function handleChangeBackDrop() {
+        setBackDropPanelOpen(prev => !prev)
+    }
 
     useEffect(() => {
         setLoading(true)
@@ -37,17 +42,13 @@ function Watched() {
             .then((res) => {
                 if (res) {
                     setData(res)
-
                     setPageNum(2)
                 }
             })
             .finally(() => {
                 setLoading(false)
             })
-
-
         return () => {
-
             setPageNum(1)
             setLoading(true)
             setData({
@@ -61,6 +62,13 @@ function Watched() {
     return (
         <div className='bg-neutral-700 min-h-screen pt-20'>
             {
+                backDropPanelOpen &&
+                <BackDropPanel
+                    closePanel={handleChangeBackDrop}
+                    playlistId={playlistId}
+                />
+            }
+            {
                 isOpen &&
                 <EditForm
                     oldName={name}
@@ -68,8 +76,15 @@ function Watched() {
                 />
             }
             <div
-                className='w-full flex justify-end px-5'
+                className='w-full flex justify-between px-5'
             >
+                <button
+                    onClick={handleChangeBackDrop}
+                    className='bg-gray-300 gap-1 hover:bg-gray-400 text-gray-800 font-bold py-1 px-4 rounded inline-flex items-center'
+                >
+                    Change BD
+                </button>
+
                 <button
                     onClick={handleClose}
                     className="bg-gray-300 gap-1 hover:bg-gray-400 text-gray-800 font-bold py-1 px-4 rounded inline-flex items-center">

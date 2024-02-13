@@ -10,14 +10,12 @@ function Playlist() {
     const [playlistData, setPlaylistData] = useState([])
     const [loading, setLoading] = useState(true)
     function handleCreate() {
-        console.log('new clicked ')
         setIsClicked(prev => !prev)
     }
     useEffect(() => {
         window.scrollTo(0, 0);
         playlistService.getUserPlaylists()
             .then(response => {
-                console.log("Playlist :: userPlalLists :: response", response)
                 setPlaylistData(response)
             }).finally(setLoading(false))
         return () => {

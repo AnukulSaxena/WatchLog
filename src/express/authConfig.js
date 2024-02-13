@@ -15,7 +15,6 @@ class AuthService {
     setAuthTokenFromLocalStorage() {
         const token = localStorage.getItem('token');
         if (token) {
-            console.log(token);
             this.setAuthToken(token);
         }
     }
@@ -31,7 +30,6 @@ class AuthService {
     async createAccount(data) {
         try {
             const response = await this.axiosInstance.post('/users/register', data);
-            console.log(response)
             return response.data;
         } catch (error) {
             console.log('Express service :: createAccount :: error', error);
@@ -49,8 +47,6 @@ class AuthService {
 
             localStorage.setItem("token", JSON.stringify(tokenObject));
             this.setAuthTokenFromLocalStorage();
-            console.log(response)
-
             return response.data;
         } catch (error) {
             console.log('Appwrite service :: login :: error', error);
@@ -71,7 +67,6 @@ class AuthService {
 
     async logoutAccount() {
         try {
-            console.log("Logout clicked");
             localStorage.removeItem("token");
             this.setAuthToken(null);
             return await this.axiosInstance.post('/users/logout')

@@ -6,11 +6,8 @@ import authService from './express/authConfig.js';
 import { login, logout } from './store/authSlice.js';
 import { Header, Footer } from '../src/components'
 import { Outlet } from 'react-router-dom';
-import useFilters from './hooks/useFilters.js';
 
 function App() {
-  const testFilterData = useFilters();
-  console.log(testFilterData, "testFilterData")
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(true);
 
@@ -51,6 +48,7 @@ function App() {
             <Outlet />
           </main>
           <Footer />
+
         </>
       }
 

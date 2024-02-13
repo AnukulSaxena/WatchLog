@@ -1,27 +1,33 @@
 import React, { useEffect, useState } from 'react'
+import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
 function PlaylistCard({ data }) {
+    const { url } = useSelector(state => state.home);
     const navigate = useNavigate()
     const [isActice, setIsActive] = useState(false)
     function handleClick() {
-        console.log("click")
         navigate(`/watched/${data._id}/${data.name}`)
-
     }
     useEffect(() => {
         if (data.movieId.length || data.tvId.length)
             setIsActive(true)
-
     }, [])
 
     return (
         <div
 
-            className=" bg-neutral-800 rounded-md hover:shadow-2xl mb-5 md:mb-0 w-5/12 h-52 sm:w-72 sm:h-80">
+            className="  rounded-md hover:shadow-2xl mb-5 md:mb-0 w-5/12 h-52 sm:w-72 sm:h-80">
             <div
                 onClick={handleClick}
-                className='w-full h-1/2 border hover:cursor-pointer  border-neutral-950 rounded-t-md'>
+                className='w-full h-1/2  hover:cursor-pointer  rounded-t-md'>
+                {
+                    data.backdrop_path &&
+                    <img
+                        className='rounded-md'
+                        src={url.backdrop + data.backdrop_path}
+                        alt="img" />
+                }
 
             </div>
 

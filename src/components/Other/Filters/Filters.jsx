@@ -37,7 +37,6 @@ function Filters() {
 
 
     function handleOptions() {
-        console.log("handling filters");
         switch (currentOption.name) {
             case "Genre":
                 setOptions(mediaType === "movie" ? filterData?.genre?.movieGenre : filterData?.genre?.tvGenre);
@@ -74,7 +73,6 @@ function Filters() {
     useEffect(() => {
         setLoading(true);
         if (Object.keys(filterData).length !== 0) {
-            console.log("getFilterdat", filterData)
             handleOptions();
         }
         document.addEventListener('mousedown', handleClickOutside);

@@ -63,7 +63,6 @@ const MovieCard = ({ data, initStatus = true, mediaType, crossCheck = true }) =>
         setLoading(true)
 
         if (crossCheck && movieData.length) {
-            console.log("in CrossCheck")
             const targetValue = data.id;
             const foundObject = movieData[movieDataIndex][`${mediaType}Id`]?.find(item => item === targetValue);
             if (foundObject) {
