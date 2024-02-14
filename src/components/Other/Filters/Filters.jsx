@@ -2,8 +2,10 @@ import React, { useEffect, useState, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import ListItem from './ListItem';
 import { setParamFilters } from '../../../store/homeSlice';
+import useFilters from '../../../hooks/useFilters';
 
 function Filters() {
+    useFilters()
     const { filterData, mediaType } = useSelector(state => state.home);
     const [loading, setLoading] = useState(true);
     const filterPanelRef = useRef(null);
@@ -71,6 +73,7 @@ function Filters() {
     }
 
     useEffect(() => {
+        console.log("flters")
         setLoading(true);
         if (Object.keys(filterData).length !== 0) {
             handleOptions();

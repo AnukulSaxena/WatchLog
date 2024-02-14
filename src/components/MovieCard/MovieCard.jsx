@@ -53,7 +53,6 @@ const MovieCard = ({ data, initStatus = true, mediaType, crossCheck = true }) =>
     };
 
     const handleImgClick = () => {
-
         navigate(`/${mediaType}/${data.id}`)
     }
 
@@ -61,7 +60,6 @@ const MovieCard = ({ data, initStatus = true, mediaType, crossCheck = true }) =>
 
     useEffect(() => {
         setLoading(true)
-
         if (crossCheck && movieData.length) {
             const targetValue = data.id;
             const foundObject = movieData[movieDataIndex][`${mediaType}Id`]?.find(item => item === targetValue);
@@ -70,11 +68,9 @@ const MovieCard = ({ data, initStatus = true, mediaType, crossCheck = true }) =>
             }
         }
         setLoading(false)
-
         return () => {
             setIsChecked(initStatus)
         }
-
     }, [movieData, mediaType, movieDataIndex])
 
 
@@ -83,14 +79,17 @@ const MovieCard = ({ data, initStatus = true, mediaType, crossCheck = true }) =>
             <div
                 onClick={handleImgClick}
                 className='h-full w-full hover:cursor-pointer relative'>
+                <Rating
+                    movieRating={data.vote_average}
+                    className='absolute z-10 bg-neutral-800 top-1 left-1 px-1 rounded-md'
+                />
+
                 <Img
                     className=" rounded-md"
                     src={posterUrl}
                     alt={data.poster_path}
 
                 />
-
-
                 <div
                     onClick={handleCheckboxToggle}
                     className='h-10 w-14 absolute bottom-0 left-0'>
@@ -106,16 +105,11 @@ const MovieCard = ({ data, initStatus = true, mediaType, crossCheck = true }) =>
                         ></span>
                     </button>
                 </div>
-
-
                 <DropdownMenu
                     id={data.id}
                     mediaType={mediaType}
 
                 />
-
-
-
             </div>
 
         </div >

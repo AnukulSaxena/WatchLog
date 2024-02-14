@@ -5,6 +5,7 @@ import { setFilterData } from '../store/homeSlice';
 function useFilters() {
     const dispatch = useDispatch()
     useEffect(() => {
+        console.log("Using filges")
         async function fetchFilters() {
             try {
                 const movieGenreData = await fetchDataFromApi('/genre/movie/list');

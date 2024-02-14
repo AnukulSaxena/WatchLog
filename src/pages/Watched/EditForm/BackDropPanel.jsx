@@ -37,7 +37,7 @@ const BackDropPanel = ({ playlistId, closePanel }) => {
 
     return (
         <div
-            className='z-10 fixed overflow-y-scroll  py-24 inset-0 flex flex-col items-center  bg-neutral-800 backdrop-blur-sm bg-opacity-30   '
+            className='z-20 fixed overflow-y-scroll  py-24 inset-0 flex flex-col items-center  bg-neutral-800 backdrop-blur-sm bg-opacity-30   '
         >
             <button
                 onClick={closePanel}

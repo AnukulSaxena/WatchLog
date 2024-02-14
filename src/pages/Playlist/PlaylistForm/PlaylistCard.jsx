@@ -20,10 +20,11 @@ function PlaylistCard({ data }) {
             className="  rounded-md hover:shadow-2xl mb-5 md:mb-0 w-5/12 h-52 sm:w-72 sm:h-80">
             <div
                 onClick={handleClick}
-                className='w-full h-1/2  hover:cursor-pointer  rounded-t-md'>
+                className='w-full h-1/2 bg-neutral-800 hover:cursor-pointer  rounded-md'>
                 {
                     data.backdrop_path &&
                     <img
+
                         className='rounded-md'
                         src={url.backdrop + data.backdrop_path}
                         alt="img" />

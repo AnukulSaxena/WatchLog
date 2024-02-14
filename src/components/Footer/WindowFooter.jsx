@@ -23,7 +23,7 @@ function WindowFooter() {
                 isPanelOpen &&
                 <PlaylistPanel />
             }
-            <nav className="fixed z-10 round w-full bottom-0 p-2 bg-neutral-800 flex lg:px-72 px-10 justify-center">
+            <nav className="fixed z-50 round w-full bottom-0 p-2 bg-neutral-800 flex lg:px-72 px-10 justify-center">
                 <div className="flex w-full gap-6 rounded-md md:gap-32 justify-between ">
                     <Switcher />
                     <div
