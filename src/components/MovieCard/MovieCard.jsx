@@ -79,13 +79,10 @@ const MovieCard = ({ data, initStatus = true, mediaType, crossCheck = true }) =>
             <div
                 onClick={handleImgClick}
                 className='h-full w-full hover:cursor-pointer relative'>
-                <Rating
-                    movieRating={data.vote_average}
-                    className='absolute z-10 bg-neutral-800 top-1 left-1 px-1 rounded-md'
-                />
+
 
                 <Img
-                    className=" rounded-md"
+                    className=" -z-10 rounded-md"
                     src={posterUrl}
                     alt={data.poster_path}
 
@@ -109,6 +106,10 @@ const MovieCard = ({ data, initStatus = true, mediaType, crossCheck = true }) =>
                     id={data.id}
                     mediaType={mediaType}
 
+                />
+                <Rating
+                    movieRating={data.vote_average}
+                    className='absolute  bg-neutral-800 top-1 left-1 px-1 rounded-md'
                 />
             </div>
 
