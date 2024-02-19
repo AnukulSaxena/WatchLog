@@ -42,14 +42,20 @@ function App() {
     <div className='min-h-screen relative'>
       <Header />
       {
-        !loading &&
-        <>
-          <main>
-            <Outlet />
-          </main>
-          <Footer />
+        !loading ?
+          <>
+            <main>
+              <Outlet />
+            </main>
+            <Footer />
 
-        </>
+          </>
+          :
+          <div
+            className='mt-60 flex justify-center mx-auto w-fit text-white px-10 py-2 rounded-sm items-center bg-neutral-800'
+          >
+            {` The Movie Database(TMDB) is Down :( `}
+          </div>
       }
 
     </div>
