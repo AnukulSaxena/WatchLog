@@ -2,12 +2,10 @@ import React, { useEffect, useState } from "react";
 import { Filters, InfiniteScrollComponent } from "../../components";
 import { fetchDataFromApi } from "../../utils/api.js";
 import { useDispatch, useSelector } from "react-redux";
-import DemoLoadingScreen from "./DemoLoadingScreen.jsx";
 import authService from "../../express/authConfig.js";
 import { login } from "../../store/authSlice.js";
 import MovieCardSkeleton from "../../components/MovieCard/MovieCardSkeleton.jsx";
 function Home() {
-  const [isLoadingScreenOpen, setIsLoadingScreenOpen] = useState(false);
   const [data, setData] = useState(null);
   const [pageNum, setPageNum] = useState(1);
   const [loading, setLoading] = useState(true);
@@ -46,14 +44,11 @@ function Home() {
       console.error("Home :: HandleUseffect :: error", error);
     }
   }
-  function toggleDemoPanel() {
-    setIsLoadingScreenOpen((prev) => !prev);
-  }
 
   async function handleDemoClick() {
     try {
       if (!status) {
-        toggleDemoPanel();
+        setLoading(true);
         const response = await authService.loginAccount({
           email: "bladerunner2049@email.com",
           password: "12121212",
@@ -63,8 +58,8 @@ function Home() {
           const userData = response.data.user;
           console.log("userData", userData);
           dispatch(login(userData));
-          setIsLoadingScreenOpen(false);
         }
+        setLoading(false);
       }
     } catch (error) {
       console.error(error);
@@ -87,9 +82,6 @@ function Home() {
         >
           Demo
         </button>
-      )}
-      {!status && isLoadingScreenOpen && (
-        <DemoLoadingScreen toggleDemoPanel={toggleDemoPanel} />
       )}
 
       <Filters />
